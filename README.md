@@ -29,7 +29,7 @@ I **Skol Fightingspel** måste du använda dina kunskaper och strategi för att 
 
 ## 🛠️ Installation
 
-1. Ladda ner projektet från [GitHub-länken] (lägg till om relevant).  
+1. Ladda ner projektet från [GitHub]  
 2. Säkerställ att du har Python 3 installerat på din dator.  
 3. Kör spelet genom att köra `spel.py` i terminalen:  
    ```bash
