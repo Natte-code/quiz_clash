@@ -1,2 +1,1 @@
-#hej
-print("hej")
+#pang pang du är homo
