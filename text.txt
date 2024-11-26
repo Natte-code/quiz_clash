@@ -1,0 +1,8 @@
+skol fightingspel. 
+man slås mot lärare om man gissar fel på deras frågor,
+vinner man får man coins man kan öppna lådor med.
+3-4 olika endings,
+turn based fighting,
+5-10 frågor lärare säger,
+5-10 lärare att mötas,
+1 boss lärare det är Lars,
