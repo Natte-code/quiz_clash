@@ -2,7 +2,7 @@
                SKOL-FIGHTINGSPEL
 =========================================
 
-Ett spännande 2D-spel där du navigerar en mystisk skola, svarar på frågor 
+Ett spännande 2D-spel där du navigerar i en mystisk skola, svarar på frågor 
 och utmanar lärare i turordningsbaserade strider. Samla mynt, öppna lådor 
 och använd föremål för att avgöra spelets utgång.
 
@@ -20,14 +20,14 @@ och använd föremål för att avgöra spelets utgång.
      - Bossbelöning: 3–5 mynt.
    - **Hälsa**: Spelaren börjar med 100 HP.
 
-2. LÅDOR OCH FÖREMÅL
+2. LÅDOR OCH FÖREMÅL !!ändra här, föremål!!
    ----------------------------
    - **Lådor**:
      - Vanlig låda: Kostar 5 mynt.
      - Episk låda: Kostar 15 mynt.
    - **Loot-pool**:
      - *Vanlig låda*:
-       - Svärd.
+       - Svärd. 
        - Hälsodryck (+30 HP).
      - *Episk låda*:
        - Episk svärd.
@@ -35,18 +35,18 @@ och använd föremål för att avgöra spelets utgång.
    - **Inventariet**:
      - Maxkapacitet: 10 föremål.
 
-3. KLASSRUM OCH LÄRARE
+3. KLASSRUM OCH LÄRARE  !!ändra lärare - pangs idér!! 
    ----------------------------
    - Varje klassrum innehåller:
      - En lärare med ett specifikt ämne.
-     - 5 slumpmässiga frågor (från en pool med 20 frågor).
+     - 5 slumpmässiga frågor (från en pool med 20 frågor för varje lärare).
    - **Rätt på alla frågor**:
      - Belöning: 5 mynt.
      - Klassrummet låses (ingen farmning).
    - **Fel på någon fråga**:
      - Läraren blir fientlig och startar en fight.
 
-4. STRIDSSYSTEM
+4. STRIDSSYSTEM    !!ändra lärares attacker baserat på pangs idér!!
    ----------------------------
    - **Turordningsbaserat**:
      - Spelaren börjar.
