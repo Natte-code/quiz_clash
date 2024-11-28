@@ -1,8 +1,80 @@
-skol fightingspel. 
-man slås mot lärare om man gissar fel på deras frågor,
-vinner man får man coins man kan öppna lådor med.
-3-4 olika endings,
-turn based fighting,
-5-10 frågor lärare säger,
-5-10 lärare att mötas,
-1 boss lärare det är Lars,
+=========================================
+               SKOL-FIGHTINGSPEL
+=========================================
+
+Ett spännande 2D-spel där du navigerar en mystisk skola, svarar på frågor 
+och utmanar lärare i turordningsbaserade strider. Samla mynt, öppna lådor 
+och använd föremål för att avgöra spelets utgång.
+
+-----------------------------------------
+            SPELETS HUVUDFUNKTIONER
+-----------------------------------------
+
+1. SPELUPPLÄGG
+   ----------------------------
+   - **Perspektiv**: Ovanifrån (2D).
+   - **Utforskning**: Gå runt i skolan, samla mynt och upptäck klassrum.
+   - **Myntsystem**:
+     - Start: 5 mynt.
+     - Hitta mynt i klassrum (1–2 per klassrum).
+     - Bossbelöning: 3–5 mynt.
+   - **Hälsa**: Spelaren börjar med 100 HP.
+
+2. LÅDOR OCH FÖREMÅL
+   ----------------------------
+   - **Lådor**:
+     - Vanlig låda: Kostar 5 mynt.
+     - Episk låda: Kostar 15 mynt.
+   - **Loot-pool**:
+     - *Vanlig låda*:
+       - Svärd.
+       - Hälsodryck (+30 HP).
+     - *Episk låda*:
+       - Episk svärd.
+       - Episk hälsodryck (+55 HP).
+   - **Inventariet**:
+     - Maxkapacitet: 10 föremål.
+
+3. KLASSRUM OCH LÄRARE
+   ----------------------------
+   - Varje klassrum innehåller:
+     - En lärare med ett specifikt ämne.
+     - 5 slumpmässiga frågor (från en pool med 20 frågor).
+   - **Rätt på alla frågor**:
+     - Belöning: 5 mynt.
+     - Klassrummet låses (ingen farmning).
+   - **Fel på någon fråga**:
+     - Läraren blir fientlig och startar en fight.
+
+4. STRIDSSYSTEM
+   ----------------------------
+   - **Turordningsbaserat**:
+     - Spelaren börjar.
+     - Välj mellan 2–3 attacker.
+   - **Lärarens attacker**:
+     - 30% chans att missa.
+     - Skada: 5–25 HP (slumpmässigt).
+   - **Spelarförmågor**:
+     - 20% chans till dubbelattack.
+   - **HP**:
+     - Lärare: 100 HP.
+
+5. BOSSFIGHT – LARS
+   ----------------------------
+   - **Lars**, spelets boss:
+     - Ställer 5 frågor (1 är omöjlig att svara rätt på).
+     - Använder frågor från alla lärares ämnen.
+   - **Bossens egenskaper**:
+     - HP: 300–400.
+     - Skada: 20–50 HP per attack (2x skada ibland).
+
+6. SLUT (ENDINGS)
+   ----------------------------
+   - **Dåligt slut**: Du dör.
+   - **Bra slut**: Du besegrar Lars.
+   - **Fegis-slut**: Du flyr.
+   - **Pacifist-slut**: Du slåss inte mot någon.
+
+=========================================
+              LYCKA TILL!
+=========================================
