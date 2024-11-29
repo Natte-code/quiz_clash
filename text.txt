@@ -20,18 +20,26 @@ och använd föremål för att avgöra spelets utgång.
      - Bossbelöning: 3–5 mynt.
    - **Hälsa**: Spelaren börjar med 100 HP.
 
-2. LÅDOR OCH FÖREMÅL !!ändra här, föremål!!
+2. LÅDOR OCH FÖREMÅL 
    ----------------------------
    - **Lådor**:
      - Vanlig låda: Kostar 5 mynt.
      - Episk låda: Kostar 15 mynt.
+     
    - **Loot-pool**:
+
      - *Vanlig låda*:
+      -  sköld (blockar 2 slag)
        - Svärd. 
        - Hälsodryck (+30 HP).
+       - Episk loot vid väldigt väldigt låg chans (5%) 
+
      - *Episk låda*:
+       - Episk sköld (blockar 5 slag)
        - Episk svärd.
        - Episk hälsodryck (+55 HP).
+       - legendarisk revive totem (10%) (1 användning och används direkt när spelaren dör)
+
    - **Inventariet**:
      - Maxkapacitet: 10 föremål.
 
@@ -40,9 +48,11 @@ och använd föremål för att avgöra spelets utgång.
    - Varje klassrum innehåller:
      - En lärare med ett specifikt ämne.
      - 5 slumpmässiga frågor (från en pool med 20 frågor för varje lärare).
+
    - **Rätt på alla frågor**:
      - Belöning: 5 mynt.
-     - Klassrummet låses (ingen farmning).
+     - Klassrummet låses (ingen farming).
+
    - **Fel på någon fråga**:
      - Läraren blir fientlig och startar en fight.
 
@@ -55,9 +65,11 @@ och använd föremål för att avgöra spelets utgång.
      - 30% chans att missa.
      - Skada: 5–25 HP (slumpmässigt).
    - **Spelarförmågor**:
-     - 20% chans till dubbelattack.
+     - 20% chans att spelare kan göra dubbelattack på lärare som missar attack.
+     - 5% chans för att göra 2x damage i en kritisk träff
    - **HP**:
      - Lärare: 100 HP.
+
 
 5. BOSSFIGHT – LARS
    ----------------------------
@@ -72,8 +84,8 @@ och använd föremål för att avgöra spelets utgång.
    ----------------------------
    - **Dåligt slut**: Du dör.
    - **Bra slut**: Du besegrar Lars.
-   - **Fegis-slut**: Du flyr.
-   - **Pacifist-slut**: Du slåss inte mot någon.
+   - **Fegis-slut**: Du flyr utan att strida mot Lars.
+   - **Pacifist-slut**: Du slåss inte mot någon och har rätt på alla frågor.
 
 =========================================
               LYCKA TILL!
