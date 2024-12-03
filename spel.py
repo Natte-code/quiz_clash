@@ -31,12 +31,17 @@ def logo_print(logo, delay=0.2):
 
 
 def start_screen():
+   print("")
+   print("")
    print("välkommen till ♦Quiz Clash♦")
    time.sleep(1)
+   print("")
    print("....")
+   print("")
    time.sleep(1)
    logo_print(logo)
    time.sleep(1)
+   print("")
    print("\nTryck på ENTER knappen för att starta spelet!")
    input()
 
