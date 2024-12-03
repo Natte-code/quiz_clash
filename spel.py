@@ -23,8 +23,7 @@ logo = [
     "                                 \\|_________|         "
 ]
 
-def logo_print(logo, delay=0.15
-):
+def logo_print(logo, delay=0.15):
     for line in logo:
       print(line)
       time.sleep(delay) 
