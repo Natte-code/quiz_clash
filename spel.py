@@ -28,7 +28,7 @@ def logo_print(logo, delay=0.15
     for line in logo:
       print(line)
       time.sleep(delay) 
-#funktionen skriver ut logan rad för rad med tiden 0.2 s per rad.
+#funktionen skriver ut loggan rad för rad med tiden 0.2 s per rad.
 
 
 def start_screen(): #startar start skärmen, förklarar hur man spelar och visar loggan
