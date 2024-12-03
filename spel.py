@@ -1,4 +1,5 @@
 import time
+import random
 
 #kod skaffad från Chatgpt och används för att insperara denna kod.
 ####################################################################################################
@@ -62,3 +63,34 @@ if __name__ == "__main__":
 
 ###########################################################################
 
+
+
+#koden är hjälpt lite för att fin slipad av AI, basen är självskriven
+#-------------------------------------------------------------------------
+
+#stats för alla NPCs
+class Charecters:
+   def __init__(self, name, hp, attack, crit_chance):
+      self.name = name
+      self.hp = hp 
+      self.attack = attack
+      self.critchance = crit_chance
+
+player = Charecters("player", 100, 25, 0,2)
+
+teachers = [
+   Character("Lärare 1", 80, 15, 5, 0.1),
+   Character("Lärare 2", 80, 15, 5, 0.1),
+   Character("Lärare 3", 80, 15, 5, 0.1),
+   Character("Lärare 4", 80, 15, 5, 0.1),
+   Character("Lärare 5", 80, 15, 5, 0.1),
+   Character("Lärare 6", 80, 15, 5, 0.1),
+]
+
+
+#--------------------------------------------------------------------------
+
+
+
+#Combat system
+#def 

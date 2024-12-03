@@ -78,10 +78,17 @@ och använd föremål för att avgöra spelets utgång.
      - Använder frågor från alla lärares ämnen.
    - **Bossens egenskaper**:
      - regen: 30 hp / round
-     - HP: 300–400.
+     - HP: 400.
      - Skada: 20–50 HP per attack (2x skada ibland).
 
-6. SLUT (ENDINGS)
+6. ÅLDERS ANPPASNING
+  -------------------------
+  *Ålder grupp*
+    - Spelet är simpelt, du rör dig med WASD för att få ett visuelt gränssnitt för att lättare kunna navigerar
+    - spelet startar med instruktioner om hur man spelar
+    - spelet är simpelt och enkelt strukturerat.
+
+7. SLUT (ENDINGS)
    ----------------------------
    - **Dåligt slut**: Du dör.
    - **Bra slut**: Du besegrar Lars.
