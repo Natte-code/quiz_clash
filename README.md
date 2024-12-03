@@ -34,3 +34,4 @@ I **Quiz Clash** måste du använda dina kunskaper och strategi för att besegra
 3. Kör spelet genom att köra `spel.py` i terminalen:  
    ```bash
 python spel.py
+   ```
