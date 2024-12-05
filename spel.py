@@ -76,7 +76,11 @@ class Charecter:
       self.attack = attack
       self.critchance = crit_chance
 
+
+
 player = Charecter("player", 100, 25, 0.2)
+
+
 
 teachers = [
    Charecter("Lärare 1", 80, 15, 0.1),
@@ -85,6 +89,7 @@ teachers = [
    Charecter("Lärare 4", 80, 15, 0.1),
    Charecter("Lärare 5", 80, 15, 0.1),
    Charecter("Lärare 6", 80, 15, 0.1),
+
 ]
 
 
