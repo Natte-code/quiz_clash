@@ -128,17 +128,24 @@ if __name__ == "__main__":
 #altså där vi lagrar all info om alla saker som kan förändras
 
 #koden skrivs av nathaniel och eliot
-class Charecter:
-   def __init__(self, name, hp, attack, crit_chance, swords, potion, inventory, coin, shield ):
-      self.name = name
-      self.hp = hp 
-      self.attack = attack
-      self.swords = swords 
-      self.shield = shield
-      self.potions = potion
-      self.critchance = crit_chance
-      self.inventory = inventory #hur många lediga platser kvar 
-      self.coins = coin #hur många coin man har 
+class Charecter: #classen för 
+   def __init__(self, name, health):
+    self.name = name
+    self.health = health
+    self.inventory = {"swords": {}, "potions": {}, "shields": {}, "totems": 0}
+    self.coins = 0
+    self.revive_used = False
+
+    def add_item(self, item_type, item_name, value):
+        #lägger till föremål i inventory eller coins i inventory.
+        if item_type =="coins":
+            self.coins += value
+        elif item_type in self.inventory:
+            if item_type == "totems":
+                self.inventory["totems"] += value
+            else:
+                self.inventory[item_type][item_name] = value
+ 
       
 
 
