@@ -30,8 +30,7 @@ I **Quiz Clash** måste du använda dina kunskaper och strategi för att besegra
 ## 🛠️ Installation
 
 1. Ladda ner projektet från [GitHub]  
-2. Säkerställ att du har Python 3 installerat på din dator.  
-3. Kör spelet genom att köra `spel.py` i terminalen:  
-   ```bash
-python spel.py
-   ```
+2. Säkerställ att du har Python 3 installerat på din dator.
+3. kör kommandot ```pip install windows-curses``` i din terminal
+4. Kör spelet genom att köra `python spel.py` i terminalen:  
+
