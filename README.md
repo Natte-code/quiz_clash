@@ -29,8 +29,52 @@ I **Quiz Clash** måste du använda dina kunskaper och strategi för att besegra
 
 ## 🛠️ Installation
 
-1. Ladda ner projektet från [GitHub]  
-2. Säkerställ att du har Python 3 installerat på din dator.
-3. kör kommandot ```pip install windows-curses``` i din terminal
-4. Kör spelet genom att köra `python spel.py` i terminalen:  
+Så här öppnar du och kör spelet "Quiz_clash":
 
+1. **Ladda ner spelet**
+   - Besök projektets GitHub-sida.
+   - Leta upp och klicka på knappen **"Code"** (ofta grön och finns längst upp till höger).
+   - Välj alternativet **"Download ZIP"** för att ladda ner hela projektet som en zip-fil.
+   - Packa upp den nedladdade filen till en mapp på din dator.
+
+2. **Kontrollera att du har Python installerat**
+   - Öppna en terminal eller kommandoprompt.
+   - Skriv följande kommando:
+     ```bash
+     python --version
+     ```
+     eller
+     ```bash
+     python3 --version
+     ```
+   - Om du inte får en version av Python (exempel: Python 3.x.x), behöver du ladda ner och installera Python 3 från [python.org](https://www.python.org).
+
+3. **Installera beroenden**
+   - Öppna terminalen och navigera till mappen där du packade upp spelet. Exempel:
+     ```bash
+     cd /sökväg/till/Quiz_clash
+     ```
+   - Kör sedan följande kommando för att installera det nödvändiga paketet:
+     ```bash
+     pip install windows-curses
+     ```
+
+4. **Starta spelet**
+   - I samma terminal, kör följande kommando:
+     ```bash
+     python spel.py
+     ```
+   - Spelet kommer nu att startas och du kan börja spela! 🎮
+
+### Vanliga problem och lösningar:
+- **Python-kommandot fungerar inte:**
+  - Använd `python3` istället för `python`.
+  - Kontrollera att Python finns i din PATH.
+
+- **Felmeddelande om beroenden:**
+  - Se till att du kör `pip install windows-curses` innan du startar spelet.
+
+- **Spelet startar inte:**
+  - Kontrollera att du befinner dig i samma mapp som filen `spel.py` när du kör kommandot.
+
+Lycka till! 🚀
