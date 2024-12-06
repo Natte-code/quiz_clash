@@ -34,7 +34,7 @@ def logo_print(logo, delay=0.15):
 #funktionen skriver ut loggan rad för rad med tiden 0.2 s per rad.
 
 
-def start_screen(): #startar start skärmen, förklarar hur man spelar och visar loggan
+def start_screen(name): #startar start skärmen, förklarar hur man spelar och visar loggan
    print("")
    print("")
    print("välkommen till ♦Quiz Clash♦")
@@ -60,7 +60,7 @@ def start_screen(): #startar start skärmen, förklarar hur man spelar och visar
 
 
 if __name__ == "__main__":
-    start_screen()
+    start_screen(NameError)
 #Kontrollerar om filen körs direkt (inte importeras som en modul).
 
 
@@ -68,7 +68,7 @@ if __name__ == "__main__":
 ###########################################################################
 #koden för rörelse i spelet och att skapa spelkartan
 #Denna kod är skaffad av ChatGPT och lite modifierad av Felix
-
+    name = input("innan spelet börjar helt... Ange ditt namn: ")
 def main(stdscr):
     # Initiera curses
     curses.curs_set(0)  # Dölj markören
@@ -129,8 +129,8 @@ if __name__ == "__main__":
 
 #koden skrivs av nathaniel och eliot
 class Charecter: #classen för 
-   def __init__(self, name, health):
-    self.name = name
+   def __init__(self, health, base_damage):
+    self.base_damage = base_damage
     self.health = health
     self.inventory = {"swords": {}, "potions": {}, "shields": {}, "totems": 0}
     self.coins = 0
@@ -147,9 +147,6 @@ class Charecter: #classen för
                 self.inventory[item_type][item_name] = value
  
       
-
-
-
 class Teacher:
     def __init__(self, name, health, damage):
         self.name = name
@@ -159,7 +156,17 @@ class Teacher:
 
 #koden för combat systemet
 #--------------------------------------------------------------------------
+def combat_round(player, teacher):
+    #spelarens tur (spelaren börjar alltid)
+    print(f"\n{player.name}'s turn!")
+    print(f"\n Your Inventory: {player.inventory} ")
 
+    if player.inventory["potions"]:
+        action = input("choose an attack").strip().lower()
+    else:
+        action = "attack" #Använder attack om det inte finns några potions
+
+#def 
 
 
 
