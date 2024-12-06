@@ -159,14 +159,20 @@ class Teacher:
 def combat_round(player, teacher):
     #spelarens tur (spelaren börjar alltid)
     print(f"\n{player.name}'s turn!")
-    print(f"\n Your Inventory: {player.inventory} ")
+    print(f"\n ditt Inventory: {player.inventory} ")
 
     if player.inventory["potions"]:
-        action = input("choose an attack").strip().lower()
+        action = input("Välj en attack").strip().lower()
     else:
         action = "attack" #Använder attack om det inte finns några potions
 
-#def 
+    if action == "attack":
+        print("tillgängliga svärd: ", list(player.inventory["swords"].keys())) 
+        sword = input("Välj svärd (eller tryck ENTER om du inte har några / vill slå med handen): ").strip().lower()
+        damage = player.attack(sword)
+        teacher.health -= damage
+        print(f"du attackerade {teacher.name} med {"Dina händer" if sword =="" else sword}, som gjorde {damage} skada!")
+        
 
 
 
