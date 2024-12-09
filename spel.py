@@ -70,52 +70,66 @@ if __name__ == "__main__":
 #Denna kod är skaffad av ChatGPT och lite modifierad av Felix
     name = input("innan spelet börjar helt... Ange ditt namn: ")
 def main(stdscr):
-    # Initiera curses
+     # Initiera curses
     curses.curs_set(0)  # Dölj markören
     stdscr.nodelay(1)   # Gör getch icke-blockerande
     stdscr.timeout(2000) # Ställ in en timeout för getch (ms)
     
-    # Spelvariabler
+     # Spelvariabler
     rows, cols = 30, 60  # Storlek på spelplanen
     player_pos = [15, 30]  # Startposition för spelaren (centrerad)
+    block_pos = [[15, 15], [15, 16], [15, 17]]  # Position för objekt
+    goal_pos = [20, 20]  # Positionen för rörbart objekt#
+    door_pos = [0, 30]
     key = None            # Håller koll på vilken knapp som trycks
-    
+   
     while True:
         # Ritning av spelplanen
-        stdscr.clear()
-        for r in range(rows):
-            for c in range(cols):
-                # Rita väggar på kanterna
-                if r == 0 or r == rows - 1 or c == 0 or c == cols - 1:
-                    stdscr.addch(r, c, '#')  # Vägg
-                elif [r, c] == player_pos:
-                    stdscr.addch(r, c, 'O')  # Placera spelaren
-                else:
-                    stdscr.addch(r, c, ' ')  # Ritning av spelplanen
+         stdscr.clear()
+         for r in range(rows):
+             for c in range(cols):
+                 # Rita väggar på kanterna
+                 if r == 0 or r == rows - 1 or c == 0 or c == cols - 1:
+                     stdscr.addch(r, c, '#')  # Vägg
+                 elif [r, c] == door_pos:
+                     stdscr.addch(r, c, ' ')
+                 elif [r, c] == block_pos:
+                     stdscr.addch(r, c, 'B') # Placerar object
+                 elif [r, c] == goal_pos:
+                     stdscr.addch(r, c, 'X')  # Placerar rörbart objekt
+                 elif [r, c] == player_pos:
+                     stdscr.addch(r, c, 'O')  # Placera spelaren
+                 else:
+                     stdscr.addch(r, c, ' ')  # Ritning av spelplanen
         
-        stdscr.refresh()
+         stdscr.refresh()
 
-        # Hantera användarinput
-        key = stdscr.getch()
-        new_pos = player_pos.copy()
-        if key == ord('q'):  # Avsluta spelet
-            break
-        elif key == ord('w'):  # Upp
-            new_pos[0] -= 1
-        elif key == ord('s'):  # Ner
-            new_pos[0] += 1
-        elif key == ord('a'):  # Vänster
-            new_pos[1] -= 1
-        elif key == ord('d'):  # Höger
-            new_pos[1] += 1
 
-        # Kontrollera om spelaren försöker gå in i en vägg
-        if not (new_pos[0] == 0 or new_pos[0] == rows - 1 or 
-                new_pos[1] == 0 or new_pos[1] == cols - 1):
-            player_pos = new_pos
+         # Hantera användarinput
+         key = stdscr.getch()
+         new_pos = player_pos.copy()
+         if key == ord('q'):  # Avsluta spelet
+             break
+         elif key == ord('w'):  # Upp
+             new_pos[0] -= 1
+         elif key == ord('s'):  # Ner
+             new_pos[0] += 1
+         elif key == ord('a'):  # Vänster
+             new_pos[1] -= 1
+         elif key == ord('d'):  # Höger
+             new_pos[1] += 1
+         # Kontrollera om spelaren försöker gå in i en vägg eller ett objekt
+         if not (new_pos[0] == 0 or new_pos[0] == rows - 1 or 
+                 new_pos[1] == 0 or new_pos[1] == cols - 1) and new_pos != door_pos and \
+                new_pos not in block_pos:
+            
+             player_pos = new_pos
+            
+         if player_pos == goal_pos:
+             break #Ändra denna till vad man vill ska hända
 
 if __name__ == "__main__":
-    curses.wrapper(main)
+     curses.wrapper(main)
 
 ###########################################################################
 
@@ -128,11 +142,20 @@ if __name__ == "__main__":
 #altså där vi lagrar all info om alla saker som kan förändras
 
 #koden skrivs av nathaniel och eliot
-class Charecter: #classen för 
-   def __init__(self, health, base_damage):
+
+class Item:
+    def __init__(self, potion, coin, sword, shield, totems):
+        self.potion = potion
+        self.coin = coin
+        self.sword = sword
+        self.shield = shield
+        self.totems = totems
+
+class Player: #classen för 
+   def __init__(self, health, base_damage, shield, potion, totems, coin, sword ):
     self.base_damage = base_damage
     self.health = health
-    self.inventory = {"swords": {}, "potions": {}, "shields": {}, "totems": 0}
+    self.inventory = {"swords": {sword}, "potions": {potion}, "shields": {shield}, "totems": {totems}, "coin": {coin}}
     self.coins = 0
     self.revive_used = False
 
@@ -145,29 +168,27 @@ class Charecter: #classen för
                 self.inventory["totems"] += value
             else:
                 self.inventory[item_type][item_name] = value
- 
-      
-class Teacher:
-    def __init__(self, name, health, damage):
-        self.name = name
-        self.health = health
-        self.damage = damage
 
+class Teacher:
+            def __init__(self, name, health, damage):
+                self.name = name
+                self.health = health
+                self.damage = damage
 
 #koden för combat systemet
 #--------------------------------------------------------------------------
 def combat_round(player, teacher):
-    #spelarens tur (spelaren börjar alltid)
+        #spelarens tur (spelaren börjar alltid)
     print(f"\n{player.name}'s turn!")
     print(f"\n ditt Inventory: {player.inventory} ")
 
     if player.inventory["potions"]:
         action = input("Välj en attack (attack/heal/stand)").strip().lower()
     else:
-        action = "attack" #Använder attack om det inte finns några potions
+        action = "attack/stand" #Använder attack eller stand om det inte finns några potions
 
 #attack, spelaren får en lista på vad den kan använda som attack, om spelaren inte har några svärd så kan den anävnda handen som gör base damage
-#om spelaren gör damage med svärt läggs base skadan på plus svärdets extra stats
+#om spelaren gör damage med svärd läggs base skadan på plus svärdets extra stats
     if action == "attack":
         print("tillgängliga svärd: ", list(player.inventory["swords"].keys())) 
         sword = input("Välj svärd (eller tryck ENTER om du inte har några / vill slå med handen): ").strip().lower()
@@ -183,6 +204,8 @@ def combat_round(player, teacher):
         heal_amount =  player.heal(potion)
         player.health += heal_amount
         print(f"Du använde {potion}, vilket helade dig {heal_amount}!")
+        potion -= player.potions
+        print("Du har {player.potions} kvar.")
 
 
     elif action == "stand":
@@ -192,8 +215,41 @@ def combat_round(player, teacher):
     if teacher.health > 0:
         print(f"{teacher.name}s tur")
         
+
+
+
+        
+        
         
 
 
 
+#--------------------------------------------------------------------------
+
+
+
+#koden är skriven helt av nathaniel och skrivet HELT från scratch. inga idér från intenet utan helt från grunden upp.
+#koden ska trigga när dem olika sluta ska triggas
+#--------------------------------------------------------------------------
+def end1():
+    print("....")
+    time.sleep(2)
+    print(""" 
+ __   __            ____  _          _   _ 
+ \ \ / /__  _   _  |  _ \(_) ___  __| | | |
+  \ V / _ \| | | | | | | | |/ _ \/ _` | | |
+   | | (_) | |_| | | |_| | |  __/ (_| | |_|
+   |_|\___/ \__,_| |____/|_|\___|\__,_| (_)
+
+
+    --Tack för du har spelat Quiz Clash--
+    --Spela igen för hela slutet--
+    --Slut 1 av 4, (Bad ending)--
+    
+    """)
+    exit()
+
+def end2():
+    print
+    
 #--------------------------------------------------------------------------
