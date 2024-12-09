@@ -162,16 +162,36 @@ def combat_round(player, teacher):
     print(f"\n ditt Inventory: {player.inventory} ")
 
     if player.inventory["potions"]:
-        action = input("Välj en attack").strip().lower()
+        action = input("Välj en attack (attack/heal/stand)").strip().lower()
     else:
         action = "attack" #Använder attack om det inte finns några potions
 
+#attack, spelaren får en lista på vad den kan använda som attack, om spelaren inte har några svärd så kan den anävnda handen som gör base damage
+#om spelaren gör damage med svärt läggs base skadan på plus svärdets extra stats
     if action == "attack":
         print("tillgängliga svärd: ", list(player.inventory["swords"].keys())) 
         sword = input("Välj svärd (eller tryck ENTER om du inte har några / vill slå med handen): ").strip().lower()
         damage = player.attack(sword)
         teacher.health -= damage
         print(f"du attackerade {teacher.name} med {"Dina händer" if sword =="" else sword}, som gjorde {damage} skada!")
+
+#om spelaren väljer heal ska den ge spelare en lista på vilken heal potion spelaren kan använda sedan välja den, den tar mängden den healar och lägger i en-
+#variabel så den kan printas på ett bättre sätt
+    if action == "heal":
+        print("Svärd du har:", list(player.inventory["swords"].keys()))
+        potion = input("välj din potion (Normal / Epic): ").strip().lower()
+        heal_amount =  player.heal(potion)
+        player.health += heal_amount
+        print(f"Du använde {potion}, vilket helade dig {heal_amount}!")
+
+
+    elif action == "stand":
+        print("Du stog ditt kast, Nästa persons tur!")
+
+    #lärarens tur
+    if teacher.health > 0:
+        print(f"{teacher.name}s tur")
+        
         
 
 
