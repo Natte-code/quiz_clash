@@ -88,23 +88,61 @@ class Item:
         self.shield = shield
         self.totems = totems
 
-class Player: #classen för 
-   def __init__(self, health, base_damage, shield, potion, totems, coin, sword ):
-    self.base_damage = base_damage
-    self.health = health
-    self.inventory = {"swords": {sword}, "potions": {potion}, "shields": {shield}, "totems": {totems}, "coin": {coin}}
-    self.coins = 0
-    self.revive_used = False
+class Character:
+    def __init__(self, name, health):
+        self.name = name
+        self.health = health
+        self.inventory = {"swords": {}, "potions": {}, "shields": 0, "totems": 0}
+        self.coins = 5
+        self.max_inventory = 10
 
-    def add_item(self, item_type, item_name, value):
-        #lägger till föremål i inventory eller coins i inventory.
-        if item_type =="coins":
+    def attack(self, sword_name):
+        if sword_name in self.inventory["swords"]:
+            min_damage, max_damage = self.inventory["swords"][sword_name]
+            critical = random.random() < 0.05  # 5% chans för kritisk träff
+            damage = random.randint(min_damage, max_damage)
+            if critical:
+                damage *= 2
+                print("Kritisk träff")
+            return damage
+        else:
+            print("Fel svar, försök igen!")
+            return 0
+
+    def heal(self, potion_type):
+        if potion_type in self.inventory["potions"]:
+            heal_amount = self.inventory["potions"].pop(potion_type)
+            self.health += heal_amount
+            self.health = min(self.health, 100)  # Max hälsa är 100
+            print(f"Du använde {potion_type} potion och healade {heal_amount} HP!")
+        else:
+            print("Du har inte den potionen")
+
+    def passive_block(self):
+        if self.inventory["shields"] > 0:
+            return random.random() < 0.3  # 30% chans att blockera
+        return False
+
+    def add_item(self, item_type, item_name=None, value=0):
+        if len(self.inventory) >= self.max_inventory:
+            print("Inventory fullt!")
+            return False
+        if item_type == "coins":
             self.coins += value
-        elif item_type in self.inventory:
-            if item_type == "totems":
-                self.inventory["totems"] += value
-            else:
-                self.inventory[item_type][item_name] = value
+        elif item_type == "totems":
+            self.inventory["totems"] += value
+        elif item_type == "shields":
+            self.inventory["shields"] += value
+        else:
+            self.inventory[item_type][item_name] = value
+
+    def use_totem(self):
+        if self.inventory["totems"] > 0:
+            self.inventory["totems"] -= 1
+            self.health = 100
+            print("Du använde en totem, HP 100 nu!")
+            return True
+        return False
 
 class Teacher:
             def __init__(self, name, health, damage):
@@ -139,9 +177,9 @@ def combat_round(player, teacher):
         print("Svärd du har:", list(player.inventory["swords"].keys()))
         potion = input("välj din potion (Normal / Epic): ").strip().lower()
         heal_amount =  player.heal(potion)
-        player.health += heal_amount
+        player.health += heal_amount #ändrar spelarens hälsa
         print(f"Du använde {potion}, vilket helade dig {heal_amount}!")
-        potion -= player.potions
+        potion -= player.potions #tar bort potion som precis användits ur spelarens inventory
         print("Du har {player.potions} kvar.")
 
 
@@ -149,16 +187,27 @@ def combat_round(player, teacher):
         print("Du stog ditt kast, Nästa persons tur!")
 
     #lärarens tur
+    #vi ska lägga in passiv block att det är 20% chans att blocka 100% skada
     if teacher.health > 0:
         print(f"{teacher.name}s tur")
-        
+        damage = teacher.attack()
+
+        if player.block():
+            print("Din sköld blockerade all skada")
+            damage = 0
+        else:
+            print(f"{teacher.name} attackerade för {damage} damage!")
+            player.health -= damage
+
+        print(f"{player.name} HP efter attack: {player.health}")
 
 
+        if teacher.health == 0:
+            print("Du van!")
 
-        
-        
-        
-
+        if player.health == 0:
+            print("Du förlorade")
+    
 
 
 #--------------------------------------------------------------------------
@@ -243,6 +292,7 @@ def end4():
 ###########################################################################
 #koden för rörelse i spelet och att skapa spelkartan
 #bas kod är skaffad av ChatGPT och modifierad av Felix
+
 def main(stdscr):
      # Initiera curses
     curses.curs_set(0)  # Dölj markören
@@ -250,23 +300,24 @@ def main(stdscr):
     stdscr.timeout(2000) # Ställ in en timeout för getch (ms)
     
      # Spelvariabler
-    rows, cols = 30, 60  # Storlek på spelplanen
-    player_pos = [15, 30]  # Startposition för spelaren (centrerad)
-    block_pos = [[15, 15], [15, 16], [15, 17]]  # Position för objekt
+    rows, cols = 40, 40  # Storlek på spelplanen
+    player_pos = [38, 19]  # Startposition för spelaren (centrerad)
+    block_pos = []  # Position för objekt
     goal_pos = [20, 20]  # Positionen för rörbart objekt#
-    door_pos = [0, 30]
+    door_pos = [[13, 1], [12, 2], [11, 3], [33, 1], [32, 2], [31, 3]]
+    wall_hole = [30, 0]
     key = None            # Håller koll på vilken knapp som trycks
-   
+    message = ""
     while True:
         # Ritning av spelplanen
          stdscr.clear()
          for r in range(rows):
              for c in range(cols):
                  # Rita väggar på kanterna
-                 if r == 0 or r == rows - 1 or c == 0 or c == cols - 1:
+                 if (r == 0 or r == rows - 1 or c == 0 or c == cols - 1) and (r, c) != wall_hole:
                      stdscr.addch(r, c, '#')  # Vägg
-                 elif [r, c] == door_pos:
-                     stdscr.addch(r, c, ' ')
+                 elif [r, c] in door_pos:
+                     stdscr.addch(r, c, '/')
                  elif [r, c] in block_pos:
                      stdscr.addch(r, c, 'B') # Placerar object
                  elif [r, c] == goal_pos:
@@ -275,9 +326,10 @@ def main(stdscr):
                      stdscr.addch(r, c, 'O')  # Placera spelaren
                  else:
                      stdscr.addch(r, c, ' ')  # Ritning av spelplanen
-        
+                     
+         stdscr.addstr(rows, 0, f"Message: {message}")
          stdscr.refresh()
-
+         
 
          # Hantera användarinput
          key = stdscr.getch()
@@ -293,16 +345,17 @@ def main(stdscr):
          elif key == ord('d'):  # Höger
              new_pos[1] += 1
          # Kontrollera om spelaren försöker gå in i en vägg eller ett objekt
-         if not (new_pos[0] == 0 or new_pos[0] == rows - 1 or 
-                 new_pos[1] == 0 or new_pos[1] == cols - 1) and new_pos != door_pos and \
+         if not ((new_pos[0] == 0 or new_pos[0] == rows - 1 or 
+                 new_pos[1] == 0 or new_pos[1] == cols - 1) and tuple(new_pos) != wall_hole) and \
                 new_pos not in block_pos:
             
              player_pos = new_pos
             
          if player_pos == goal_pos:
-             #end2() #Ändra denna till vad man vill ska hända
+            message = "you win" #Ändra denna till vad man vill ska hända
+            
 
-if __name__ == "__main__":
-     curses.wrapper(main)
+if __name__ == "__main__": 
+	curses.wrapper(main)
 
 ###########################################################################
