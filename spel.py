@@ -149,13 +149,22 @@ class Teacher:
                 self.name = name
                 self.health = health
                 self.damage = damage
+def clearlog():
+    os.system('cls' if os.name == 'nt' else 'clear')
 
 #koden för combat systemet
 #--------------------------------------------------------------------------
 def combat_round(player, teacher):
         #spelarens tur (spelaren börjar alltid)
-    print(f"\n{player.name}'s turn!")
-    print(f"\n ditt Inventory: {player.inventory} ")
+    while player.health > 0 and teacher.health >  0:
+        clearlog()
+
+        #Spelarens ui
+        print(f"\n{player.name}'s turn!")
+        print(f"\n ditt Inventory: {player.inventory} ")
+        print(f"{name}s HP: {player.hp}")
+        print(f"{teacher.name}s HP: {teacher.health}\n") #För att kunna ändra namn och stats på dem olika teachersna måste du ändra "teacher" till valda teacher du vill använda (text Teacher1 (namn, STATS), så den kan bli specifierad.)
+
 
     if player.inventory["potions"]:
         action = input("Välj en attack (attack/heal/stand)").strip().lower()
@@ -165,50 +174,64 @@ def combat_round(player, teacher):
 #attack, spelaren får en lista på vad den kan använda som attack, om spelaren inte har några svärd så kan den anävnda handen som gör base damage
 #om spelaren gör damage med svärd läggs base skadan på plus svärdets extra stats
     if action == "attack":
-        print("tillgängliga svärd: ", list(player.inventory["swords"].keys())) 
-        sword = input("Välj svärd (eller tryck ENTER om du inte har några / vill slå med handen): ").strip().lower()
-        damage = player.attack(sword)
-        teacher.health -= damage
-        print(f"du attackerade {teacher.name} med {"Dina händer" if sword =="" else sword}, som gjorde {damage} skada!")
+        weapon = input("Välj svärd (eller tryck ENTER för att använda händerna): ").strip().lower()
+        print("-------------------------------------")
+        if weapon in player.inventory["swords"] or weapon == "":
+            damage = player.attack(weapon)
+            teacher.health = max(0, teacher.health - damage)
+            print("-------------------------------------")
+            print(f"Du attackerade {teacher.name} med {'Dina händer' if weapon == '' else weapon}, som gjorde {damage} skada!")
+        else:
+            print("\nOgiltigt vapen!")
 
-#om spelaren väljer heal ska den ge spelare en lista på vilken heal potion spelaren kan använda sedan välja den, den tar mängden den healar och lägger i en-
-#variabel så den kan printas på ett bättre sätt
-    if action == "heal":
-        print("Svärd du har:", list(player.inventory["swords"].keys()))
-        potion = input("välj din potion (Normal / Epic): ").strip().lower()
-        heal_amount =  player.heal(potion)
-        player.health += heal_amount #ändrar spelarens hälsa
-        print(f"Du använde {potion}, vilket helade dig {heal_amount}!")
-        potion -= player.potions #tar bort potion som precis användits ur spelarens inventory
-        print("Du har {player.potions} kvar.")
-
+    elif action == "heal":
+        potion = input("Välj potion (normal/epic): ").strip().lower()
+        if potion in player.inventory[potion] and player.inventory["potions"][potion] > 0:
+            heal_amount = player.heal(potion)
+            player.health = min(100, player.health + heal_amount)
+            print(f"\nDu använde {potion}-potion och helade dig själv med {heal_amount} HP!")
+            print(f"HP: {player.health}")
+        else:
+            print("\nOgiltig eller slut på potions!")
 
     elif action == "stand":
-        print("Du stog ditt kast, Nästa persons tur!")
+        print("\nDu stog ditt kast. Nästa tur!")
 
+    else:
+        print("\nOgiltig handling!")
+
+    #checka ifall lärare health = 0
+    if teacher.health == 0:
+            print(f"\n{teacher.name} är besegrad! Du vann!")###!!!!! hur gör vi här, hur ska vi ta oss ur fighten om lärare == 0
+    input("-----------tryck ENTER för att fortsätta-----------") #paus för o visa resultat.
+            
     #lärarens tur
     #vi ska lägga in passiv block att det är 20% chans att blocka 100% skada
     if teacher.health > 0:
         print(f"{teacher.name}s tur")
+        damage = teacher.attack()        
+        time.sleep(2)
         damage = teacher.attack()
 
         if player.block():
-            print("Din sköld blockerade all skada")
-            damage = 0
+            print("Din sköld blockerade attacken!")
         else:
-            print(f"{teacher.name} attackerade för {damage} damage!")
-            player.health -= damage
+            player.health = max(0, player.health - damage)
+            print(f"{teacher.name} attackerade och gjorde {damage} skada!")
 
-        print(f"{player.name} HP efter attack: {player.health}")
+        print(f"{teacher.name}s HP: {teacher.health}")
+        print(f"{player.name}s HP efter attack: {player.health}")
+     
 
 
         if teacher.health == 0:
             print("Du van!")
 
+        # Check player's health
         if player.health == 0:
-            print("Du förlorade")
-    
+            end1()
 
+        input("-----------tryck ENTER för att fortsätta-----------")
 
 #--------------------------------------------------------------------------
 
