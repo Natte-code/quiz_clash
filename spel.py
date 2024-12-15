@@ -196,6 +196,7 @@ def combat_loop(player, teacher): #combat loopen
             if heal_amount > 0:
                 player.health = min(100, player.health + heal_amount)
                 print(f"Du använde en {potion}-potion och helade {heal_amount} HP!")
+                print(f"Du har nu {player.health}HP!")
             else:
                 print("Ogiltig potion eller slut!")
             print("------------") 
