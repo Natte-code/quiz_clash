@@ -2,6 +2,7 @@ import time
 import random
 import curses
 import os
+import threading
 
 #Def av några sid funktioner som kallas på igenom spelet
 def clear_screen():
@@ -138,6 +139,35 @@ class Character:
     
 # Definerar Spelaren
 player = Character(name=player_name, health=100)
+
+class boss:
+    def __init__(self, name, health, min_damage, max_damage, regen):
+        self.name = name
+        self.health = health
+        self.max_health = health
+        self.min_damage = min_damage
+        self.max_damage = max_damage
+        self.regen = regen
+        self.isregen = False
+
+
+    def start_regen(self):
+        if not self.isregen:
+            self.isregen = True
+            threading.Thread(target=self.regenerate_health, daemon=True).start()
+
+    def regenerate_health(self):
+        while self.isregen: True
+        time.sleep(10)
+        if self.health < self.max_health:
+            self.health = min(self.max_health, self.health + self.regen)
+            print(f"+15 HP: {self.health}")
+
+    def stop_regen(self):
+        self.isregen = False
+
+    def attack(self):
+        return random.randint(self.min_damage, self.max_damage)
 
 #Klassen för teacher
 class Teacher:
