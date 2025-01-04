@@ -1,0 +1,13 @@
+#Items
+
+class items:
+    def __init__(self, totem, träsvärd, järnsvärd,potionnormal,potionepic):
+        self.respawn = totem
+        self.träsvärddamage = träsvärd
+        self.järnsvärddamage = järnsvärd
+        self.normalhealth = potionnormal
+        self.epichealth = potionepic
+
+player = items(100, 20, 40, 20, 50)
+
+print(f"health epic potion: {player.epichealth}")
