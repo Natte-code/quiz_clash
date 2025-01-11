@@ -1,0 +1,128 @@
+#Den kod kan lägga till eller tar bort föremål från karaktärens inventory
+
+
+inventory = []
+
+
+#Sword
+def add_sword():
+    item_sword = "sword"
+    inventory.append(item_sword)
+    print(f"{item_sword} har lagts till i inventariet.")
+
+
+def remove_sword():
+    item_sword = "sword"
+    if item_sword in inventory:
+        inventory.remove(item_sword)
+        print(f"{item_sword} har tagits bort från inventariet.")
+    else:
+        print(f"{item_sword} finns inte i inventariet.")
+
+
+#Sword epic
+def add_sword_epic():
+    item_sword_epic = "sword_epic"
+    inventory.append(item_sword_epic)
+    print(f"{item_sword_epic} har lagts till i inventariet.")
+
+
+def remove_sword_epic():
+    item_sword_epic = "sword_epic"
+    if item_sword_epic in inventory:
+        inventory.remove(item_sword_epic)
+        print(f"{item_sword_epic} har tagits bort från inventariet.")
+    else:
+        print(f"{item_sword_epic} finns inte i inventariet.")
+
+
+
+#Potion normal
+def add_potion():
+    item_potion = "potion"
+    inventory.append(item_potion)
+    print(f"{item_potion} har lagts till i inventariet.")
+
+
+def remove_potion():
+    item_potion = "potion"
+    if item_potion in inventory:
+        inventory.remove(item_potion)
+        print(f"{item_potion} har tagits bort från inventariet.")
+    else:
+        print(f"{item_potion} finns inte i inventariet.")
+
+
+#Potion epic
+def add_potion_epic():
+    item_potion_epic = "potion_epic"
+    inventory.append(item_potion_epic)
+    print(f"{item_potion_epic} har lagts till i inventariet.")
+
+
+def remove_potion_epic():
+    item_potion_epic = "potion_epic"
+    if item_potion_epic in inventory:
+        inventory.remove(item_potion_epic)
+        print(f"{item_potion_epic} har tagits bort från inventariet.")
+    else:
+        print(f"{item_potion_epic} finns inte i inventariet.")
+
+
+
+#Totem
+def totem():
+    totem = "totem"
+    inventory.append(totem)
+    print(f"{totem} har lagts till i inventariet.")
+
+
+def remove_totem():
+    totem = "totem"
+    if totem in inventory:
+        inventory.remove(totem)
+        print(f"{totem} har tagits bort från inventariet.")
+    else:
+        print(f"{totem} finns inte i inventariet.")
+
+
+#visa din inventory
+def show_inventory():
+    if inventory:
+        print("Din inventarie innehåller:")
+        for i, item in enumerate(inventory, start=1):
+            print(f"{i}. {item}")
+    else:
+        print("Din inventarie är tom.")
+
+
+
+
+while True:
+    choice = input()
+   
+    if choice == "0":
+        show_inventory()
+    elif choice == "1":
+        add_sword()
+    elif choice == "2":
+        remove_sword()
+    elif choice == "3":
+        add_sword_epic()
+    elif choice == "4":
+        remove_sword_epic()
+    elif choice == "5":
+        add_potion()
+    elif choice == "6":
+        remove_potion()
+    elif choice == "7":
+        add_potion_epic()
+    elif choice == "8":
+        remove_potion_epic()
+    elif choice == "9":
+        totem()
+    elif choice == "10":
+        remove_totem()
+
+
+
