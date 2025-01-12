@@ -125,4 +125,6 @@ while True:
         remove_totem()
 
 
-
+#   kommentar från nathaniel
+#       Kom ihåg att detta skript ska användas i spelet som när en låda tex öppnas så därför kanske vi inte behöver print funktionen till alla commands
+#       Men bra jobbat ändå
