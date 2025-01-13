@@ -180,7 +180,7 @@ class Teacher:
     def attack(self):
         return random.randint(self.min_damage, self.max_damage) #Slumpar skadan teacher gör mot spelaren. för att definera max och min dmg så gör man det när man definerar läraren
 #definerar Lärararna osv
-boss = Teacher(name="Lars", health=450, min_damage=10, max_damage=95)
+boss = boss(name="Lars", health=450, min_damage=10, max_damage=95)
 
 teacher1 = Teacher(name="johanna", health=100, min_damage=1, max_damage=10)
 teacher2 = Teacher(name="Ronja", health=110, min_damage=5, max_damage=15)
@@ -189,7 +189,7 @@ teacher4 = Teacher(name="Victor", health=135, min_damage=1, max_damage=13)
 teacher5 = Teacher(name="David", health=150, min_damage=9, max_damage=20)
 teacher6 = Teacher(name="Mirrela", health=200, min_damage=11, max_damage=25)
 
-def combat_loop(player, teacher): #combat loopen
+def combat_loop(player, teacher): #combat loopen1
     while player.health > 0 and teacher.health > 0:
         clear_screen()
         
@@ -354,70 +354,118 @@ def end4():
 ###########################################################################
 #koden för rörelse i spelet och att skapa spelkartan
 #bas kod är skaffad av ChatGPT och modifierad av Felix
+#Hallway 1
 
 def main(stdscr):
-     # Initiera curses
-    curses.curs_set(0)  # Dölj markören
-    stdscr.nodelay(1)   # Gör getch icke-blockerande
-    stdscr.timeout(2000) # Ställ in en timeout för getch (ms)
-    
-     # Spelvariabler
-    rows, cols = 40, 40  # Storlek på spelplanen
-    player_pos = [38, 19]  # Startposition för spelaren (centrerad)
-    block_pos = []  # Position för objekt
-    goal_pos = [20, 20]  # Positionen för rörbart objekt#
-    door_pos = [[13, 1], [12, 2], [11, 3], [33, 1], [32, 2], [31, 3]]
-    wall_hole = [30, 0]
-    key = None            # Håller koll på vilken knapp som trycks
+    # Initialize curses
+    curses.curs_set(0)  # Hide the cursor
+    stdscr.nodelay(1)   # Non-blocking getch
+    stdscr.timeout(20000) # Input timeout (ms)
+
+    # Game variables
+    rows, cols = 35, 35  # Game board dimensions
+    player_pos = [31, 16]  # Player's starting position
+    block_pos = [[3, 3]]   # Block positions
+    goal_pos = [2, 2]      # Goal position
+    door_pos = [[11, 1], [10, 2], [9, 3]]
+    door_pos2 = [[1, 19], [1, 18], [1, 17], [1, 16], [1, 15], [1, 14], [1, 13]]
+    door_pos3 = [[27, 1], [26, 2], [25, 3]]
+    door_pos4 = [[11, 31], [10, 32], [9, 33]]
+    door_pos5 = [[27, 31], [26, 32], [25, 33]]
+    key = None           # Key press tracker
     message = ""
+
     while True:
-        # Ritning av spelplanen
-         stdscr.clear()
-         for r in range(rows):
-             for c in range(cols):
-                 # Rita väggar på kanterna
-                 if (r == 0 or r == rows - 1 or c == 0 or c == cols - 1) and (r, c) != wall_hole:
-                     stdscr.addch(r, c, '#')  # Vägg
-                 elif [r, c] in door_pos:
-                     stdscr.addch(r, c, '/')
-                 elif [r, c] in block_pos:
-                     stdscr.addch(r, c, 'B') # Placerar object
-                 elif [r, c] == goal_pos:
-                     stdscr.addch(r, c, 'X')  # Placerar rörbart objekt
-                 elif [r, c] == player_pos:
-                     stdscr.addch(r, c, 'O')  # Placera spelaren
-                 else:
-                     stdscr.addch(r, c, ' ')  # Ritning av spelplanen
-                     
-         stdscr.addstr(rows, 0, f"Message: {message}")
-         stdscr.refresh()
-         
+        # Draw game board
+        stdscr.clear()
+        for r in range(rows):
+            for c in range(cols):
+                if (r == 0 or r == rows - 1 or c == 0 or c == cols - 1):
+                    stdscr.addch(r, c, '#')  # Wall
+                elif [r, c] in door_pos:
+                    stdscr.addch(r, c, '/')
+                elif [r, c] in door_pos2:
+                    stdscr.addch(r, c, '-')
+                elif [r, c] in door_pos3:
+                    stdscr.addch(r, c, '/')
+                elif [r, c] in door_pos4:
+                    stdscr.addch(r, c, '/')
+                elif [r, c] in door_pos5:
+                    stdscr.addch(r, c, '/')
+                elif [r, c] in block_pos:
+                    stdscr.addch(r, c, 'B')  # Block
+                elif [r, c] == goal_pos:
+                    stdscr.addch(r, c, 'X')  # Goal
+                elif [r, c] == player_pos:
+                    stdscr.addch(r, c, 'O')  # Player
+                else:
+                    stdscr.addch(r, c, ' ')  # Empty space
 
-         # Hantera användarinput
-         key = stdscr.getch()
-         new_pos = player_pos.copy()
-         if key == ord('q'):  # Avsluta spelet
-             break
-         elif key == ord('w'):  # Upp
-             new_pos[0] -= 1
-         elif key == ord('s'):  # Ner
-             new_pos[0] += 1
-         elif key == ord('a'):  # Vänster
-             new_pos[1] -= 1
-         elif key == ord('d'):  # Höger
-             new_pos[1] += 1
-         # Kontrollera om spelaren försöker gå in i en vägg eller ett objekt
-         if not ((new_pos[0] == 0 or new_pos[0] == rows - 1 or 
-                 new_pos[1] == 0 or new_pos[1] == cols - 1) and tuple(new_pos) != wall_hole) and \
-                new_pos not in block_pos:
-            
-             player_pos = new_pos
-            
-         if player_pos == goal_pos:
-            message = "you win" #Ändra denna till vad man vill ska hända
-            
+        # Display the message
+        stdscr.addstr(rows, 0, f"Message: {message}")
+        stdscr.refresh()
 
-if __name__ == "__main__": 
-	curses.wrapper(main)
+        # Handle user input
+        key = stdscr.getch()
+        new_pos = player_pos.copy()
+
+        if key == ord('q'):  # Quit the game
+            break
+        elif key == ord('w'):  # Move up
+            new_pos[0] -= 1
+        elif key == ord('s'):  # Move down
+            new_pos[0] += 1
+        elif key == ord('a'):  # Move left
+            new_pos[1] -= 1
+        elif key == ord('d'):  # Move right
+            new_pos[1] += 1
+        elif key == ord('i'): # inventory
+            break #ta bork break och lägg in befinitionen för inventory
+        
+        # Validate movement
+        if not (new_pos[0] == 0 or new_pos[0] == rows - 1 or 
+                 new_pos[1] == 0 or new_pos[1] == cols - 1) and new_pos not in block_pos:
+            player_pos = new_pos
+
+        # Check for goal and special positions
+        if player_pos == goal_pos:
+            message = "You reached the goal!" #test sak
+            break
+        elif player_pos in door_pos:
+            message = "You encountered a door!"  #room 2
+        elif player_pos in door_pos2:
+            message = "You found a secret!" #Halway
+        elif player_pos in door_pos3:
+            message = "You found a secret!3" #room 1
+        elif player_pos in door_pos4:
+            message = "You found a secret!4" #chest room
+        elif player_pos in door_pos5:
+            message = "You found a secret!5" #room 3
+
+if __name__ == "__main__":
+    curses.wrapper(main)
 
 ###########################################################################
+#Hallway 2
+
+
+###########################################################################
+#Room 1
+
+###########################################################################
+#Room 2
+
+###########################################################################
+#Room 3
+
+###########################################################################
+#Room 4
+
+###########################################################################
+#Room 5
+
+###########################################################################
+#Room 6
+
+###########################################################################
+#Chest Room

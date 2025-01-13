@@ -1,13 +1,12 @@
 import random
+import threading
 import time
 import os
-import threading
 
+def clear_screen():
+    os.system('cls' if os.name == 'nt' else 'clear')
 
-
-player_name = input("innan spelet börjar helt... Ange ditt namn: ")
-
-
+# Karaktärsklassen
 class Character:
     def __init__(self, name, health):
         self.name = name
@@ -15,55 +14,42 @@ class Character:
         self.coins = 5
         self.totems = 1
         self.shields = 1
-        # Simpelt inventory
         self.inventory = {
-            "swords": {"träsvärd": 10, "järnsvärd": 20},  # Ifall vi ska lägga till fler
-            "potions": {"normal": 2, "epic": 1}          
+            "swords": {"träsvärd": 10, "järnsvärd": 20},
+            "potions": {"normal": 2, "epic": 1}
         }
 
-        
     def is_critical_hit(self):
-        return random.random() < 0.15 #15 % chans att göra kritisk träff
-    
+        return random.random() < 0.15
 
     def attack(self, weapon):
-        """Beräknar skada baserat på vapen och kritisk chans."""
-        # Om vapnet finns i inventoryt, använd dess skada; annars använd händerna
         base_damage = self.inventory["swords"].get(weapon, random.randint(5, 10))
         if self.is_critical_hit():
             crit_damage = int(base_damage * 2.5)
-            print(f"KRITISK TRÄFF! Du gör {crit_damage} skada!\n------------")
+            print(f"\nKRITISK TRÄFF! Du gör {crit_damage} skada!\n")
             return crit_damage
         return base_damage
 
     def heal(self, potion_type):
-        if potion_type == "normal" and self.inventory["potions"].get("normal", 0) > 0:
-            self.inventory["potions"]["normal"] -= 1
-            return 50
-        elif potion_type == "epic" and self.inventory["potions"].get("epic", 0) > 0:
-            self.inventory["potions"]["epic"] -= 1
-            return 100
-        return 0 #koden för att heala
+        if potion_type in self.inventory["potions"] and self.inventory["potions"][potion_type] > 0:
+            self.inventory["potions"][potion_type] -= 1
+            return 50 if potion_type == "normal" else 100
+        return 0
 
     def block(self):
-        return random.random() < 0.3 #30% chans att blockera en attack
+        return random.random() < 0.3
 
     def totem(self):
-        """Använd totem automatiskt när HP når 0."""
         if self.totems > 0:
             self.totems -= 1
             self.health = 100
-            print(f"------------\nDu använde en totem! {self.name} är återupplivad med 100 HP!\n------------")
+            print(f"\n------------\nDu använde en totem! {self.name} är återupplivad med 100 HP!\n------------")
             input("Tryck ENTER för att fortsätta...")
-            return True #Använder en totem om spelaren har en och ger spelaren 100 hp
-        return False #om spelaren inte har totem så dör spelaren här.
+            return True
+        return False
 
-
-    
-# Definerar Spelaren
-player = Character(name=player_name, health=100)
-
-class boss:
+# Bossklassen
+class Boss:
     def __init__(self, name, health, min_damage, max_damage, regen):
         self.name = name
         self.health = health
@@ -73,18 +59,17 @@ class boss:
         self.regen = regen
         self.isregen = False
 
-
     def start_regen(self):
         if not self.isregen:
             self.isregen = True
             threading.Thread(target=self.regenerate_health, daemon=True).start()
 
     def regenerate_health(self):
-        while self.isregen: True
-        time.sleep(10)
-        if self.health < self.max_health:
-            self.health = min(self.max_health, self.health + self.regen)
-            print(f"+15 HP: {self.health}")
+        while self.isregen:
+            time.sleep(15)
+            if self.health < self.max_health:
+                self.health = min(self.max_health, self.health + self.regen)
+                print(f"\nLars Helade +{self.regen} HP: {self.health}\n (Tryck ENTER efter detta, eller fortsätt med HANDLINGEN)")
 
     def stop_regen(self):
         self.isregen = False
@@ -92,7 +77,7 @@ class boss:
     def attack(self):
         return random.randint(self.min_damage, self.max_damage)
 
-#Klassen för teacher
+# Teacher-klassen
 class Teacher:
     def __init__(self, name, health, min_damage, max_damage):
         self.name = name
@@ -101,95 +86,83 @@ class Teacher:
         self.max_damage = max_damage
 
     def attack(self):
-        return random.randint(self.min_damage, self.max_damage) #Slumpar skadan teacher gör mot spelaren. för att definera max och min dmg så gör man det när man definerar läraren
-#definerar Lärararna osv
-boss = Teacher(name="Lars", health=450, min_damage=10, max_damage=95)
+        return random.randint(self.min_damage, self.max_damage)
 
-teacher1 = Teacher(name="johanna", health=100, min_damage=1, max_damage=10)
-teacher2 = Teacher(name="Ronja", health=110, min_damage=5, max_damage=15)
-teacher3 = Teacher(name="Henrik", health=125, min_damage=8, max_damage=18)
-teacher4 = Teacher(name="Victor", health=135, min_damage=1, max_damage=13)
-teacher5 = Teacher(name="David", health=150, min_damage=9, max_damage=20)
-teacher6 = Teacher(name="Mirrela", health=200, min_damage=11, max_damage=25)
+# Stridsloopen
+def combat_loop(player, opponent):
+    if isinstance(opponent, Boss):
+        opponent.start_regen()
 
-def combat_loop(player, teacher): #combat loopen
-    while player.health > 0 and teacher.health > 0:
+    while player.health > 0 and opponent.health > 0:
         clear_screen()
-        
-        # Visa UI
-        print(f"{player.name}'s tur\n------------")
-        print(f"Inventarie:\n")
-        print(f"- Svärd: {list(player.inventory['swords'].keys())}")  # Lista svärden
-        print(f"- Potions: {player.inventory['potions']}")           # Lista potions
-        print(f"- Totems: {player.totems}")                        # Visa antal totems
-        print(f"- Sköldar: {player.shields}")                      # Visa sköld
-        print(f"HP: {player.health}\n------------")
-        print(f"{teacher.name}s HP: {teacher.health}\n------------")
 
+        # Visa status
+        print(f"\n{player.name}'s tur\n------------")
+        print(f"HP: {player.health} | Potions: {player.inventory['potions']} | Totems: {player.totems} | Shields: {player.shields}")
+        print(f"{opponent.name}'s HP: {opponent.health}\n------------")
+
+        # Spelarens val
         action = input("Välj handling (attack, heal, stand): ").strip().lower()
-        print("------------")
-
-        # Spelarens tur
         if action == "attack":
-            weapon = input("Välj svärd (eller tryck ENTER för att använda händerna): ").strip().lower()
-            print("------------")
-            if weapon in player.inventory["swords"] or weapon == "":
+            weapon = input("Välj vapen (träsvärd/järnsvärd eller lämna tomt för händer): ").strip().lower()
+            if weapon in player.inventory["swords"] or not weapon:
                 damage = player.attack(weapon)
-                teacher.health = max(0, teacher.health - damage)
-                print(f"Du attackerade {teacher.name} med {'händerna' if weapon == '' else weapon} och gjorde {damage} skada!")
+                opponent.health = max(0, opponent.health - damage)
+                print(f"\nDu attackerade {opponent.name} med {'händerna' if not weapon else weapon} och gjorde {damage} skada!\n")
             else:
-                print("Ogiltigt vapen!")
-            print("------------")
+                print("\nOgiltigt vapen!\n")
+                continue
 
-#heal
         elif action == "heal":
             potion = input("Välj potion (normal/epic): ").strip().lower()
-            print("------------")
             heal_amount = player.heal(potion)
-            if heal_amount > 0:
+            if heal_amount:
                 player.health = min(100, player.health + heal_amount)
-                print(f"Du använde en {potion}-potion och helade {heal_amount} HP!")
-                print(f"Du har nu {player.health}HP!")
+                print(f"\nDu använde en {potion}-potion och helade {heal_amount} HP!\n")
             else:
-                print("Ogiltig potion eller slut!")
-            print("------------") 
+                print("\nOgiltig potion eller slut!\n")
+                continue
 
-#stand
         elif action == "stand":
-            print("Du valde att vänta. Nästa tur!\n------------")
+            print("\nDu valde att vänta.\n")
 
         else:
-            print("Ogiltig handling!\n------------")
+            print("\nOgiltig handling! Försök igen.\n")
+            continue
 
-        # Kontrollera om teacher hp = 0
-        if teacher.health <= 0:
-            print(f"{teacher.name} är besegrad! Du vann!\n------------")
-            #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!lägg till vad som ska hända här när teacher är död
+        # Kontrollera om motståndaren är besegrad
+        if opponent.health <= 0:
+            print(f"\n------------\n{opponent.name} är besegrad! Du vann striden!\n------------")
+            input("Tryck ENTER för att avsluta striden...")
+            if isinstance(opponent, Boss):
+                opponent.stop_regen()
+            return
 
-        input("Tryck ENTER för att fortsätta...")
+        input("Tryck ENTER för att fortsätta till motståndarens tur...")
 
-        # Lärarens tur
-        print(f"{teacher.name}s tur!\n------------")
-        time.sleep(2)
-        damage = teacher.attack()
+        # Motståndarens tur
+        print(f"\n{opponent.name}s tur!\n------------")
+        time.sleep(1)  # Skapar en paus för dramatik
+        damage = opponent.attack()
         if player.block():
-            print("Din sköld blockerade attacken!\n------------") #Vad som händer när teachers attack blir blockerad. #se def block
+            print(f"\nDin sköld blockerade {opponent.name}s attack!\n")
         else:
             player.health = max(0, player.health - damage)
-            print(f"{teacher.name} attackerade och gjorde {damage} skada!\n------------")
-            # Kontrollera om spelaren ska använda totem
-            if player.health == 0 and player.totem():
-                continue  # Fortsätt spelet efter användning av totem
+            print(f"\n{opponent.name} attackerade och gjorde {damage} skada!\n")
 
-        print(f"{teacher.name}s HP: {teacher.health}\n------------")
-        print(f"{player.name}s HP: {player.health}\n------------")
+        # Visa motståndarens handling och resultat innan skärmen rensas
+        input("Tryck ENTER för att fortsätta...")
 
-        # Kontrollera om player är död
+        # Kontrollera om spelaren är död och om totem används
         if player.health <= 0:
-            print("Du förlorade kampen! Bättre lycka nästa gång.\n------------")
-            end1()
+            if player.totem():
+                continue
+            print("\nDu förlorade kampen!\n")
+            break
 
+# Skapa en spelare och boss för test
+player = Character(name="Spelare", health=100)
+boss = Boss(name="Lars", health=450, min_damage=20, max_damage=50, regen=10)
 
-
-
-#combat_loop(player, MOTSTONDARE) #kallning på funktion med vilken lärare när strid ska starta
+# Testa stridsloopen
+combat_loop(player, boss)
