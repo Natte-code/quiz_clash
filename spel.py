@@ -180,7 +180,7 @@ class Teacher:
     def attack(self):
         return random.randint(self.min_damage, self.max_damage) #Slumpar skadan teacher gör mot spelaren. för att definera max och min dmg så gör man det när man definerar läraren
 #definerar Lärararna osv
-boss = boss(name="Lars", health=450, min_damage=10, max_damage=95)
+#boss = boss(name="Lars", health=450, min_damage=10, max_damage=95)
 
 teacher1 = Teacher(name="johanna", health=100, min_damage=1, max_damage=10)
 teacher2 = Teacher(name="Ronja", health=110, min_damage=5, max_damage=15)
@@ -356,7 +356,107 @@ def end4():
 #bas kod är skaffad av ChatGPT och modifierad av Felix
 #Hallway 1
 
-def main(stdscr):
+
+###########################################################################
+#Hallway 2
+
+
+###########################################################################
+#Room 1
+
+def room1(stdscr, transition_to):
+    # Initialize curses
+    curses.curs_set(0)  # Hide the cursor
+    stdscr.nodelay(1)   # Non-blocking getch
+    stdscr.timeout(20000) # Input timeout (ms)
+
+    # Game variables
+    rows, cols = 25, 45  # Game board dimensions
+    player_pos = [12, 37]  # Player's starting position
+    block_pos = []   # Block positions
+    Lärar_pos = [12, 3]      # Goal position
+    door_pos = [[13, 41], [12, 42], [11, 43]]
+
+    key = None           # Key press tracker
+    message = ""
+
+    while True:
+        # Draw game board
+        stdscr.clear()
+        for r in range(rows):
+            for c in range(cols):
+                if (r == 0 or r == rows - 1 or c == 0 or c == cols - 1):
+                    stdscr.addch(r, c, '#')  # Wall
+                elif [r, c] in door_pos:
+                    stdscr.addch(r, c, '/')
+                elif [r, c] in block_pos:
+                    stdscr.addch(r, c, 'B')  # Block
+                elif [r, c] == Lärar_pos:
+                    stdscr.addch(r, c, 'X')  # Goal
+                elif [r, c] == player_pos:
+                    stdscr.addch(r, c, 'O')  # Player
+                else:
+                    stdscr.addch(r, c, ' ')  # Empty space
+
+        # Display the message
+        stdscr.addstr(rows, 0, f"Message: {message}")
+        stdscr.refresh()
+
+        # Handle user input
+        key = stdscr.getch()
+        new_pos = player_pos.copy()
+
+        if key == ord('q'):  # Quit the game
+            break
+        elif key == ord('w'):  # Move up
+            new_pos[0] -= 1
+        elif key == ord('s'):  # Move down
+            new_pos[0] += 1
+        elif key == ord('a'):  # Move left
+            new_pos[1] -= 1
+        elif key == ord('d'):  # Move right
+            new_pos[1] += 1
+        elif key == ord('i'):
+            break
+        
+        # Validate movement
+        if not (new_pos[0] == 0 or new_pos[0] == rows - 1 or 
+                 new_pos[1] == 0 or new_pos[1] == cols - 1) and new_pos not in block_pos:
+            player_pos = new_pos
+
+        # Check for goal and special positions
+        if player_pos == Lärar_pos:
+            message = "You reached the goal!"
+            break
+        elif player_pos in door_pos:
+            transition_to("main")
+            break
+
+
+
+
+###########################################################################
+#Room 2
+
+###########################################################################
+#Room 3
+
+###########################################################################
+#Room 4
+
+###########################################################################
+#Room 5
+
+###########################################################################
+#Room 6
+
+###########################################################################
+#Chest Room
+
+###########################################################################
+#Hallway 1
+
+def main(stdscr, transiton_to):
     # Initialize curses
     curses.curs_set(0)  # Hide the cursor
     stdscr.nodelay(1)   # Non-blocking getch
@@ -436,36 +536,32 @@ def main(stdscr):
         elif player_pos in door_pos2:
             message = "You found a secret!" #Halway
         elif player_pos in door_pos3:
-            message = "You found a secret!3" #room 1
+            transiton_to("room1") #room 1
+            break
         elif player_pos in door_pos4:
             message = "You found a secret!4" #chest room
         elif player_pos in door_pos5:
             message = "You found a secret!5" #room 3
 
+
+
+##################################################################################
+#def libriary
+
+def entry_point(stdscr):
+    ROOMS = {
+        'room1': room1,
+        'main': main,
+        
+    }
+
+    def transition_to(room_name):
+        if room_name in ROOMS:
+            ROOMS[room_name](stdscr, transition_to)
+
+    # Start the game in the main room
+    transition_to('main')
+
+
 if __name__ == "__main__":
-    curses.wrapper(main)
-
-###########################################################################
-#Hallway 2
-
-
-###########################################################################
-#Room 1
-
-###########################################################################
-#Room 2
-
-###########################################################################
-#Room 3
-
-###########################################################################
-#Room 4
-
-###########################################################################
-#Room 5
-
-###########################################################################
-#Room 6
-
-###########################################################################
-#Chest Room
+    curses.wrapper(entry_point)
