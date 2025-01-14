@@ -354,15 +354,7 @@ def end4():
 ###########################################################################
 #koden för rörelse i spelet och att skapa spelkartan
 #bas kod är skaffad av ChatGPT och modifierad av Felix
-#Hallway 1
 
-
-###########################################################################
-#Hallway 2
-
-
-###########################################################################
-#Room 1
 
 def room1(stdscr, transition_to):
     # Initialize curses
@@ -400,6 +392,7 @@ def room1(stdscr, transition_to):
 
         # Display the message
         stdscr.addstr(rows, 0, f"Message: {message}")
+        message = 'Room1'
         stdscr.refresh()
 
         # Handle user input
@@ -435,25 +428,591 @@ def room1(stdscr, transition_to):
 
 
 
-###########################################################################
+###############################################################################
 #Room 2
+def room2(stdscr, transition_to):
+    # Initialize curses
+    curses.curs_set(0)  # Hide the cursor
+    stdscr.nodelay(1)   # Non-blocking getch
+    stdscr.timeout(20000) # Input timeout (ms)
 
-###########################################################################
+    # Game variables
+    rows, cols = 25, 45  # Game board dimensions
+    player_pos = [12, 37]  # Player's starting position
+    block_pos = []   # Block positions
+    Lärar_pos = [12, 3]      # Goal position
+    door_pos = [[13, 41], [12, 42], [11, 43]]
+
+    key = None           # Key press tracker
+    message = ""
+
+    while True:
+        # Draw game board
+        stdscr.clear()
+        for r in range(rows):
+            for c in range(cols):
+                if (r == 0 or r == rows - 1 or c == 0 or c == cols - 1):
+                    stdscr.addch(r, c, '#')  # Wall
+                elif [r, c] in door_pos:
+                    stdscr.addch(r, c, '/')
+                elif [r, c] in block_pos:
+                    stdscr.addch(r, c, 'B')  # Block
+                elif [r, c] == Lärar_pos:
+                    stdscr.addch(r, c, 'X')  # Goal
+                elif [r, c] == player_pos:
+                    stdscr.addch(r, c, 'O')  # Player
+                else:
+                    stdscr.addch(r, c, ' ')  # Empty space
+
+        # Display the message
+        stdscr.addstr(rows, 0, f"Message: {message}")
+        message = 'Room2'
+        stdscr.refresh()
+
+        # Handle user input
+        key = stdscr.getch()
+        new_pos = player_pos.copy()
+
+        if key == ord('q'):  # Quit the game
+            break
+        elif key == ord('w'):  # Move up
+            new_pos[0] -= 1
+        elif key == ord('s'):  # Move down
+            new_pos[0] += 1
+        elif key == ord('a'):  # Move left
+            new_pos[1] -= 1
+        elif key == ord('d'):  # Move right
+            new_pos[1] += 1
+        elif key == ord('i'):
+            break
+        
+        # Validate movement
+        if not (new_pos[0] == 0 or new_pos[0] == rows - 1 or 
+                 new_pos[1] == 0 or new_pos[1] == cols - 1) and new_pos not in block_pos:
+            player_pos = new_pos
+
+        # Check for goal and special positions
+        if player_pos == Lärar_pos:
+            message = "You reached the goal!"
+            break
+        elif player_pos in door_pos:
+            transition_to("main")
+            break
+
+###############################################################################
 #Room 3
+def room3(stdscr, transition_to):
+    # Initialize curses
+    curses.curs_set(0)  # Hide the cursor
+    stdscr.nodelay(1)   # Non-blocking getch
+    stdscr.timeout(20000) # Input timeout (ms)
 
-###########################################################################
+    # Game variables
+    rows, cols = 25, 45  # Game board dimensions
+    player_pos = [12, 7]  # Player's starting position
+    block_pos = []   # Block positions
+    Lärar_pos = [12, 40]      # Goal position
+    door_pos = [[13, 1], [12, 2], [11, 3]]
+
+    key = None           # Key press tracker
+    message = ""
+
+    while True:
+        # Draw game board
+        stdscr.clear()
+        for r in range(rows):
+            for c in range(cols):
+                if (r == 0 or r == rows - 1 or c == 0 or c == cols - 1):
+                    stdscr.addch(r, c, '#')  # Wall
+                elif [r, c] in door_pos:
+                    stdscr.addch(r, c, '/')
+                elif [r, c] in block_pos:
+                    stdscr.addch(r, c, 'B')  # Block
+                elif [r, c] == Lärar_pos:
+                    stdscr.addch(r, c, 'X')  # Goal
+                elif [r, c] == player_pos:
+                    stdscr.addch(r, c, 'O')  # Player
+                else:
+                    stdscr.addch(r, c, ' ')  # Empty space
+
+        # Display the message
+        stdscr.addstr(rows, 0, f"Message: {message}")
+        message = 'Room3'
+        stdscr.refresh()
+
+        # Handle user input
+        key = stdscr.getch()
+        new_pos = player_pos.copy()
+
+        if key == ord('q'):  # Quit the game
+            break
+        elif key == ord('w'):  # Move up
+            new_pos[0] -= 1
+        elif key == ord('s'):  # Move down
+            new_pos[0] += 1
+        elif key == ord('a'):  # Move left
+            new_pos[1] -= 1
+        elif key == ord('d'):  # Move right
+            new_pos[1] += 1
+        elif key == ord('i'):
+            break
+        
+        # Validate movement
+        if not (new_pos[0] == 0 or new_pos[0] == rows - 1 or 
+                 new_pos[1] == 0 or new_pos[1] == cols - 1) and new_pos not in block_pos:
+            player_pos = new_pos
+
+        # Check for goal and special positions
+        if player_pos == Lärar_pos:
+            message = "You reached the goal!"
+            break
+        elif player_pos in door_pos:
+            transition_to("main")
+            break
+
+###############################################################################
 #Room 4
+def room4(stdscr, transition_to):
+    # Initialize curses
+    curses.curs_set(0)  # Hide the cursor
+    stdscr.nodelay(1)   # Non-blocking getch
+    stdscr.timeout(20000) # Input timeout (ms)
 
-###########################################################################
+    # Game variables
+    rows, cols = 25, 45  # Game board dimensions
+    player_pos = [12, 7]  # Player's starting position
+    block_pos = []   # Block positions
+    Lärar_pos = [12, 40]      # Goal position
+    door_pos = [[13, 1], [12, 2], [11, 3]]
+
+    key = None           # Key press tracker
+    message = ""
+
+    while True:
+        # Draw game board
+        stdscr.clear()
+        for r in range(rows):
+            for c in range(cols):
+                if (r == 0 or r == rows - 1 or c == 0 or c == cols - 1):
+                    stdscr.addch(r, c, '#')  # Wall
+                elif [r, c] in door_pos:
+                    stdscr.addch(r, c, '/')
+                elif [r, c] in block_pos:
+                    stdscr.addch(r, c, 'B')  # Block
+                elif [r, c] == Lärar_pos:
+                    stdscr.addch(r, c, 'X')  # Goal
+                elif [r, c] == player_pos:
+                    stdscr.addch(r, c, 'O')  # Player
+                else:
+                    stdscr.addch(r, c, ' ')  # Empty space
+
+        # Display the message
+        stdscr.addstr(rows, 0, f"Message: {message}")
+        message = 'Room4'
+        stdscr.refresh()
+
+        # Handle user input
+        key = stdscr.getch()
+        new_pos = player_pos.copy()
+
+        if key == ord('q'):  # Quit the game
+            break
+        elif key == ord('w'):  # Move up
+            new_pos[0] -= 1
+        elif key == ord('s'):  # Move down
+            new_pos[0] += 1
+        elif key == ord('a'):  # Move left
+            new_pos[1] -= 1
+        elif key == ord('d'):  # Move right
+            new_pos[1] += 1
+        elif key == ord('i'):
+            break
+        
+        # Validate movement
+        if not (new_pos[0] == 0 or new_pos[0] == rows - 1 or 
+                 new_pos[1] == 0 or new_pos[1] == cols - 1) and new_pos not in block_pos:
+            player_pos = new_pos
+
+        # Check for goal and special positions
+        if player_pos == Lärar_pos:
+            message = "You reached the goal!"
+            break
+        elif player_pos in door_pos:
+            transition_to("main")
+            break
+
+###############################################################################
 #Room 5
+def room5(stdscr, transition_to):
+    # Initialize curses
+    curses.curs_set(0)  # Hide the cursor
+    stdscr.nodelay(1)   # Non-blocking getch
+    stdscr.timeout(20000) # Input timeout (ms)
 
-###########################################################################
+    # Game variables
+    rows, cols = 25, 45  # Game board dimensions
+    player_pos = [12, 7]  # Player's starting position
+    block_pos = []   # Block positions
+    Lärar_pos = [12, 40]      # Goal position
+    door_pos = [[13, 1], [12, 2], [11, 3]]
+
+    key = None           # Key press tracker
+    message = ""
+
+    while True:
+        # Draw game board
+        stdscr.clear()
+        for r in range(rows):
+            for c in range(cols):
+                if (r == 0 or r == rows - 1 or c == 0 or c == cols - 1):
+                    stdscr.addch(r, c, '#')  # Wall
+                elif [r, c] in door_pos:
+                    stdscr.addch(r, c, '/')
+                elif [r, c] in block_pos:
+                    stdscr.addch(r, c, 'B')  # Block
+                elif [r, c] == Lärar_pos:
+                    stdscr.addch(r, c, 'X')  # Goal
+                elif [r, c] == player_pos:
+                    stdscr.addch(r, c, 'O')  # Player
+                else:
+                    stdscr.addch(r, c, ' ')  # Empty space
+
+        # Display the message
+        stdscr.addstr(rows, 0, f"Message: {message}")
+        message = 'Room5'
+        stdscr.refresh()
+
+        # Handle user input
+        key = stdscr.getch()
+        new_pos = player_pos.copy()
+
+        if key == ord('q'):  # Quit the game
+            break
+        elif key == ord('w'):  # Move up
+            new_pos[0] -= 1
+        elif key == ord('s'):  # Move down
+            new_pos[0] += 1
+        elif key == ord('a'):  # Move left
+            new_pos[1] -= 1
+        elif key == ord('d'):  # Move right
+            new_pos[1] += 1
+        elif key == ord('i'):
+            break
+        
+        # Validate movement
+        if not (new_pos[0] == 0 or new_pos[0] == rows - 1 or 
+                 new_pos[1] == 0 or new_pos[1] == cols - 1) and new_pos not in block_pos:
+            player_pos = new_pos
+
+        # Check for goal and special positions
+        if player_pos == Lärar_pos:
+            message = "You reached the goal!"
+            break
+        elif player_pos in door_pos:
+            transition_to("hallway2")
+            break
+
+###############################################################################
 #Room 6
+def room6(stdscr, transition_to):
+    # Initialize curses
+    curses.curs_set(0)  # Hide the cursor
+    stdscr.nodelay(1)   # Non-blocking getch
+    stdscr.timeout(20000) # Input timeout (ms)
 
-###########################################################################
+    # Game variables
+    rows, cols = 25, 45  # Game board dimensions
+    player_pos = [12, 37]  # Player's starting position
+    block_pos = []   # Block positions
+    Lärar_pos = [12, 3]      # Goal position
+    door_pos = [[13, 41], [12, 42], [11, 43]]
+
+    key = None           # Key press tracker
+    message = ""
+
+    while True:
+        # Draw game board
+        stdscr.clear()
+        for r in range(rows):
+            for c in range(cols):
+                if (r == 0 or r == rows - 1 or c == 0 or c == cols - 1):
+                    stdscr.addch(r, c, '#')  # Wall
+                elif [r, c] in door_pos:
+                    stdscr.addch(r, c, '/')
+                elif [r, c] in block_pos:
+                    stdscr.addch(r, c, 'B')  # Block
+                elif [r, c] == Lärar_pos:
+                    stdscr.addch(r, c, 'X')  # Goal
+                elif [r, c] == player_pos:
+                    stdscr.addch(r, c, 'O')  # Player
+                else:
+                    stdscr.addch(r, c, ' ')  # Empty space
+
+        # Display the message
+        stdscr.addstr(rows, 0, f"Message: {message}")
+        message = 'Room6'
+        stdscr.refresh()
+
+        # Handle user input
+        key = stdscr.getch()
+        new_pos = player_pos.copy()
+
+        if key == ord('q'):  # Quit the game
+            break
+        elif key == ord('w'):  # Move up
+            new_pos[0] -= 1
+        elif key == ord('s'):  # Move down
+            new_pos[0] += 1
+        elif key == ord('a'):  # Move left
+            new_pos[1] -= 1
+        elif key == ord('d'):  # Move right
+            new_pos[1] += 1
+        elif key == ord('i'):
+            break
+        
+        # Validate movement
+        if not (new_pos[0] == 0 or new_pos[0] == rows - 1 or 
+                 new_pos[1] == 0 or new_pos[1] == cols - 1) and new_pos not in block_pos:
+            player_pos = new_pos
+
+        # Check for goal and special positions
+        if player_pos == Lärar_pos:
+            message = "You reached the goal!"
+            break
+        elif player_pos in door_pos:
+            transition_to("hallway2")
+            break
+
+###############################################################################
 #Chest Room
 
-###########################################################################
+def Chestroom(stdscr, transition_to):
+    # Initialize curses
+    curses.curs_set(0)  # Hide the cursor
+    stdscr.nodelay(1)   # Non-blocking getch
+    stdscr.timeout(20000) # Input timeout (ms)
+
+    # Game variables
+    rows, cols = 25, 45  # Game board dimensions
+    player_pos = [12, 37]  # Player's starting position
+    block_pos = []   # Block positions
+    Lärar_pos = [12, 3]      # Goal position
+    door_pos = [[13, 41], [12, 42], [11, 43]]
+
+    key = None           # Key press tracker
+    message = ""
+
+    while True:
+        # Draw game board
+        stdscr.clear()
+        for r in range(rows):
+            for c in range(cols):
+                if (r == 0 or r == rows - 1 or c == 0 or c == cols - 1):
+                    stdscr.addch(r, c, '#')  # Wall
+                elif [r, c] in door_pos:
+                    stdscr.addch(r, c, '/')
+                elif [r, c] in block_pos:
+                    stdscr.addch(r, c, 'B')  # Block
+                elif [r, c] == Lärar_pos:
+                    stdscr.addch(r, c, 'X')  # Goal
+                elif [r, c] == player_pos:
+                    stdscr.addch(r, c, 'O')  # Player
+                else:
+                    stdscr.addch(r, c, ' ')  # Empty space
+
+        # Display the message
+        stdscr.addstr(rows, 0, f"Message: {message}")
+        message = 'ChestRoom'
+        stdscr.refresh()
+
+        # Handle user input
+        key = stdscr.getch()
+        new_pos = player_pos.copy()
+
+        if key == ord('q'):  # Quit the game
+            break
+        elif key == ord('w'):  # Move up
+            new_pos[0] -= 1
+        elif key == ord('s'):  # Move down
+            new_pos[0] += 1
+        elif key == ord('a'):  # Move left
+            new_pos[1] -= 1
+        elif key == ord('d'):  # Move right
+            new_pos[1] += 1
+        elif key == ord('i'):
+            break
+        
+        # Validate movement
+        if not (new_pos[0] == 0 or new_pos[0] == rows - 1 or 
+                 new_pos[1] == 0 or new_pos[1] == cols - 1) and new_pos not in block_pos:
+            player_pos = new_pos
+
+        # Check for goal and special positions
+        if player_pos == Lärar_pos:
+            message = "You reached the goal!"
+            break
+        elif player_pos in door_pos:
+            transition_to("hallway2")
+            break
+###############################################################################
+#Lars Boss Room
+
+def Larsboss(stdscr, transition_to):
+    # Initialize curses
+    curses.curs_set(0)  # Hide the cursor
+    stdscr.nodelay(1)   # Non-blocking getch
+    stdscr.timeout(20000) # Input timeout (ms)
+
+    # Game variables
+    rows, cols = 25, 45  # Game board dimensions
+    player_pos = [12, 37]  # Player's starting position
+    block_pos = []   # Block positions
+    Lärar_pos = [12, 3]      # Goal position
+    door_pos = [[13, 42], [12, 43], [11, 44]]
+
+    key = None           # Key press tracker
+    message = ""
+
+    while True:
+        # Draw game board
+        stdscr.clear()
+        for r in range(rows):
+            for c in range(cols):
+                if (r == 0 or r == rows - 1 or c == 0 or c == cols - 1):
+                    stdscr.addch(r, c, '#')  # Wall
+                elif [r, c] in door_pos:
+                    stdscr.addch(r, c, '/')
+                elif [r, c] in block_pos:
+                    stdscr.addch(r, c, 'B')  # Block
+                elif [r, c] == Lärar_pos:
+                    stdscr.addch(r, c, 'X')  # Goal
+                elif [r, c] == player_pos:
+                    stdscr.addch(r, c, 'O')  # Player
+                else:
+                    stdscr.addch(r, c, ' ')  # Empty space
+
+        # Display the message
+        stdscr.addstr(rows, 0, f"Message: {message}")
+        message = 'Larsboss'
+        stdscr.refresh()
+
+        # Handle user input
+        key = stdscr.getch()
+        new_pos = player_pos.copy()
+
+        if key == ord('q'):  # Quit the game
+            break
+        elif key == ord('w'):  # Move up
+            new_pos[0] -= 1
+        elif key == ord('s'):  # Move down
+            new_pos[0] += 1
+        elif key == ord('a'):  # Move left
+            new_pos[1] -= 1
+        elif key == ord('d'):  # Move right
+            new_pos[1] += 1
+        elif key == ord('i'):
+            break
+        
+        # Validate movement
+        if not (new_pos[0] == 0 or new_pos[0] == rows - 1 or 
+                 new_pos[1] == 0 or new_pos[1] == cols - 1) and new_pos not in block_pos:
+            player_pos = new_pos
+
+        # Check for goal and special positions
+        if player_pos == Lärar_pos:
+            message = "You reached the goal!"
+            break
+        elif player_pos in door_pos:
+            transition_to("hallway2")
+            break
+###############################################################################
+#Hallway 2
+
+def Hallway2(stdscr, transition_to):
+    # Initialize curses
+    curses.curs_set(0)  # Hide the cursor
+    stdscr.nodelay(1)   # Non-blocking getch
+    stdscr.timeout(20000) # Input timeout (ms)
+
+    # Game variables
+    rows, cols = 15, 100  # Game board dimensions
+    player_pos = [12, 23]  # Player's starting position
+    block_pos = []   # Block positions
+    door_pos = [[13, 20], [13, 21], [13, 22], [13, 23], [13, 24], [13, 25], [13, 26]]
+    door_pos2 = [[7, 97], [8, 96], [6, 98]]
+    door_pos3 = [[13, 80], [13, 79], [13, 78], [13, 77], [13, 76], [13, 75], [13, 74]]
+    door_pos4 = [[2, ]]
+    Larsboss_pos =[[7, 2], [8, 1], [6, 3]]
+    key = None           # Key press tracker
+    message = ""
+
+    while True:
+        # Draw game board
+        stdscr.clear()
+        for r in range(rows):
+            for c in range(cols):
+                if (r == 0 or r == rows - 1 or c == 0 or c == cols - 1):
+                    stdscr.addch(r, c, '#')  # Wall
+                elif [r, c] in door_pos:
+                    stdscr.addch(r, c, '-')
+                elif [r, c] in door_pos2:
+                    stdscr.addch(r, c, '/')
+                elif [r, c] in door_pos3:
+                    stdscr.addch(r, c, '-')
+                elif [r, c] in Larsboss_pos:
+                    stdscr.addch(r, c, '/')
+                elif [r, c] in block_pos:
+                    stdscr.addch(r, c, 'B')  # Block
+                elif [r, c] == player_pos:
+                    stdscr.addch(r, c, 'O')  # Player
+                else:
+                    stdscr.addch(r, c, ' ')  # Empty space
+
+        # Display the message
+        stdscr.addstr(rows, 0, f"Message: {message}")
+        message = 'Hallway2'
+        stdscr.refresh()
+
+        # Handle user input
+        key = stdscr.getch()
+        new_pos = player_pos.copy()
+
+        if key == ord('q'):  # Quit the game
+            break
+        elif key == ord('w'):  # Move up
+            new_pos[0] -= 1
+        elif key == ord('s'):  # Move down
+            new_pos[0] += 1
+        elif key == ord('a'):  # Move left
+            new_pos[1] -= 1
+        elif key == ord('d'):  # Move right
+            new_pos[1] += 1
+        elif key == ord('i'):
+            break
+        
+        # Validate movement
+        if not (new_pos[0] == 0 or new_pos[0] == rows - 1 or 
+                 new_pos[1] == 0 or new_pos[1] == cols - 1) and new_pos not in block_pos:
+            player_pos = new_pos
+
+        # Check for goal and special positions
+        if player_pos in door_pos:
+            transition_to('main')
+            break
+        elif player_pos in door_pos2:
+            transition_to('room5')
+            break
+        elif player_pos in door_pos3:
+            transition_to('chestroom')
+            break
+        elif player_pos in door_pos4:
+            transition_to('room6')
+            break
+        elif player_pos in Larsboss_pos:
+            transition_to('Larsboss')
+            break
+        
+###############################################################################
 #Hallway 1
 
 def main(stdscr, transiton_to):
@@ -464,8 +1023,7 @@ def main(stdscr, transiton_to):
 
     # Game variables
     rows, cols = 35, 35  # Game board dimensions
-    player_pos = [31, 16]  # Player's starting position
-    block_pos = [[3, 3]]   # Block positions
+    player_pos = [31, 16]  # Player's starting positio
     goal_pos = [2, 2]      # Goal position
     door_pos = [[11, 1], [10, 2], [9, 3]]
     door_pos2 = [[1, 19], [1, 18], [1, 17], [1, 16], [1, 15], [1, 14], [1, 13]]
@@ -492,8 +1050,6 @@ def main(stdscr, transiton_to):
                     stdscr.addch(r, c, '/')
                 elif [r, c] in door_pos5:
                     stdscr.addch(r, c, '/')
-                elif [r, c] in block_pos:
-                    stdscr.addch(r, c, 'B')  # Block
                 elif [r, c] == goal_pos:
                     stdscr.addch(r, c, 'X')  # Goal
                 elif [r, c] == player_pos:
@@ -503,6 +1059,7 @@ def main(stdscr, transiton_to):
 
         # Display the message
         stdscr.addstr(rows, 0, f"Message: {message}")
+        message = 'Main room'
         stdscr.refresh()
 
         # Handle user input
@@ -524,7 +1081,7 @@ def main(stdscr, transiton_to):
         
         # Validate movement
         if not (new_pos[0] == 0 or new_pos[0] == rows - 1 or 
-                 new_pos[1] == 0 or new_pos[1] == cols - 1) and new_pos not in block_pos:
+                 new_pos[1] == 0 or new_pos[1] == cols - 1):
             player_pos = new_pos
 
         # Check for goal and special positions
@@ -532,26 +1089,39 @@ def main(stdscr, transiton_to):
             message = "You reached the goal!" #test sak
             break
         elif player_pos in door_pos:
-            message = "You encountered a door!"  #room 2
+            transiton_to('room2')  #room 2
+            break
         elif player_pos in door_pos2:
-            message = "You found a secret!" #Halway
+            transiton_to('hallway2') #Halway
+            break
         elif player_pos in door_pos3:
             transiton_to("room1") #room 1
             break
         elif player_pos in door_pos4:
-            message = "You found a secret!4" #chest room
+            transiton_to('room4') #room 4
+            break
         elif player_pos in door_pos5:
-            message = "You found a secret!5" #room 3
+            transiton_to('room3') #room 3
+            break
 
 
 
-##################################################################################
+###############################################################################
 #def libriary
 
 def entry_point(stdscr):
     ROOMS = {
-        'room1': room1,
         'main': main,
+        'room1': room1,
+        'room2': room2,
+        'room3': room3,
+        'room4': room4,
+        'room5': room5,
+        'room6': room6,
+        'Larsboss': Larsboss,
+        'Chestromm': Chestroom,
+        'hallway2': Hallway2,
+        
         
     }
 
@@ -560,7 +1130,7 @@ def entry_point(stdscr):
             ROOMS[room_name](stdscr, transition_to)
 
     # Start the game in the main room
-    transition_to('main')
+    transition_to('hallway2')
 
 
 if __name__ == "__main__":
