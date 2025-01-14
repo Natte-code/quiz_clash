@@ -1130,7 +1130,7 @@ def entry_point(stdscr):
             ROOMS[room_name](stdscr, transition_to)
 
     # Start the game in the main room
-    transition_to('hallway2')
+    transition_to('main')
 
 
 if __name__ == "__main__":
