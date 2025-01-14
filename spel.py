@@ -425,9 +425,6 @@ def room1(stdscr, transition_to):
             transition_to("main")
             break
 
-
-
-
 ###############################################################################
 #Room 2
 def room2(stdscr, transition_to):
@@ -785,7 +782,6 @@ def room6(stdscr, transition_to):
 
 ###############################################################################
 #Chest Room
-
 def Chestroom(stdscr, transition_to):
     # Initialize curses
     curses.curs_set(0)  # Hide the cursor
@@ -794,10 +790,10 @@ def Chestroom(stdscr, transition_to):
 
     # Game variables
     rows, cols = 25, 45  # Game board dimensions
-    player_pos = [12, 37]  # Player's starting position
-    block_pos = []   # Block positions
+    player_pos = [2, 22]  # Player's starting position
+    block_pos = [[23, 21], [22, 21], [21, 21], [12, 43], [12, 42], [12, 41], [12, 40], [12, 39]]   # Block positions
     Lärar_pos = [12, 3]      # Goal position
-    door_pos = [[13, 41], [12, 42], [11, 43]]
+    door_pos = [[1, 19], [1, 20], [1, 21], [1, 22], [1, 23], [1, 24], [1, 25]]
 
     key = None           # Key press tracker
     message = ""
@@ -810,9 +806,9 @@ def Chestroom(stdscr, transition_to):
                 if (r == 0 or r == rows - 1 or c == 0 or c == cols - 1):
                     stdscr.addch(r, c, '#')  # Wall
                 elif [r, c] in door_pos:
-                    stdscr.addch(r, c, '/')
+                    stdscr.addch(r, c, '-')
                 elif [r, c] in block_pos:
-                    stdscr.addch(r, c, 'B')  # Block
+                    stdscr.addch(r, c, '#')  # Block
                 elif [r, c] == Lärar_pos:
                     stdscr.addch(r, c, 'X')  # Goal
                 elif [r, c] == player_pos:
@@ -854,9 +850,9 @@ def Chestroom(stdscr, transition_to):
         elif player_pos in door_pos:
             transition_to("hallway2")
             break
+        
 ###############################################################################
 #Lars Boss Room
-
 def Larsboss(stdscr, transition_to):
     # Initialize curses
     curses.curs_set(0)  # Hide the cursor
@@ -868,7 +864,7 @@ def Larsboss(stdscr, transition_to):
     player_pos = [12, 37]  # Player's starting position
     block_pos = []   # Block positions
     Lärar_pos = [12, 3]      # Goal position
-    door_pos = [[13, 42], [12, 43], [11, 44]]
+    door_pos = [[13, 41], [12, 42], [11, 43]]
 
     key = None           # Key press tracker
     message = ""
@@ -925,9 +921,9 @@ def Larsboss(stdscr, transition_to):
         elif player_pos in door_pos:
             transition_to("hallway2")
             break
+        
 ###############################################################################
 #Hallway 2
-
 def Hallway2(stdscr, transition_to):
     # Initialize curses
     curses.curs_set(0)  # Hide the cursor
@@ -1003,7 +999,7 @@ def Hallway2(stdscr, transition_to):
             transition_to('room5')
             break
         elif player_pos in door_pos3:
-            transition_to('chestroom')
+            transition_to('Chestroom')
             break
         elif player_pos in door_pos4:
             transition_to('room6')
@@ -1014,7 +1010,6 @@ def Hallway2(stdscr, transition_to):
         
 ###############################################################################
 #Hallway 1
-
 def main(stdscr, transiton_to):
     # Initialize curses
     curses.curs_set(0)  # Hide the cursor
@@ -1104,8 +1099,6 @@ def main(stdscr, transiton_to):
             transiton_to('room3') #room 3
             break
 
-
-
 ###############################################################################
 #def libriary
 
@@ -1119,7 +1112,7 @@ def entry_point(stdscr):
         'room5': room5,
         'room6': room6,
         'Larsboss': Larsboss,
-        'Chestromm': Chestroom,
+        'Chestroom': Chestroom,
         'hallway2': Hallway2,
         
         
