@@ -296,7 +296,7 @@ def johannaquestion():
         ("Vad är 5^2?", "25"),
         ("Om ett pris ökar med 10%, vad blir det nya priset på 50 kr?", "55 kr"),
         ("Vad är 3/4 + 1/4?", "1"),
-        ("Om y = 4, vad är värdet av 2 + 3 x y?", "14"),
+        ("Om y = 4, vad är värdet av 2 + 3 x y? (Endast svar)", "14"),
         ("Vad är 9 x 8 ?", "72"),
         ("Om du delar 45 med 5, vad får du då?", "9"),
         ("Vad är 1/5 av 50?", "10"),
@@ -494,7 +494,7 @@ def devidquestion():
             # Spelaren går in i fight
             print(f"Fel!")
             combat_loop(player, teacher5)
-            break
+            
 
 #Mirrela
 def mirrelaquestion(transiton_to):
@@ -1107,9 +1107,7 @@ def room6(stdscr, transition_to):
         Hej, jag heter Mirella och jag är en dator och nätwerks teknik lärare.
 
         Jag kommer ställa dig 5 olika frågor, om du svarar rätt på alla då får du gå iväg.
-        Om du gör ett ända fel då är det kört för dig. 
-
-        Hihihiha
+        Om du gör ett ända fel då ska jag krasha din dator. 
         '''
         stdscr.refresh()
 
