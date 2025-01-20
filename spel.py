@@ -55,7 +55,7 @@ def start_screen(name): #startar start skärmen, förklarar hur man spelar och v
    time.sleep(1)
    print("")
    print("""Hur man spelar:
-                Rör dig med WASD eller PILLAR-tangenterna. 
+                Rör dig med WASD. 
                 Samla mynt, öppna lådor och upptäck klassrum. 
                 Svara på lärarens frågor. Fel svar leder till turordningsbaserade strider.
                 Håll terminalen i FULL SCREEN!!
@@ -278,6 +278,7 @@ def combat_loop(player, teacher): #combat loopen1
 #den kod skrivs av eliot
 
 def johannaquestion():
+    os.system('cls' if os.name == 'nt' else 'clear')
     # Olika frågor och rätta svar
     q_and_a_johanna = [
         ("Vad är 15 + 27?", "42"),
@@ -319,6 +320,250 @@ def johannaquestion():
 
 # starta frågorna
 
+#ronja
+def ronjaquestion():
+    os.system('cls' if os.name == 'nt' else 'clear')
+    # Olika frågor och rätta svar
+    q_and_a_ronja = [
+    ("What is the capital of the United Kingdom?", "London"),
+    ("Who wrote the play 'Romeo and Juliet'?", "William Shakespeare"),
+    ("Which word is a synonym for 'happy'?", "joyful"),
+    ("What is the opposite of 'increase'?", "decrease"),
+    ("What is the past tense of 'run'?", "ran"),
+    ("What is the plural form of 'child'?", "children"),
+    ("How do you spell the color of the sky?", "blue"),
+    ("Which of these is a noun: 'quickly', 'dog', or 'happy'?", "dog"),
+    ("What is the superlative form of 'good'?", "best"),
+    ("What does the word 'benevolent' mean?", "kind or charitable"),
+    ("What is the past participle of 'eat'?", "eaten"),
+    ("What is the meaning of 'metaphor'?", "a figure of speech comparing two things without using 'like' or 'as'"),
+    ("Which of these is a verb: 'sing', 'yellow', or 'cat'?", "sing"),
+    ("What is the opposite of 'inside'?", "outside"),
+    ("What type of word is 'quickly'?", "adverb"),
+    ("What does the word 'audible' mean?", "able to be heard"),
+    ("What is the plural of 'mouse'?", "mice"),
+    ("Which is the correct form: 'She don't like ice cream' or 'She doesn't like ice cream'?", "She doesn't like ice cream"),
+    ("What is the comparative form of 'big'?", "bigger"),
+    ("Which is a compound word: 'sunshine', 'happy', or 'book'?", "sunshine")
+]
+
+    # Välj slumpmässigt 5 frågor
+    selected_questions = random.sample(q_and_a_ronja, 5)
+
+    for i, (question, correct_answer) in enumerate(selected_questions, start=1):
+        print(f"Fråga {i}: {question}")
+        answer = input("Ditt svar: ").strip().lower()
+
+        if answer == correct_answer.lower():
+            print("Rätt!\n")
+        else:
+            # Spelaren går in i fight
+            print(f"Fel!")
+            combat_loop(player, teacher2)
+            break
+
+#henrik
+def henrikquestion():
+    os.system('cls' if os.name == 'nt' else 'clear')
+    # Olika frågor och rätta svar
+    q_and_a_henrik = [
+    ("Är solen en stjärna?", "Ja"),
+    ("Har alla föremål med massa också gravitation?", "Ja"),
+    ("Kan ljud färdas i rymden?", "Nej"),
+    ("Är ljus snabbare än ljud?", "Ja"),
+    ("Är vatten en bra ledare för elektricitet?", "Ja"),
+    ("Är en Newton en enhet för kraft?", "Ja"),
+    ("Är temperaturen alltid högre än 0°C på jorden?", "Nej"),
+    ("Kan energi förstöras?", "Nej"),
+    ("Är tyngdkraften svagare på månen än på jorden?", "Ja"),
+    ("Kan du se infrarött ljus med blotta ögat?", "Nej"),
+    ("Är elektricitet och magnetism relaterade?", "Ja"),
+    ("Kan en kompass peka mot söder?", "Nej"),
+    ("Är metaller bra ledare för värme?", "Ja"),
+    ("Kan en kraft ändra riktningen på ett föremål?", "Ja"),
+    ("Är atomkärnan större än atomen?", "Nej"),
+    ("Är en blixt ett exempel på statisk elektricitet?", "Ja"),
+    ("Är gravitationskraften starkare på jorden än på Jupiter?", "Nej"),
+    ("Kan ett föremål flyta om dess densitet är högre än vattnets?", "Nej"),
+    ("Är ljus både en våg och en partikel?", "Ja"),
+    ("Är värme en form av energi?", "Ja")
+]
+
+
+    # Välj slumpmässigt 5 frågor
+    selected_questions = random.sample(q_and_a_henrik, 5)
+
+    for i, (question, correct_answer) in enumerate(selected_questions, start=1):
+        print(f"Fråga {i}: {question}")
+        answer = input("Ditt svar: ").strip().lower()
+
+        if answer == correct_answer.lower():
+            print("Rätt!\n")
+        else:
+            # Spelaren går in i fight
+            print(f"Fel!")
+            combat_loop(player, teacher3)
+            break
+
+#Victor
+def vicorquestion():
+    os.system('cls' if os.name == 'nt' else 'clear')
+    # Olika frågor och rätta svar
+    q_and_a_victor = [
+    ("Vilket tal saknas i serien: 2, 4, 8, 16, ?", "32"),
+    ("En trappstege är 6 steg hög. Om du går upp 3 steg och ner 2 steg, hur många steg är du totalt uppförd?", "1"),
+    ("Om du har 4 olika färger av marker och du ska välja 2 marker att ta, hur många olika kombinationer kan du göra?", "6"),
+    ("Vad är det största talet som är delbart med både 12 och 18?", "36"),
+    ("Om en bok kostar 100 kronor och den är nedsatt med 25%, vad kostar boken?", "75 kronor"),
+    ("Om du har en korg med 5 röda äpplen, 7 gröna och 3 gula, hur många äpplen är det i korgen totalt?", "15 äpplen"),
+    ("Om en rektangel har en längd på 12 cm och en bredd på 4 cm, vad är dess omkrets?", "32 cm"),
+    ("Om en tårta är delad i 10 bitar och du äter 3, hur många bitar är kvar?", "7 bitar"),
+    ("Vilken ordning kommer bokstäverna A, C, B i när man ordnar dem alfabetiskt?", "A B C"),
+    ("Vad är det största gemensamma delare av 24 och 36?", "12"),
+    ("Om en person kör 60 km på 1 timme, hur långt skulle personen köra på 4 timmar?", "240 km"),
+    ("Hur många olika sätt kan du ordna tre böcker på en hylla?", "6 sätt"),
+    ("Felix ålder är dubbelt så stor som Max. Om Felix är 12 år, hur gammal är Max?", "6 år"),
+    ("Om du går 5 steg framåt och 2 steg bakåt, hur många steg framåt är du från startpunkten?", "3 "),
+    ("En fisk simmar 30 meter varje minut. Hur långt simmar den på 10 minuter?", "300 meter"),
+    ("Om en bok har 250 sidor och du har läst 150 sidor, hur många sidor är kvar?", "100 sidor"),
+    ("Vad är nästa tal i serien: 1, 4, 9, 16, ?", "25"),
+    ("Vad är medianen i följande tal: 5, 8, 10, 2, 7?", "7"),
+    ("En veckodag infaller var sjunde dag. Om det är en tisdag idag, vilken veckodag är det om 28 dagar?", "Tisdag"),
+    ("Om du har 5 bilar och varje bil kan ta 4 passagerare, hur många passagerare kan totalt åka i alla bilar?", "20 passagerare"),
+    ("Vad är nästa tal i serien: 1, 1, 2, 3, 5, 8, ?", "13")
+]
+
+
+
+    # Välj slumpmässigt 5 frågor
+    selected_questions = random.sample(q_and_a_victor, 5)
+
+    for i, (question, correct_answer) in enumerate(selected_questions, start=1):
+        print(f"Fråga {i}: {question}")
+        answer = input("Ditt svar: ").strip().lower()
+
+        if answer == correct_answer.lower():
+            print("Rätt!\n")
+        else:
+            # Spelaren går in i fight
+            print(f"Fel!")
+            combat_loop(player, teacher4)
+            break
+
+
+#David
+def devidquestion():
+    os.system('cls' if os.name == 'nt' else 'clear')
+    # Olika frågor och rätta svar
+    q_and_a_david = [
+    ("Hur många spelare finns det i ett fotbollslag?", "11"),
+    ("Vad är längden på ett standard maratonlopp?", "42,195 km"),
+    ("I basket, hur många poäng är ett tvåpoängsskott värt?", "2 poäng"),
+    ("Vad är det högsta möjliga poängantalet i en bowlingmatch?", "300"),
+    ("Hur många minuter är en standard ishockeymatch?", "60 minuter"),
+    ("Vad kallas ett resultat av noll i tennis?", "love"),
+    ("Vilken sport spelas på Wimbledon?", "Tennis"),
+    ("Hur många yards är det i en mile?", "1 760 yards"),
+    ("I vilken sport använder man en spjut?", "Friidrott"),
+    ("Vad är högsta möjliga poäng i en gymnastikövning?", "10.0"),
+    ("Vad är avståndet mellan baserna i baseball?", "90 fot"),
+    ("Hur lång är en olympisk simbassäng?", "50 meter"),
+    ("Vilken typ av lopp är 100 meter?", "Sprint"),
+    ("I vilken sport gör man en layup?", "Basketboll"),
+    ("Vad heter trofén som delas ut till vinnaren av Super Bowl?", "Vince Lombardi Trophy"),
+    ("I vilken sport tävlar man i tiokamp?", "Friidrott"),
+    ("Hur lång är en standard rugbymatch?", "80 minuter"),
+    ("Vad heter fotbollstävlingen som spelas mellan de bästa lagen i Europa?", "UEFA Champions League"),
+    ("Hur många set måste en spelare vinna för att vinna en match i volleyboll?", "3")
+]
+
+
+
+
+    # Välj slumpmässigt 5 frågor
+    selected_questions = random.sample(q_and_a_david, 5)
+
+    for i, (question, correct_answer) in enumerate(selected_questions, start=1):
+        print(f"Fråga {i}: {question}")
+        answer = input("Ditt svar: ").strip().lower()
+
+        if answer == correct_answer.lower():
+            print("Rätt!\n")
+        else:
+            # Spelaren går in i fight
+            print(f"Fel!")
+            combat_loop(player, teacher5)
+            break
+
+#Mirrela
+def mirrelaquestion():
+    os.system('cls' if os.name == 'nt' else 'clear')
+    # Olika frågor och rätta svar
+    q_and_a_mirrela = [
+    ("Är CPU detsamma som datorns hjärna?", "Ja"),
+    ("Kan du surfa på internet utan en webbläsare?", "Nej"),
+    ("Är en hårddisk till för att lagra data?", "Ja"),
+    ("Är en IP-adress alltid synlig för användaren?", "Nej"),
+    ("Kan en router ge internetanslutning trådlöst?", "Ja"),
+    ("Är USB ett sätt att överföra data mellan enheter?", "Ja"),
+    ("Är www en förkortning för Wide World Web?", "Nej"),
+    ("Kan datorvirus spridas genom e-postbilagor?", "Ja"),
+    ("Är Wi-Fi detsamma som en nätverkskabel?", "Nej"),
+    ("Är RAM ett permanent lagringsutrymme?", "Nej"),
+    ("Kan du skriva ut en fil utan att en skrivare är ansluten?", "Nej"),
+    ("Är en server en dator som delar resurser i ett nätverk?", "Ja"),
+    ("Behöver du en nätverkskabel för att ansluta till internet via Wi-Fi?", "Nej"),
+    ("Kan en bit bara ha värdena 0 eller 1?", "Ja"),
+    ("Är en molntjänst fysisk hårdvara i ditt hem?", "Nej"),
+    ("Är en webbsida en del av internet?", "Ja"),
+    ("Är antivirusprogram alltid gratis?", "Nej"),
+    ("Kan en nätverksswitch koppla ihop flera datorer?", "Ja"),
+    ("Är Windows ett exempel på ett operativsystem?", "Ja"),
+    ("Kan du ladda ner en fil utan en internetanslutning?", "Nej")
+]
+
+
+    # Välj slumpmässigt 5 frågor
+    selected_questions = random.sample(q_and_a_mirrela, 5)
+
+    for i, (question, correct_answer) in enumerate(selected_questions, start=1):
+        print(f"Fråga {i}: {question}")
+        answer = input("Ditt svar: ").strip().lower()
+
+        if answer == correct_answer.lower():
+            print("Rätt!\n")
+        else:
+            # Spelaren går in i fight
+            print(f"Fel!")
+            combat_loop(player, teacher6)
+            break
+
+
+#Lars boss
+def larsquestion(): 
+    # Olika frågor och rätta svar
+    q_and_a_boss = [
+        #omöjlig att svara rätt på
+        ("Är det möjligt att svara nej på denna fråga och ändå ha rätt?", "båda"),
+        ("Vad är 1/100 av 50?", "0,5"),
+        ("Är en hårddisk till för att lagra data", "ja"),
+        ("Kan ett föremål flyta om dess densitet är högre än vattnets?", "nej"),
+        ("Beräkna: 1 x 3 + 2 x 3 + 3 x 3", "18"),
+    ]
+
+    # Välj slumpmässigt 5 frågor
+    selected_questions = random.sample(q_and_a_boss, 5)
+
+    for i, (question, correct_answer) in enumerate(selected_questions, start=1):
+        print(f"Fråga {i}: {question}")
+        answer = input("Ditt svar: ").strip().lower()
+
+        if answer == correct_answer.lower():
+            print("Rätt!\n")
+        else:
+            print("Fel!")
+            combat_loop(player, boss)
+            break
 
 
 ###########################################################################
@@ -440,7 +685,16 @@ def room1(stdscr, transition_to):
 
         # Display the message
         stdscr.addstr(rows, 0, f"Message: {message}")
-        message = 'Johannas rum'
+        message = '''
+        Johannas rum
+
+        Hej, jag heter Johanna och jag är en matte lärare.
+
+        Jag kommer ställa dig 5 olika frågor, om du svarar rätt på alla då får du gå iväg.
+        Om du gör ett ända fel då kommer det blir kaos för dig.
+
+        Hehe
+        '''
         stdscr.refresh()
 
         # Handle user input
@@ -514,7 +768,16 @@ def room2(stdscr, transition_to):
 
         # Display the message
         stdscr.addstr(rows, 0, f"Message: {message}")
-        message = 'Ronjas rum'
+        message ='''
+        Ronja rum
+
+        Hi my name is Ronja, I am a english/swedish teatcher.
+
+        I am going to ask you 5 question, if you answer correct to all of them you can leave.
+        If you do one single mistake this is going to be really bad for you.
+
+        Let's go!
+        '''
         stdscr.refresh()
 
         # Handle user input
@@ -544,7 +807,7 @@ def room2(stdscr, transition_to):
             stdscr.clear()
             os.system('cls' if os.name == 'nt' else 'clear')
             curses.endwin()
-            #Här ska läraren vara!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            ronjaquestion()
             break
         elif player_pos in door_pos:
             transition_to("main")
@@ -588,7 +851,16 @@ def room3(stdscr, transition_to):
 
         # Display the message
         stdscr.addstr(rows, 0, f"Message: {message}")
-        message = 'Henriks rum'
+        message = '''
+        Henrik rum
+
+        Hej, jag heter Henrik och jag är en matte och fysik lärare.
+
+        Jag kommer ställa dig 5 olika frågor, om du svarar rätt på alla då får du gå iväg.
+        Om du gör ett ända fel då kommer det blir  för dig.
+
+        Hehe
+        '''
         stdscr.refresh()
 
         # Handle user input
@@ -618,7 +890,7 @@ def room3(stdscr, transition_to):
             stdscr.clear()
             os.system('cls' if os.name == 'nt' else 'clear')
             curses.endwin()
-            #Här ska läraren vara!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            henrikquestion()
             break
         elif player_pos in door_pos:
             transition_to("main")
@@ -662,7 +934,15 @@ def room4(stdscr, transition_to):
 
         # Display the message
         stdscr.addstr(rows, 0, f"Message: {message}")
-        message = 'Victors rum'
+        message = '''
+        Victor rum
+
+        Hej, jag heter Victor och jag är en matte lärare.
+
+        Jag kommer ställa dig 5 olika frågor om logisk tänkande, om du svarar rätt på alla då får du gå iväg.
+        Om du gör ett ända fel då kommer det blir.... du vill inte veta hehehe.
+
+        '''
         stdscr.refresh()
 
         # Handle user input
@@ -692,7 +972,7 @@ def room4(stdscr, transition_to):
             stdscr.clear()
             os.system('cls' if os.name == 'nt' else 'clear')
             curses.endwin()
-            #Här ska läraren vara!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            vicorquestion()
             break
         elif player_pos in door_pos:
             transition_to("main")
@@ -736,7 +1016,15 @@ def room5(stdscr, transition_to):
 
         # Display the message
         stdscr.addstr(rows, 0, f"Message: {message}")
-        message = 'Davids rum' 
+        message = '''
+        Vadic rum
+
+        Hej, jag heter David och jag är idrotts läraren.
+
+        Jag kommer ställa dig 5 olika frågor om idrott, om du svarar rätt på alla då får du gå iväg.
+        Om du gör ett ända fel då måste kommer det blir riktgit dåligt för dig...
+
+        '''
         stdscr.refresh()
 
         # Handle user input
@@ -766,7 +1054,7 @@ def room5(stdscr, transition_to):
             stdscr.clear()
             os.system('cls' if os.name == 'nt' else 'clear')
             curses.endwin()
-            #Här ska läraren vara!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            devidquestion()
             break
         elif player_pos in door_pos:
             transition_to("hallway2")
@@ -810,7 +1098,16 @@ def room6(stdscr, transition_to):
 
         # Display the message
         stdscr.addstr(rows, 0, f"Message: {message}")
-        message = 'Mirrela'
+        message = '''
+        Mirella rum
+
+        Hej, jag heter Mirella och jag är en dator och nätwerks teknik lärare.
+
+        Jag kommer ställa dig 5 olika frågor, om du svarar rätt på alla då får du gå iväg.
+        Om du gör ett ända fel då är det kört för dig. 
+
+        Hihihiha
+        '''
         stdscr.refresh()
 
         # Handle user input
@@ -840,7 +1137,7 @@ def room6(stdscr, transition_to):
             stdscr.clear()
             os.system('cls' if os.name == 'nt' else 'clear')
             curses.endwin()
-            #Här ska läraren vara!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            mirrelaquestion()
             break
         elif player_pos in door_pos:
             transition_to("hallway2")
@@ -955,7 +1252,18 @@ def Larsboss(stdscr, transition_to):
 
         # Display the message
         stdscr.addstr(rows, 0, f"Message: {message}")
-        message = 'Larsboss'
+        message = '''
+        Lars boss rum
+
+        Hello there, jag heter Lars men folk brukar kalla mig Mr aura eller Albert Einstein
+
+        Jag är den bästa läraren någonsin, min kunskapnivå är obeskrivligt och jag har mystiskt aura.
+        Min skalle är så slät att de reflekterar allt som matte, fysik och mycket mer.
+        Jag kommer ställa dig fem frågor också fast denna gången du kan inte åka iväg så lätt.
+
+        Det kommer blir roligt hehe...
+
+        '''
         stdscr.refresh()
 
         # Handle user input
@@ -985,8 +1293,8 @@ def Larsboss(stdscr, transition_to):
             stdscr.clear()
             os.system('cls' if os.name == 'nt' else 'clear')
             curses.endwin()
-            #Här ska läraren vara!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            break
+            larsquestion()
+            break #är allt b
         elif player_pos in door_pos:
             transition_to("hallway2")
             break
@@ -1090,8 +1398,7 @@ def main(stdscr, transiton_to):
 
     # Game variables
     rows, cols = 35, 35  # Game board dimensions
-    player_pos = [31, 16]  # Player's starting positio
-    goal_pos = [2, 2]      # Goal position
+    player_pos = [31, 16]  # Player's starting positio      
     door_pos = [[11, 1], [10, 2], [9, 3]]
     door_pos2 = [[1, 19], [1, 18], [1, 17], [1, 16], [1, 15], [1, 14], [1, 13]]
     door_pos3 = [[27, 1], [26, 2], [25, 3]]
@@ -1117,8 +1424,6 @@ def main(stdscr, transiton_to):
                     stdscr.addch(r, c, '/')
                 elif [r, c] in door_pos5:
                     stdscr.addch(r, c, '/')
-                elif [r, c] == goal_pos:
-                    stdscr.addch(r, c, 'X')  # Goal
                 elif [r, c] == player_pos:
                     stdscr.addch(r, c, 'O')  # Player
                 else:
@@ -1151,11 +1456,8 @@ def main(stdscr, transiton_to):
                  new_pos[1] == 0 or new_pos[1] == cols - 1):
             player_pos = new_pos
 
-        # Check for goal and special positions
-        if player_pos == goal_pos:
-            transiton_to('lärar')
-            break
-        elif player_pos in door_pos:
+        # Check for goal and special position
+        if player_pos in door_pos:
             transiton_to('room2')  #room 2
             break
         elif player_pos in door_pos2:
@@ -1186,7 +1488,6 @@ def entry_point(stdscr):
         'Larsboss': Larsboss,
         'Chestroom': Chestroom,
         'hallway2': Hallway2,
-        'Lärar': johannaquestion,
         
     }
 
