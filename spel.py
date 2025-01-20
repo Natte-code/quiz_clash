@@ -55,7 +55,7 @@ def start_screen(name): #startar start skärmen, förklarar hur man spelar och v
    time.sleep(1)
    print("")
    print("""Hur man spelar:
-                Rör dig med WASD. 
+                Rör dig med WASD, inte med PILL-tagneter
                 Samla mynt, öppna lådor och upptäck klassrum. 
                 Svara på lärarens frågor. Fel svar leder till turordningsbaserade strider.
                 Håll terminalen i FULL SCREEN!!
@@ -186,7 +186,7 @@ teacher4 = Teacher(name="Victor", health=135, min_damage=1, max_damage=13)
 teacher5 = Teacher(name="David", health=150, min_damage=9, max_damage=20)
 teacher6 = Teacher(name="Mirrela", health=200, min_damage=11, max_damage=25) #klassrumm 6
 
-def combat_loop(player, teacher): #combat loopen1
+def combat_loop(player, teacher, transiton_to): #combat loopen1
     while player.health > 0 and teacher.health > 0:
         clear_screen()
         
@@ -238,6 +238,7 @@ def combat_loop(player, teacher): #combat loopen1
         # Kontrollera om teacher hp = 0
         if teacher.health <= 0:
             print(f"{teacher.name} är besegrad! Du vann!\n------------")
+            transiton_to('main')
             #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!lägg till vad som ska hända här när teacher är död
 
         input("Tryck ENTER för att fortsätta...")
@@ -496,7 +497,7 @@ def devidquestion():
             break
 
 #Mirrela
-def mirrelaquestion():
+def mirrelaquestion(transiton_to):
     os.system('cls' if os.name == 'nt' else 'clear')
     # Olika frågor och rätta svar
     q_and_a_mirrela = [
@@ -532,6 +533,8 @@ def mirrelaquestion():
 
         if answer == correct_answer.lower():
             print("Rätt!\n")
+            time.sleep(2)
+            transiton_to('room6')
         else:
             # Spelaren går in i fight
             print(f"Fel!")
