@@ -182,12 +182,12 @@ class Teacher:
 #definerar Lärararna osv
 #boss = boss(name="Lars", health=450, min_damage=10, max_damage=95)
 
-teacher1 = Teacher(name="johanna", health=100, min_damage=1, max_damage=10)
+teacher1 = Teacher(name="johanna", health=100, min_damage=1, max_damage=10) #klassrumm 1
 teacher2 = Teacher(name="Ronja", health=110, min_damage=5, max_damage=15)
 teacher3 = Teacher(name="Henrik", health=125, min_damage=8, max_damage=18)
 teacher4 = Teacher(name="Victor", health=135, min_damage=1, max_damage=13)
 teacher5 = Teacher(name="David", health=150, min_damage=9, max_damage=20)
-teacher6 = Teacher(name="Mirrela", health=200, min_damage=11, max_damage=25)
+teacher6 = Teacher(name="Mirrela", health=200, min_damage=11, max_damage=25) #klassrumm 6
 
 def combat_loop(player, teacher): #combat loopen1
     while player.health > 0 and teacher.health > 0:
@@ -676,7 +676,7 @@ def room5(stdscr, transition_to):
 
         # Display the message
         stdscr.addstr(rows, 0, f"Message: {message}")
-        message = 'Room5'
+        message = 'Room5' 
         stdscr.refresh()
 
         # Handle user input
