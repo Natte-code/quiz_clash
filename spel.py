@@ -440,7 +440,7 @@ def room1(stdscr, transition_to):
 
         # Display the message
         stdscr.addstr(rows, 0, f"Message: {message}")
-        message = 'Room1'
+        message = 'Johannas rum'
         stdscr.refresh()
 
         # Handle user input
@@ -467,7 +467,10 @@ def room1(stdscr, transition_to):
 
         # Check for goal and special positions
         if player_pos == Lärar_pos:
-            combat_loop(player, teacher1)
+            stdscr.clear()
+            os.system('cls' if os.name == 'nt' else 'clear')
+            curses.endwin()
+            johannaquestion()
             break
         elif player_pos in door_pos:
             transition_to("main")
@@ -511,7 +514,7 @@ def room2(stdscr, transition_to):
 
         # Display the message
         stdscr.addstr(rows, 0, f"Message: {message}")
-        message = 'Room2'
+        message = 'Ronjas rum'
         stdscr.refresh()
 
         # Handle user input
@@ -538,7 +541,10 @@ def room2(stdscr, transition_to):
 
         # Check for goal and special positions
         if player_pos == Lärar_pos:
-            combat_loop(player, teacher2)
+            stdscr.clear()
+            os.system('cls' if os.name == 'nt' else 'clear')
+            curses.endwin()
+            #Här ska läraren vara!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             break
         elif player_pos in door_pos:
             transition_to("main")
@@ -582,7 +588,7 @@ def room3(stdscr, transition_to):
 
         # Display the message
         stdscr.addstr(rows, 0, f"Message: {message}")
-        message = 'Room3'
+        message = 'Henriks rum'
         stdscr.refresh()
 
         # Handle user input
@@ -609,7 +615,10 @@ def room3(stdscr, transition_to):
 
         # Check for goal and special positions
         if player_pos == Lärar_pos:
-            combat_loop(player, teacher3)
+            stdscr.clear()
+            os.system('cls' if os.name == 'nt' else 'clear')
+            curses.endwin()
+            #Här ska läraren vara!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             break
         elif player_pos in door_pos:
             transition_to("main")
@@ -653,7 +662,7 @@ def room4(stdscr, transition_to):
 
         # Display the message
         stdscr.addstr(rows, 0, f"Message: {message}")
-        message = 'Room4'
+        message = 'Victors rum'
         stdscr.refresh()
 
         # Handle user input
@@ -680,7 +689,10 @@ def room4(stdscr, transition_to):
 
         # Check for goal and special positions
         if player_pos == Lärar_pos:
-            combat_loop(player, teacher4)
+            stdscr.clear()
+            os.system('cls' if os.name == 'nt' else 'clear')
+            curses.endwin()
+            #Här ska läraren vara!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             break
         elif player_pos in door_pos:
             transition_to("main")
@@ -724,7 +736,7 @@ def room5(stdscr, transition_to):
 
         # Display the message
         stdscr.addstr(rows, 0, f"Message: {message}")
-        message = 'Room5' 
+        message = 'Davids rum' 
         stdscr.refresh()
 
         # Handle user input
@@ -751,7 +763,10 @@ def room5(stdscr, transition_to):
 
         # Check for goal and special positions
         if player_pos == Lärar_pos:
-            combat_loop(player, teacher5)
+            stdscr.clear()
+            os.system('cls' if os.name == 'nt' else 'clear')
+            curses.endwin()
+            #Här ska läraren vara!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             break
         elif player_pos in door_pos:
             transition_to("hallway2")
@@ -795,7 +810,7 @@ def room6(stdscr, transition_to):
 
         # Display the message
         stdscr.addstr(rows, 0, f"Message: {message}")
-        message = 'Room6'
+        message = 'Mirrela'
         stdscr.refresh()
 
         # Handle user input
@@ -822,7 +837,10 @@ def room6(stdscr, transition_to):
 
         # Check for goal and special positions
         if player_pos == Lärar_pos:
-            combat_loop(player, teacher6)
+            stdscr.clear()
+            os.system('cls' if os.name == 'nt' else 'clear')
+            curses.endwin()
+            #Här ska läraren vara!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             break
         elif player_pos in door_pos:
             transition_to("hallway2")
@@ -964,7 +982,10 @@ def Larsboss(stdscr, transition_to):
 
         # Check for goal and special positions
         if player_pos == Lärar_pos:
-            #lars combat!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            stdscr.clear()
+            os.system('cls' if os.name == 'nt' else 'clear')
+            curses.endwin()
+            #Här ska läraren vara!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             break
         elif player_pos in door_pos:
             transition_to("hallway2")
