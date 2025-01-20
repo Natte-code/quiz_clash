@@ -937,7 +937,8 @@ def Hallway2(stdscr, transition_to):
     door_pos = [[13, 20], [13, 21], [13, 22], [13, 23], [13, 24], [13, 25], [13, 26]]
     door_pos2 = [[7, 97], [8, 96], [6, 98]]
     door_pos3 = [[13, 80], [13, 79], [13, 78], [13, 77], [13, 76], [13, 75], [13, 74]]
-    door_pos4 = [[2, ]]
+    door_pos4 = [[2, 20], [2, 21], [2, 22], [2, 23], [2, 24], [2, 25], [2, 26 ]]
+    door_pos5 = [[], ]
     Larsboss_pos =[[7, 2], [8, 1], [6, 3]]
     key = None           # Key press tracker
     message = ""
@@ -1003,6 +1004,8 @@ def Hallway2(stdscr, transition_to):
             break
         elif player_pos in door_pos4:
             transition_to('room6')
+            break
+        elif player_pos in door_pos5:
             break
         elif player_pos in Larsboss_pos:
             transition_to('Larsboss')
