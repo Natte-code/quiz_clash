@@ -75,9 +75,6 @@ player_name = input("innan spelet börjar helt... Ange ditt namn: ")
 
 
 
-
-
-
 ###########################################################################
 
 #classes för allt i spelet
@@ -275,6 +272,57 @@ def combat_loop(player, teacher): #combat loopen1
 #--------------------------------------------------------------------------
 
 
+###########################################################################
+#där skrivs alla frågor för lärare
+#alla lärare har sin egen definition med 20 frågor, bara 5 av de är plockad för varje lärare
+#den kod skrivs av eliot
+
+def johannaquestion():
+    # Olika frågor och rätta svar
+    q_and_a_johanna = [
+        ("Vad är 15 + 27?", "42"),
+        ("Vad är 12 × 9?", "108"),
+        ("Lös ekvationen: ? + 7 = 20", "13"),
+        ("Vad är arean av en rektangel med längd 5 cm och bredd 3 cm?", "15 cm2"),
+        ("Vad är medelvärdet av 5, 8, 12 och 20?", "11,25"),
+        ("Om en triangel har basen 6 cm och höjden 4 cm, vad är dess area?", "12 cm2"),
+        ("Beräkna: 3 + 2 x 5", "13"),
+        ("Vad är volymen av en kub med sidan 4 cm?", "64 cm3"),
+        ("Om en cirkels radie är 3 cm, vad är dess omkrets?", "18,84 cm"),
+        ("Vad är 15% av 200?", "30"),
+        ("Lös ekvationen: (2 x ?) = 10", "5"),
+        ("Vad är 5^2?", "25"),
+        ("Om ett pris ökar med 10%, vad blir det nya priset på 50 kr?", "55 kr"),
+        ("Vad är 3/4 + 1/4?", "1"),
+        ("Om y = 4, vad är värdet av 2 + 3 x y?", "14"),
+        ("Vad är 9 x 8 ?", "72"),
+        ("Om du delar 45 med 5, vad får du då?", "9"),
+        ("Vad är 1/5 av 50?", "10"),
+        ("Vad är: 7 x 3 - 3", "18"),
+        ("Vad är medelvärdet av 3, 6, 9 och 12?", "7,5")
+    ]
+
+    # Välj slumpmässigt 5 frågor
+    selected_questions = random.sample(q_and_a_johanna, 5)
+
+    for i, (question, correct_answer) in enumerate(selected_questions, start=1):
+        print(f"Fråga {i}: {question}")
+        answer = input("Ditt svar: ").strip().lower()
+
+        if answer == correct_answer.lower():
+            print("Rätt!\n")
+        else:
+            # Spelaren går in i fight
+            print(f"Fel!")
+            combat_loop(player, teacher1)
+            break
+
+# starta frågorna
+
+
+
+###########################################################################
+
 
 #koden är skriven helt av nathaniel och skrivet HELT från scratch. inga idér från intenet utan helt från grunden upp.
 #koden ska trigga när dem olika sluta ska triggas
@@ -419,7 +467,7 @@ def room1(stdscr, transition_to):
 
         # Check for goal and special positions
         if player_pos == Lärar_pos:
-            message = "You reached the goal!"
+            combat_loop(player, teacher1)
             break
         elif player_pos in door_pos:
             transition_to("main")
@@ -490,7 +538,7 @@ def room2(stdscr, transition_to):
 
         # Check for goal and special positions
         if player_pos == Lärar_pos:
-            message = "You reached the goal!"
+            combat_loop(player, teacher2)
             break
         elif player_pos in door_pos:
             transition_to("main")
@@ -561,7 +609,7 @@ def room3(stdscr, transition_to):
 
         # Check for goal and special positions
         if player_pos == Lärar_pos:
-            message = "You reached the goal!"
+            combat_loop(player, teacher3)
             break
         elif player_pos in door_pos:
             transition_to("main")
@@ -632,7 +680,7 @@ def room4(stdscr, transition_to):
 
         # Check for goal and special positions
         if player_pos == Lärar_pos:
-            message = "You reached the goal!"
+            combat_loop(player, teacher4)
             break
         elif player_pos in door_pos:
             transition_to("main")
@@ -703,7 +751,7 @@ def room5(stdscr, transition_to):
 
         # Check for goal and special positions
         if player_pos == Lärar_pos:
-            message = "You reached the goal!"
+            combat_loop(player, teacher5)
             break
         elif player_pos in door_pos:
             transition_to("hallway2")
@@ -774,7 +822,7 @@ def room6(stdscr, transition_to):
 
         # Check for goal and special positions
         if player_pos == Lärar_pos:
-            message = "You reached the goal!"
+            combat_loop(player, teacher6)
             break
         elif player_pos in door_pos:
             transition_to("hallway2")
@@ -916,7 +964,7 @@ def Larsboss(stdscr, transition_to):
 
         # Check for goal and special positions
         if player_pos == Lärar_pos:
-            message = "You reached the goal!"
+            #lars combat!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             break
         elif player_pos in door_pos:
             transition_to("hallway2")
@@ -937,7 +985,8 @@ def Hallway2(stdscr, transition_to):
     door_pos = [[13, 20], [13, 21], [13, 22], [13, 23], [13, 24], [13, 25], [13, 26]]
     door_pos2 = [[7, 97], [8, 96], [6, 98]]
     door_pos3 = [[13, 80], [13, 79], [13, 78], [13, 77], [13, 76], [13, 75], [13, 74]]
-    door_pos4 = [[2, ]]
+    door_pos4 = [[2, 20], [2, 21], [2, 22], [2, 23], [2, 24], [2, 25], [2, 26 ]]
+    door_pos5 = [[], ]
     Larsboss_pos =[[7, 2], [8, 1], [6, 3]]
     key = None           # Key press tracker
     message = ""
@@ -1003,6 +1052,8 @@ def Hallway2(stdscr, transition_to):
             break
         elif player_pos in door_pos4:
             transition_to('room6')
+            break
+        elif player_pos in door_pos5:
             break
         elif player_pos in Larsboss_pos:
             transition_to('Larsboss')
@@ -1081,7 +1132,7 @@ def main(stdscr, transiton_to):
 
         # Check for goal and special positions
         if player_pos == goal_pos:
-            message = "You reached the goal!" #test sak
+            transiton_to('lärar')
             break
         elif player_pos in door_pos:
             transiton_to('room2')  #room 2
@@ -1114,7 +1165,7 @@ def entry_point(stdscr):
         'Larsboss': Larsboss,
         'Chestroom': Chestroom,
         'hallway2': Hallway2,
-        
+        'Lärar': johannaquestion,
         
     }
 
