@@ -1,161 +1,184 @@
+import time
 import random
 
 
-# Loot-pool enligt specifikationen
-loot_pool = {
-    "normal": [
-        ("Pie", "swords", 3.14),  # 20% chans
-        ("järnsvärd", "swords", 20),      # 20% chans
-        ("katana", "swords", 15),         # 15% chans
-        ("Dagger", "swords", 10),         # 10% chans
-        ("Pinne", "swords", 5),           # 5% chans
-        ("low_potion", "potions", 25),    # 20% chans
-        ("medium_potion", "potions", 50), # 10% chans
-    ],
-    "epic": [
-        ("Kukri", "swords", 25),          # 25% chans
-        ("battle axe", "swords", 20),     # 20% chans
-        ("lightsaber", "swords", 35),     # 15% chans
-        ("stekpanna", "swords", 55),      # 5% chans
-        ("epic_potion", "potions", 100),  # 10% chans
-        ("legendary_potion", "potions", 200), # 5% chans
-        ("totem", "special"),             # 25% chans
-    ],
-}
+class Sword:
+    def __init__(self, name: str, damage: int):
+        self.name = name
+        self.damage = damage
+
+    def __repr__(self):
+        return f"Sword(name='{self.name}', damage={self.damage})"
+
+    def get_stats(self):
+        return {"name": self.name, "damage": self.damage}
+    
+#-------------(Normal)-----------------
+Pie = Sword("Pie", 3.14)
+järnsvärd = Sword("järnsvärd", 20)
+katana = Sword("katana", 15)
+Dagger = Sword("Dagger", 17)
+Pinne = Sword("Pinne", 9.86960440052517106225)
+#-------------(Epic)-----------------
+Kukri = Sword("Kukri", 25)
+battle_axe = Sword("battle_axe", 35)
+lightsaber = Sword("lightsaber", 50)
+stekpanna = Sword("stekpanna", 69)
+
+class Sword:
+    def __init__(self, name: str, damage: int):
+        self.name = name
+        self.damage = damage
+
+    def __repr__(self):
+        return f"Sword(name='{self.name}', damage={self.damage})"
+
+    def get_stats(self):
+        return {"name": self.name, "damage": self.damage}
 
 
-# Representerar en spelare
 class Character:
-    def __init__(self, name, health, coins):
+    def __init__(self, name, health):
         self.name = name
         self.health = health
-        self.max_health = health
-        self.coins = coins
+        self.coins = 5
+        self.totems = 1
+        self.shields = 1
+        # Inventory med Sword-objekt
         self.inventory = {
-            "swords": [],   # Svärd med namn och skada
-            "potions": [],  # Potions med namn och healing
-            "special": [],  # Specialföremål som totems
+            "swords": {
+                "träsvärd": Sword("Träsvärd", 10),
+                "järnsvärd": Sword("Järnsvärd", 20),
+                "stekpanna": Sword("stekpanna", 69),
+                "Pie": Sword("Pie", 3.14),
+                "lightsaber": Sword("lightsaber", 50)
+
+
+            },
+            "potions": {"normal": 2, "epic": 1}
         }
 
-    def add_to_inventory(self, item):
-        """Lägger till föremål i rätt kategori."""
-        if item[1] == "swords":
-            self.inventory["swords"].append((item[0], item[2]))  # (Name, Damage)
-        elif item[1] == "potions":
-            self.inventory["potions"].append((item[0], item[2]))  # (Name, Healing)
-        elif item[1] == "special":
-            self.inventory["special"].append(item[0])  # (Name)
-        print(f"Du har fått: {item[0]}!")
-
-    def use_potion(self, potion_name):
-        """Använd en potion för att heala."""
-        for potion in self.inventory["potions"]:
-            if potion[0] == potion_name:
-                self.inventory["potions"].remove(potion)
-                heal_amount = potion[1]
-                self.health = min(self.max_health, self.health + heal_amount)
-                print(f"Du använde en {potion_name} och helade {heal_amount} HP!")
-                return
-        print(f"Du har ingen {potion_name} potion!")
+    def is_critical_hit(self):
+        return random.random() < 0.15  # 15 % chans att göra kritisk träff
 
     def attack(self, weapon_name):
-        """Attackerar med ett svärd och returnerar skada."""
-        for sword in self.inventory["swords"]:
-            if sword[0] == weapon_name:
-                damage = sword[1]
-                print(f"Du attackerade med {weapon_name} och gjorde {damage} skada!")
-                return damage
-        print(f"Du har inte {weapon_name}, så du använder händerna!")
-        return random.randint(5, 10)
+        """Beräknar skada baserat på vapen och kritisk chans."""
+        weapon = self.inventory["swords"].get(weapon_name)
+        if weapon:
+            base_damage = weapon.damage
+        else:
+            # Standard skada med händerna
+            base_damage = random.randint(5, 10)
+        
+        if self.is_critical_hit():
+            crit_damage = int(base_damage * 2.5)
+            print(f"KRITISK TRÄFF! Du gör {crit_damage} skada!\n------------")
+            return crit_damage
+        return base_damage
+        
 
-    def show_inventory(self):
-        print("\nSpelarens Inventory:")
-        print(f"- Svärd: {self.inventory['swords']}")
-        print(f"- Potions: {self.inventory['potions']}")
-        print(f"- Special: {self.inventory['special']}")
-        print("\n")
+    def heal(self, potion_type):
+        if potion_type == "normal" and self.inventory["potions"].get("normal", 0) > 0:
+            self.inventory["potions"]["normal"] -= 1
+            return 50
+        elif potion_type == "epic" and self.inventory["potions"].get("epic", 0) > 0:
+            self.inventory["potions"]["epic"] -= 1
+            return 100
+        return 0
 
+    def block(self):
+        return random.random() < 0.3  # 30% chans att blockera en attack
 
-# Chest-klassen
-class Chest:
-    def __init__(self, rarity, cost):
-        self.rarity = rarity
-        self.cost = cost
-
-    def open(self, player):
-        """Öppnar kistan och lägger till slumpat föremål till spelarens inventory."""
-        if player.coins < self.cost:
-            print("Du har inte tillräckligt med coins för att öppna denna kista!")
-            return
-
-        # Dra av kostnaden
-        player.coins -= self.cost
-        print(f"\nDu öppnade en {self.rarity.capitalize()} Chest för {self.cost} coins!")
-
-        # Välj föremål baserat på loot-poolen
-        pool = loot_pool[self.rarity]
-        weights = [25 if item[1] == "special" else 20 if item[1] == "potions" else 15 for item in pool]
-        chosen_item = random.choices(pool, weights=weights, k=1)[0]
-
-        # Lägg till föremålet i spelarens inventory
-        player.add_to_inventory(chosen_item)
+    def totem(self):
+        """Använd totem automatiskt när HP når 0."""
+        if self.totems > 0:
+            self.totems -= 1
+            self.health = 100
+            print(f"------------\nDu använde en totem! {self.name} är återupplivad med 100 HP!\n------------")
+            input("Tryck ENTER för att fortsätta...")
+            return True
+        return False
 
 
-# Combat-loop
-def combat_loop(player, opponent):
-    """Simpel stridsloop mellan spelare och motståndare."""
-    while player.health > 0 and opponent.health > 0:
-        print(f"\n{player.name}: {player.health} HP")
-        print(f"{opponent['name']}: {opponent['health']} HP\n")
+class Teacher:
+    def __init__(self, name, health, min_damage, max_damage):
+        self.name = name
+        self.health = health
+        self.min_damage = min_damage
+        self.max_damage = max_damage
+
+    def attack(self):
+        return random.randint(self.min_damage, self.max_damage)
+
+
+# Definiera lärare
+teacher1 = Teacher(name="Johanna", health=100, min_damage=1, max_damage=10)
+teacher2 = Teacher(name="Ronja", health=110, min_damage=5, max_damage=15)
+teacher3 = Teacher(name="Henrik", health=125, min_damage=8, max_damage=18)
+teacher4 = Teacher(name="Victor", health=135, min_damage=1, max_damage=13)
+teacher5 = Teacher(name="David", health=150, min_damage=9, max_damage=20)
+teacher6 = Teacher(name="Mirrela", health=200, min_damage=11, max_damage=25)
+
+
+def combat_loop(player, teacher):
+    while player.health > 0 and teacher.health > 0:
+        # Visa UI
+        print(f"\n{player.name}'s tur\n------------")
+        print(f"Inventarie:")
+        print(f"- Svärd: {list(player.inventory['swords'].keys())}")
+        print(f"- Potions: {player.inventory['potions']}")
+        print(f"- Totems: {player.totems}")
+        print(f"- Sköldar: {player.shields}")
+        print(f"HP: {player.health}\n------------")
+        print(f"{teacher.name}s HP: {teacher.health}\n------------")
+
         action = input("Välj handling (attack, heal, stand): ").strip().lower()
+        print("------------")
 
         if action == "attack":
-            weapon_name = input("Välj vapen (eller tryck ENTER för att använda händerna): ").strip()
+            weapon_name = input("Välj svärd (eller tryck ENTER för att använda händerna): ").strip().lower()
+            print("------------")
             damage = player.attack(weapon_name)
-            opponent["health"] -= damage
+            teacher.health = max(0, teacher.health - damage)
+            print(f"Du attackerade {teacher.name} med {weapon_name if weapon_name else 'händerna'} och gjorde {damage} skada!")
+
         elif action == "heal":
-            potion_name = input("Välj potion att använda: ").strip()
-            player.use_potion(potion_name)
+            potion = input("Välj potion (normal/epic): ").strip().lower()
+            heal_amount = player.heal(potion)
+            if heal_amount > 0:
+                player.health = min(100, player.health + heal_amount)
+                print(f"Du använde en {potion}-potion och helade {heal_amount} HP! Nuvarande HP: {player.health}.")
+            else:
+                print("Ogiltig potion eller slut!")
+
         elif action == "stand":
-            print("Du väntar på din nästa tur...")
+            print("Du valde att vänta. Nästa tur!\n------------")
+
         else:
-            print("Ogiltigt val!")
+            print("Ogiltig handling!\n------------")
 
-        if opponent["health"] <= 0:
-            print(f"{opponent['name']} är besegrad! Du vann!")
-            return
+        if teacher.health <= 0:
+            print(f"{teacher.name} är besegrad! Du vann!\n------------")
+            break
 
-        # Motståndaren attackerar
-        damage = random.randint(opponent["min_damage"], opponent["max_damage"])
-        print(f"{opponent['name']} attackerar och gör {damage} skada!")
-        player.health -= damage
+        # Lärarens tur
+        print(f"{teacher.name}s tur!\n------------")
+        time.sleep(2)
+        damage = teacher.attack()
+        if player.block():
+            print("Din sköld blockerade attacken!")
+        else:
+            player.health = max(0, player.health - damage)
+            print(f"{teacher.name} attackerade och gjorde {damage} skada!")
+            if player.health == 0 and player.totem():
+                continue
 
         if player.health <= 0:
-            print("Du förlorade kampen! Bättre lycka nästa gång!")
-            return
+            print("Du förlorade kampen! Bättre lycka nästa gång.\n------------")
+            break
 
 
-# Testa spelet
-def test_game():
-    # Skapa spelaren
-    player = Character(name="Hjälte", health=100, coins=50)
-
-    # Skapa en motståndare
-    opponent = {"name": "Henrik", "health": 120, "min_damage": 8, "max_damage": 18}
-
-    # Skapa kistor
-    normal_chest = Chest(rarity="normal", cost=10)
-    epic_chest = Chest(rarity="epic", cost=25)
-
-    # Testa loot och strid
-    player.show_inventory()
-    normal_chest.open(player)
-    epic_chest.open(player)
-    player.show_inventory()
-
-    # Starta en strid
-    combat_loop(player, opponent)
-
-
-if __name__ == "__main__":
-    test_game()
+# Exempel: Starta strid
+player_name = "Spelaren"
+player = Character(name=player_name, health=100)
+combat_loop(player, teacher1)
