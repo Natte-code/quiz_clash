@@ -76,5 +76,6 @@ Så här öppnar du och kör spelet "Quiz_clash":
 
 - **Spelet startar inte:**
   - Kontrollera att du befinner dig i samma mapp som filen `spel.py` när du kör kommandot.
+  - Om allt är förberett som det ska, Zooma ut i terminalen. Om terminalen är FÖR inzoomad kan inte spelet fungera.
 
 Lycka till! 🚀
