@@ -25,16 +25,6 @@ battle_axe = Sword("battle_axe", 35)
 lightsaber = Sword("lightsaber", 50)
 stekpanna = Sword("stekpanna", 69)
 
-class Sword:
-    def __init__(self, name: str, damage: int):
-        self.name = name
-        self.damage = damage
-
-    def __repr__(self):
-        return f"Sword(name='{self.name}', damage={self.damage})"
-
-    def get_stats(self):
-        return {"name": self.name, "damage": self.damage}
 
 
 class Character:

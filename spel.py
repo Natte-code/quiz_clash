@@ -55,11 +55,11 @@ def start_screen(name): #startar start skärmen, förklarar hur man spelar och v
    time.sleep(1)
    print("")
    print("""Hur man spelar:
-                Rör dig med WASD, inte med PILL-tagneter
+                Rör dig med WASD
                 Samla mynt, öppna lådor och upptäck klassrum. 
                 Svara på lärarens frågor. Fel svar leder till turordningsbaserade strider.
                 Håll terminalen i FULL SCREEN!!
-                Tryck "i" för att öppna ditt inventory (går ej att släppa saker, så använd varsamt!)
+                Du ser inventory längst ner (går ej att släppa saker, så använd varsamt!)
                 Lycka till!!
          """)
    print("")
@@ -317,7 +317,6 @@ def johannaquestion():
             # Spelaren går in i fight
             print(f"Fel!")
             combat_loop(player, teacher1)
-            break
 
 # starta frågorna
 
@@ -423,7 +422,7 @@ def vicorquestion():
     ("Vad är det största gemensamma delare av 24 och 36?", "12"),
     ("Om en person kör 60 km på 1 timme, hur långt skulle personen köra på 4 timmar?", "240 km"),
     ("Hur många olika sätt kan du ordna tre böcker på en hylla?", "6 sätt"),
-    ("Felix ålder är dubbelt så stor som Max. Om Felix är 12 år, hur gammal är Max?", "6 år"),
+    ("Felix ålder är dubbelt så stor som Marcus. Om Felix är 12 år, hur gammal är Max?", "6 år"),
     ("Om du går 5 steg framåt och 2 steg bakåt, hur många steg framåt är du från startpunkten?", "3 "),
     ("En fisk simmar 30 meter varje minut. Hur långt simmar den på 10 minuter?", "300 meter"),
     ("Om en bok har 250 sidor och du har läst 150 sidor, hur många sidor är kvar?", "100 sidor"),
@@ -493,7 +492,8 @@ def devidquestion():
         else:
             # Spelaren går in i fight
             print(f"Fel!")
-            combat_loop(player, teacher5)
+            break
+        combat_loop(player, teacher5)
             
 
 #Mirrela
