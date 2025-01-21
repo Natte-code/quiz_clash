@@ -1020,7 +1020,7 @@ def room5(stdscr, transition_to):
         # Display the message
         stdscr.addstr(rows, 0, f"Message: {message}")
         message = '''
-        Vadic rum
+        David rum
 
         Hej, jag heter David och jag är idrotts läraren.
 
