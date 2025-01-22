@@ -74,35 +74,22 @@ print(player.inventory)
 antal_potion_vanlig = 0
 antal_potion_epic = 0
 
-print('''
-1. Vissa inventory
-2. Lägg till potion vanlig
-3. Lägg till potion epic
-4. Tar bort potion  vanlig
-5. Tar bort potion epic  
-       ''')
-fraga_potion_inventory = str(input())
-
-if fraga_potion_inventory == "1":
+def potion_inventory_vissa():
     print (f'Du har {antal_potion_vanlig} vanliga potion')
     print (f"Du har {antal_potion_epic} epic potion")
 
-elif fraga_potion_inventory == "2":
+def potion_inventory_plus_vanlig():
     antal_potion_vanlig = antal_potion_vanlig + 1
     print (f'Du har nu {antal_potion_vanlig} vanliga potion')
 
-elif fraga_potion_inventory == "3":
+def potion_inventory_plus_epic():
     antal_potion_epic = antal_potion_epic + 1
     print (f'Du har nu {antal_potion_epic} epic potion')
 
-elif fraga_potion_inventory == "4":
+def potion_inventory_minus_vanlig():
     antal_potion_vanlig = antal_potion_vanlig - 1
     print (f'Du har nu {antal_potion_vanlig} vanliga potion')
 
-
-elif fraga_potion_inventory == "5":
+def potion_inventory_minus_epic():
     antal_potion_epic = antal_potion_epic - 1
     print (f'Du har nu {antal_potion_epic} epic potion')
-
-else:
-    print ("Ogiltlig svar")
