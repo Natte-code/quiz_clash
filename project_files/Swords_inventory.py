@@ -75,21 +75,33 @@ antal_potion_vanlig = 0
 antal_potion_epic = 0
 
 def potion_inventory_vissa():
-    print (f'Du har {antal_potion_vanlig} vanliga potion')
-    print (f"Du har {antal_potion_epic} epic potion")
+    print(f'Du har {antal_potion_vanlig} vanliga potion')
+    print(f"Du har {antal_potion_epic} epic potion")
 
 def potion_inventory_plus_vanlig():
+    global antal_potion_vanlig
     antal_potion_vanlig = antal_potion_vanlig + 1
-    print (f'Du har nu {antal_potion_vanlig} vanliga potion')
+    print(f'Du har nu {antal_potion_vanlig} vanliga potion')
 
 def potion_inventory_plus_epic():
+    global antal_potion_epic
     antal_potion_epic = antal_potion_epic + 1
-    print (f'Du har nu {antal_potion_epic} epic potion')
+    print(f'Du har nu {antal_potion_epic} epic potion')
 
 def potion_inventory_minus_vanlig():
-    antal_potion_vanlig = antal_potion_vanlig - 1
-    print (f'Du har nu {antal_potion_vanlig} vanliga potion')
+    global antal_potion_vanlig
+    if antal_potion_vanlig >= 1:
+        antal_potion_vanlig = antal_potion_vanlig - 1
+        print(f'Du har nu {antal_potion_vanlig} vanliga potion')
+    else:
+        print("Redan 0 potion vanlig")
 
 def potion_inventory_minus_epic():
-    antal_potion_epic = antal_potion_epic - 1
-    print (f'Du har nu {antal_potion_epic} epic potion')
+    global antal_potion_epic
+    if antal_potion_epic >= 1:
+        antal_potion_epic = antal_potion_epic - 1
+        print(f'Du har nu {antal_potion_epic} epic potion')
+    else:
+        print("Redan 0 potion epic")
+
+
