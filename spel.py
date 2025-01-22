@@ -452,7 +452,7 @@ def vicorquestion():
 
 
 #David
-def devidquestion():
+def davidquestion():
     os.system('cls' if os.name == 'nt' else 'clear')
     # Olika frågor och rätta svar
     q_and_a_david = [
@@ -1319,7 +1319,7 @@ def room5(stdscr, transition_to):
             stdscr.clear()
             os.system('cls' if os.name == 'nt' else 'clear')
             curses.endwin()
-            devidquestion()
+            davidquestion()
             break
         elif player_pos in door_pos:
             transition_to("hallway2")
