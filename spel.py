@@ -9,6 +9,28 @@ def clear_screen():
     os.system('cls' if os.name == 'nt' else 'clear')
 
 
+def potion_inventory_vissa():
+    print(f'Du har {antal_potion_vanlig} vanliga potion')
+    print(f"Du har {antal_potion_epic} epic potion")
+
+def potion_inventory_plus_vanlig():
+    global antal_potion_vanlig
+    antal_potion_vanlig = antal_potion_vanlig + 1
+    print(f'Du har nu {antal_potion_vanlig} vanliga potion')
+
+def potion_inventory_plus_epic():
+    global antal_potion_epic
+    antal_potion_epic = antal_potion_epic + 1
+    print(f'Du har nu {antal_potion_epic} epic potion')
+
+def potion_inventory_minus_vanlig():
+    global antal_potion_vanlig
+    if antal_potion_vanlig >= 1:
+        antal_potion_vanlig = antal_potion_vanlig - 1
+        print(f'Du har nu {antal_potion_vanlig} vanliga potion')
+    else:
+        print("Redan 0 potion vanlig")
+
 
 #kod skaffad från Chatgpt och används för att insperara denna kod.
 ####################################################################################################
@@ -82,6 +104,39 @@ player_name = input("innan spelet börjar helt... Ange ditt namn: ")
 
 #koden skrivs av nathaniel och eliot
 
+class Sword:
+    def __init__(self, name: str, damage: int):
+        self.name = name
+        self.damage = damage
+
+    def __repr__(self):
+        return f"Sword(name='{self.name}', damage={self.damage})"
+
+    def get_stats(self):
+        return {"name": self.name, "damage": self.damage}
+
+#-------------(Normal)-----------------
+Pie = Sword("Pie", 3.14)
+järnsvärd = Sword("järnsvärd", 20)
+katana = Sword("katana", 15)
+Dagger = Sword("Dagger", 17)
+Pinne = Sword("Pinne", 9.86960440052517106225)
+#-------------(Epic)-----------------
+Kukri = Sword("Kukri", 25)
+battle_axe = Sword("battle_axe", 35)
+lightsaber = Sword("lightsaber", 50)
+stekpanna = Sword("stekpanna", 69)
+
+
+def add_sword_to_inventory(self, sword: Sword):
+    category = "swords"
+    if category not in self.inventory:
+        self.inventory[category] = {}
+    self.inventory[category][sword.name] = sword.damage
+    print(f"Added {sword.name} with damage {sword.damage} to inventory.")
+
+
+
 class Character:
     def __init__(self, name, health):
         self.name = name
@@ -89,6 +144,9 @@ class Character:
         self.coins = 5
         self.totems = 1
         self.shields = 1
+        self.antal_potion_vanlig = 5 # Här behövs tänkas på ifall något blir fel med potions och om dessa nummer ska ändras. Det ät satt på 5 för DEMO just nu.-
+        self.antal_potion_epic = 5
+
         # Simpelt inventory
         self.inventory = {
             "swords": {"träsvärd": 10, "järnsvärd": 20},  # Ifall vi ska lägga till fler
@@ -110,14 +168,19 @@ class Character:
             return crit_damage
         return base_damage
 
+
     def heal(self, potion_type):
-        if potion_type == "normal" and self.inventory["potions"].get("normal", 0) > 0:
-            self.inventory["potions"]["normal"] -= 1
+        if potion_type == "normal" and self.antal_potion_vanlig > 0:
+            self.antal_potion_vanlig -= 1
             return 50
-        elif potion_type == "epic" and self.inventory["potions"].get("epic", 0) > 0:
-            self.inventory["potions"]["epic"] -= 1
+        elif potion_type == "epic" and self.antal_potion_epic > 0:
+            self.antal_potion_epic -= 1
             return 100
-        return 0 #koden för att heala
+        return 0 #koden för att heala--
+
+                                                                ## Nu Får vi fan se om denna bootleg ändring funkar
+                                                                    # Modifierade koden bara rakt av utav huvudet
+                                                                    #(om något inte funkar så är det mitt fel - Nathaniel)
 
     def block(self):
         return random.random() < 0.3 #30% chans att blockera en attack
@@ -185,6 +248,9 @@ teacher3 = Teacher(name="Henrik", health=125, min_damage=8, max_damage=18)
 teacher4 = Teacher(name="Victor", health=135, min_damage=1, max_damage=13)
 teacher5 = Teacher(name="David", health=150, min_damage=9, max_damage=20)
 teacher6 = Teacher(name="Mirrela", health=200, min_damage=11, max_damage=25) #klassrumm 6
+
+
+#######################################################################################################################
 
 def combat_loop(player, teacher, transiton_to): #combat loopen1
     while player.health > 0 and teacher.health > 0:

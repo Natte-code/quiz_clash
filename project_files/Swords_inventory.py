@@ -40,17 +40,12 @@ class Character:
         }
 
     def add_sword_to_inventory(self, sword: Sword):
-        """
-        Lägger till ett Sword-objekt i spelarens inventory i kategorin "swords".
-        
-        :param sword: Ett Sword-objekt som ska läggas till.
-        """
         category = "swords"
         if category not in self.inventory:
             self.inventory[category] = {}
         self.inventory[category][sword.name] = sword.damage
         print(f"Added {sword.name} with damage {sword.damage} to inventory.")
-
+                                                                                                            ############################################## ADDED TO SPEL.PY
 # Skapa spelaren
 player = Character(name=player_name, health=100)
 
@@ -105,3 +100,29 @@ def potion_inventory_minus_epic():
         print("Redan 0 potion epic")
 
 
+
+def lootbox_normal():
+    if Character.coin >= 5:
+        lootpool = {
+        "Pie"
+        "järnsvärd"
+        "normal_potion"
+        "katana"
+        "Dagger"
+        "Pinne"
+        }
+    else:
+
+#funktionen ska först kolla om spelaren har 
+
+
+#Så funktionen 
+
+    def heal(self, potion_type):
+        if potion_type == "normal" and self.inventory["potions"].get("normal", 0) > 0:
+            self.inventory["potions"]["normal"] -= 1
+            return 50
+        elif potion_type == "epic" and self.inventory["potions"].get("epic", 0) > 0:
+            self.inventory["potions"]["epic"] -= 1
+            return 100
+        return 0 #koden för att heala
