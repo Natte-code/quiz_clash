@@ -50,9 +50,9 @@ class Character:
 player = Character(name=player_name, health=100)
 
 # Lägg till svärden direkt från Sword-klassen
-player.add_sword_to_inventory(katana)
-player.add_sword_to_inventory(lightsaber)
-player.add_sword_to_inventory(Pie)
+# player.add_sword_to_inventory(katana)
+# player.add_sword_to_inventory(lightsaber)
+# player.add_sword_to_inventory(Pie)
 
 # Visa uppdaterat inventory
 print(player.inventory)
@@ -102,27 +102,38 @@ def potion_inventory_minus_epic():
 
 
 def lootbox_normal():
-    if Character.coin >= 5:
-        lootpool = {
-        "Pie"
-        "järnsvärd"
-        "normal_potion"
-        "katana"
-        "Dagger"
-        "Pinne"
-        }
+    lootpool = list[Pie, järnsvärd, katana, Dagger, Pinne]
+
+    if player.coins >= 5:
+        
+        lootpool = ["Pie", "järnsvärd", "normal_potion", "katana", "Dagger", "Pinne"]
+        chosen_item = random.choice(lootpool)
+
+        if chosen_item == "normal_potion":
+            potion_inventory_plus_vanlig()
+        else:
+            print(chosen_item)
+            player.add_sword_to_inventory(chosen_item)
+
+            
     else:
+        print("Du har inte nog med coins!")
 
-#funktionen ska först kolla om spelaren har 
 
 
+#funktionen ska först kolla om spelaren har nog med mynt
+#sen ta bort X mängd mynt och sen ge spelaren vad dem förtjänar
+
+lootbox_normal()
+print(player.inventory)
+print(antal_potion_vanlig)
 #Så funktionen 
 
-    def heal(self, potion_type):
-        if potion_type == "normal" and self.inventory["potions"].get("normal", 0) > 0:
-            self.inventory["potions"]["normal"] -= 1
-            return 50
-        elif potion_type == "epic" and self.inventory["potions"].get("epic", 0) > 0:
-            self.inventory["potions"]["epic"] -= 1
-            return 100
-        return 0 #koden för att heala
+    # def heal(self, potion_type):
+    #     if potion_type == "normal" and self.inventory["potions"].get("normal", 0) > 0:
+    #         self.inventory["potions"]["normal"] -= 1
+    #         return 50
+    #     elif potion_type == "epic" and self.inventory["potions"].get("epic", 0) > 0:
+    #         self.inventory["potions"]["epic"] -= 1
+    #         return 100
+    #     return 0 #koden för att heala
