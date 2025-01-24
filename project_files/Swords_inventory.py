@@ -55,7 +55,7 @@ player = Character(name=player_name, health=100)
 # player.add_sword_to_inventory(Pie)
 
 # Visa uppdaterat inventory
-print(player.inventory)
+
 
 #jag vill här nu testa så jag kan få fram sakerna i inventoriet och ska sen implementera det.
 
@@ -111,9 +111,17 @@ def lootbox_normal():
 
         if chosen_item == "normal_potion":
             potion_inventory_plus_vanlig()
-        else:
-            print(chosen_item)
-            player.add_sword_to_inventory(chosen_item)
+            print(antal_potion_vanlig)
+        elif chosen_item == "Pie":
+            player.add_sword_to_inventory(Pie)
+        elif chosen_item == "järnsvärd":
+            player.add_sword_to_inventory(järnsvärd)
+        elif chosen_item == "katana":
+            player.add_sword_to_inventory(katana)
+        elif chosen_item == "Dagger":
+            player.add_sword_to_inventory(Dagger)
+        elif chosen_item == "Pinne":
+            player.add_sword_to_inventory(Pinne)
 
             
     else:
@@ -126,8 +134,22 @@ def lootbox_normal():
 
 lootbox_normal()
 print(player.inventory)
-print(antal_potion_vanlig)
-#Så funktionen 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     # def heal(self, potion_type):
     #     if potion_type == "normal" and self.inventory["potions"].get("normal", 0) > 0:
