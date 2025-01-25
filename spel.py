@@ -31,6 +31,16 @@ def potion_inventory_minus_vanlig():
     else:
         print("Redan 0 potion vanlig")
 
+def potion_inventory_minus_epic():
+    global antal_potion_epic
+    if antal_potion_epic >= 1:
+        antal_potion_epic = antal_potion_epic - 1
+        print(f'Du har nu {antal_potion_epic} epic potion')
+    else:
+        print("Redan 0 potion epic")
+
+#Du glömde att sätta in den för minus epic potion 
+
 
 #kod skaffad från Chatgpt och används för att insperara denna kod.
 ####################################################################################################
