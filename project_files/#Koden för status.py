@@ -55,6 +55,6 @@ def statu_player():
 
     if teacher1.health == 0 and teacher2.health == 0 and teacher3.health == 0 and teacher4.health == 0 and teacher5.health == 0 and teacher6.health == 0 and boss.health == 0:
         print("Du dödade alla")
- 
+ # Där ska man har end2() som säger du vann spelet
 
 statu_player()
