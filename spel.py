@@ -31,6 +31,16 @@ def potion_inventory_minus_vanlig():
     else:
         print("Redan 0 potion vanlig")
 
+def potion_inventory_minus_epic():
+    global antal_potion_epic
+    if antal_potion_epic >= 1:
+        antal_potion_epic = antal_potion_epic - 1
+        print(f'Du har nu {antal_potion_epic} epic potion')
+    else:
+        print("Redan 0 potion epic")
+
+#Du glömde att sätta in den för minus epic potion 
+
 
 #kod skaffad från Chatgpt och används för att insperara denna kod.
 ####################################################################################################
@@ -513,7 +523,7 @@ def vicorquestion():
     ("Vad är det största gemensamma delare av 24 och 36?", "12"),
     ("Om en person kör 60 km på 1 timme, hur långt skulle personen köra på 4 timmar?", "240 km"),
     ("Hur många olika sätt kan du ordna tre böcker på en hylla?", "6 sätt"),
-    ("Felix ålder är dubbelt så stor som Marcus. Om Felix är 12 år, hur gammal är Max?", "6 år"),
+    ("Felix ålder är dubbelt så stor som Marcus. Om Felix är 12 år, hur gammal är Marcus?", "6 år"),
     ("Om du går 5 steg framåt och 2 steg bakåt, hur många steg framåt är du från startpunkten?", "3 "),
     ("En fisk simmar 30 meter varje minut. Hur långt simmar den på 10 minuter?", "300 meter"),
     ("Om en bok har 250 sidor och du har läst 150 sidor, hur många sidor är kvar?", "100 sidor"),
