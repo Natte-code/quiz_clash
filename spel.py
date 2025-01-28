@@ -754,7 +754,7 @@ def end4():
 
 ###########################################################################
 #koden för rörelse i spelet och att skapa spelkartan
-#bas kod är skaffad av ChatGPT och modifierad av Felix
+#bas kod är skapad av ChatGPT och modifierad av Felix
 
 
 def room1(stdscr, transition_to):
@@ -1401,7 +1401,7 @@ def Larsboss(stdscr, transition_to):
             os.system('cls' if os.name == 'nt' else 'clear')
             curses.endwin()
             larsquestion()
-            break #är allt b
+            
         elif player_pos in door_pos:
             transition_to("hallway2")
             break
