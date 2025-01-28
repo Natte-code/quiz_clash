@@ -558,6 +558,7 @@ def vicorquestion():
 #David
 def davidquestion():
     os.system('cls' if os.name == 'nt' else 'clear')
+    inputv = 1
     # Olika frågor och rätta svar
     q_and_a_david = [
     ("Hur många spelare finns det i ett fotbollslag?", "11"),
@@ -593,15 +594,20 @@ def davidquestion():
 
         if answer == correct_answer.lower():
             print("Rätt!\n")
+            inputv = inputv + 1
         else:
             # Spelaren går in i fight
             print(f"Fel!")
             break
         combat_loop(player, teacher5)
+    if inputv == 5:
+        os.system('cls' if os.name == 'nt' else 'clear')
+        curses.initscr()
             
 #Mirrela
 def mirrelaquestion():
     os.system('cls' if os.name == 'nt' else 'clear')
+    inputv = 1
     # Olika frågor och rätta svar
     q_and_a_mirrela = [
     ("Är CPU detsamma som datorns hjärna?", "Ja"),
@@ -636,17 +642,20 @@ def mirrelaquestion():
 
         if answer == correct_answer.lower():
             print("Rätt!\n")
-            time.sleep(2)
+            inputv = inputv + 1
             
         else:
             # Spelaren går in i fight
             print(f"Fel!")
             combat_loop(player, teacher6)
             break
-
+    if inputv == 5:
+        os.system('cls' if os.name == 'nt' else 'clear')
+        curses.initscr()
 
 #Lars boss
 def larsquestion(): 
+    inputv = 1
     # Olika frågor och rätta svar
     q_and_a_boss = [
         #omöjlig att svara rätt på
@@ -666,10 +675,14 @@ def larsquestion():
 
         if answer == correct_answer.lower():
             print("Rätt!\n")
+            inputv = inputv + 1
         else:
             print("Fel!")
             combat_loop(player, boss)
             break
+    if inputv == 5:
+        os.system('cls' if os.name == 'nt' else 'clear')
+        curses.initscr()
 
 #kod skaffad från Chatgpt och används för att insperara denna kod.
 ####################################################################################################
@@ -1408,8 +1421,8 @@ def Hallway2(stdscr, transition_to):
     door_pos = [[13, 20], [13, 21], [13, 22], [13, 23], [13, 24], [13, 25], [13, 26]]
     door_pos2 = [[7, 97], [8, 96], [6, 98]]
     door_pos3 = [[13, 80], [13, 79], [13, 78], [13, 77], [13, 76], [13, 75], [13, 74]]
-    door_pos4 = [[2, 20], [2, 21], [2, 22], [2, 23], [2, 24], [2, 25], [2, 26 ]]
-    door_pos5 = [[], ]
+    door_pos4 = [[1, 80], [1, 79], [1, 78], [1, 77], [1, 76], [1, 75], [1, 74]]
+    door_pos5 = [[1, 20], [1, 21], [1, 22], [1, 23], [1, 23], [1, 24], [1, 25], [1, 26]]
     Larsboss_pos =[[7, 2], [8, 1], [6, 3]]
     key = None           # Key press tracker
     message = ""
@@ -1426,6 +1439,10 @@ def Hallway2(stdscr, transition_to):
                 elif [r, c] in door_pos2:
                     stdscr.addch(r, c, '/')
                 elif [r, c] in door_pos3:
+                    stdscr.addch(r, c, '-')
+                elif [r, c] in door_pos4:
+                    stdscr.addch(r, c, '-')
+                elif [r, c] in door_pos5:
                     stdscr.addch(r, c, '-')
                 elif [r, c] in Larsboss_pos:
                     stdscr.addch(r, c, '/')
