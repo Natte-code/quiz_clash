@@ -252,7 +252,7 @@ teacher6 = Teacher(name="Mirrela", health=200, min_damage=11, max_damage=25) #kl
 
 #######################################################################################################################
 
-def combat_loop(player, teacher, transiton_to): #combat loopen1
+def combat_loop(player, teacher): #combat loopen1
     while player.health > 0 and teacher.health > 0:
         clear_screen()
         
@@ -278,7 +278,7 @@ def combat_loop(player, teacher, transiton_to): #combat loopen1
                 teacher.health = max(0, teacher.health - damage)
                 print(f"Du attackerade {teacher.name} med {'händerna' if weapon == '' else weapon} och gjorde {damage} skada!")
             else:
-                print("Ogiltigt vapen!")
+               print("Ogiltigt vapen!")
             print("------------")
 
 #heal
@@ -304,7 +304,11 @@ def combat_loop(player, teacher, transiton_to): #combat loopen1
         # Kontrollera om teacher hp = 0
         if teacher.health <= 0:
             print(f"{teacher.name} är besegrad! Du vann!\n------------")
-            transiton_to('main')
+            
+        time.sleep(2)
+        os.system('cls' if os.name == 'nt' else 'clear')
+        curses.initscr()
+            
             #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!lägg till vad som ska hända här när teacher är död
 
         input("Tryck ENTER för att fortsätta...")
@@ -344,9 +348,14 @@ def combat_loop(player, teacher, transiton_to): #combat loopen1
 #alla lärare har sin egen definition med 20 frågor, bara 5 av de är plockad för varje lärare
 #den kod skrivs av eliot
 
+
+# starta frågorna
+
+#johanna
 def johannaquestion():
     os.system('cls' if os.name == 'nt' else 'clear')
     # Olika frågor och rätta svar
+    inputv = 1 # Gör så att man vet när den har frågat fem frågor
     q_and_a_johanna = [
         ("Vad är 15 + 27?", "42"),
         ("Vad är 12 × 9?", "108"),
@@ -360,7 +369,7 @@ def johannaquestion():
         ("Vad är 15% av 200?", "30"),
         ("Lös ekvationen: (2 x ?) = 10", "5"),
         ("Vad är 5^2?", "25"),
-        ("Om ett pris ökar med 10%, vad blir det nya priset på 50 kr?", "55 kr"),
+        ("Om ett pris ökar med 10%, vad blir det nya priset på 50 kr?", "55kr"),
         ("Vad är 3/4 + 1/4?", "1"),
         ("Om y = 4, vad är värdet av 2 + 3 x y? (Endast svar)", "14"),
         ("Vad är 9 x 8 ?", "72"),
@@ -379,16 +388,21 @@ def johannaquestion():
 
         if answer == correct_answer.lower():
             print("Rätt!\n")
+
+            inputv =  inputv + 1
         else:
             # Spelaren går in i fight
             print(f"Fel!")
             combat_loop(player, teacher1)
 
-# starta frågorna
-
+    if inputv == 5:
+        os.system('cls' if os.name == 'nt' else 'clear')
+        curses.initscr()
+        
 #ronja
 def ronjaquestion():
     os.system('cls' if os.name == 'nt' else 'clear')
+    inputv = 1
     # Olika frågor och rätta svar
     q_and_a_ronja = [
     ("What is the capital of the United Kingdom?", "London"),
@@ -422,15 +436,20 @@ def ronjaquestion():
 
         if answer == correct_answer.lower():
             print("Rätt!\n")
+            inputv = inputv + 1
         else:
             # Spelaren går in i fight
             print(f"Fel!")
             combat_loop(player, teacher2)
             break
+    if inputv == 5:
+        os.system('cls' if os.name == 'nt' else 'clear')
+        curses.initscr()
 
 #henrik
 def henrikquestion():
     os.system('cls' if os.name == 'nt' else 'clear')
+    inputv = 1
     # Olika frågor och rätta svar
     q_and_a_henrik = [
     ("Är solen en stjärna?", "Ja"),
@@ -465,15 +484,21 @@ def henrikquestion():
 
         if answer == correct_answer.lower():
             print("Rätt!\n")
+            inputv = inputv + 1
         else:
             # Spelaren går in i fight
             print(f"Fel!")
             combat_loop(player, teacher3)
             break
 
+    if inputv == 5:
+        os.system('cls' if os.name == 'nt' else 'clear')
+        curses.initscr()
+
 #Victor
 def vicorquestion():
     os.system('cls' if os.name == 'nt' else 'clear')
+    inputv = 1
     # Olika frågor och rätta svar
     q_and_a_victor = [
     ("Vilket tal saknas i serien: 2, 4, 8, 16, ?", "32"),
@@ -510,12 +535,15 @@ def vicorquestion():
 
         if answer == correct_answer.lower():
             print("Rätt!\n")
+            inputv = inputv + 1
         else:
             # Spelaren går in i fight
             print(f"Fel!")
             combat_loop(player, teacher4)
             break
-
+    if inputv == 5:
+        os.system('cls' if os.name == 'nt' else 'clear')
+        curses.initscr()
 
 #David
 def davidquestion():
@@ -561,9 +589,8 @@ def davidquestion():
             break
         combat_loop(player, teacher5)
             
-
 #Mirrela
-def mirrelaquestion(transiton_to):
+def mirrelaquestion():
     os.system('cls' if os.name == 'nt' else 'clear')
     # Olika frågor och rätta svar
     q_and_a_mirrela = [
@@ -600,7 +627,7 @@ def mirrelaquestion(transiton_to):
         if answer == correct_answer.lower():
             print("Rätt!\n")
             time.sleep(2)
-            transiton_to('room6')
+            
         else:
             # Spelaren går in i fight
             print(f"Fel!")
@@ -709,6 +736,7 @@ def end4():
 
 def room1(stdscr, transition_to):
     # Initialize curses
+    curses.initscr()
     curses.curs_set(0)  # Hide the cursor
     stdscr.nodelay(1)   # Non-blocking getch
     stdscr.timeout(20000) # Input timeout (ms)
@@ -783,7 +811,7 @@ def room1(stdscr, transition_to):
             os.system('cls' if os.name == 'nt' else 'clear')
             curses.endwin()
             johannaquestion()
-            break
+            
         elif player_pos in door_pos:
             transition_to("main")
             break
@@ -866,7 +894,7 @@ def room2(stdscr, transition_to):
             os.system('cls' if os.name == 'nt' else 'clear')
             curses.endwin()
             ronjaquestion()
-            break
+            
         elif player_pos in door_pos:
             transition_to("main")
             break
@@ -949,7 +977,7 @@ def room3(stdscr, transition_to):
             os.system('cls' if os.name == 'nt' else 'clear')
             curses.endwin()
             henrikquestion()
-            break
+            
         elif player_pos in door_pos:
             transition_to("main")
             break
@@ -1031,7 +1059,7 @@ def room4(stdscr, transition_to):
             os.system('cls' if os.name == 'nt' else 'clear')
             curses.endwin()
             vicorquestion()
-            break
+            
         elif player_pos in door_pos:
             transition_to("main")
             break
@@ -1448,6 +1476,7 @@ def Hallway2(stdscr, transition_to):
 #Hallway 1
 def main(stdscr, transiton_to):
     # Initialize curses
+    curses.initscr()
     curses.curs_set(0)  # Hide the cursor
     stdscr.nodelay(1)   # Non-blocking getch
     stdscr.timeout(20000) # Input timeout (ms)
@@ -1533,6 +1562,7 @@ def main(stdscr, transiton_to):
 #def libriary
 
 def entry_point(stdscr):
+
     ROOMS = {
         'main': main,
         'room1': room1,
@@ -1544,6 +1574,7 @@ def entry_point(stdscr):
         'Larsboss': Larsboss,
         'Chestroom': Chestroom,
         'hallway2': Hallway2,
+        
         
     }
 
