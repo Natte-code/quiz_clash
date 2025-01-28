@@ -1,5 +1,19 @@
 #Koden för status
 
+class boss:
+    def __init__(self, name, health, min_damage, max_damage, regen):
+        self.name = name
+        self.health = health
+        self.max_health = health
+        self.min_damage = min_damage
+        self.max_damage = max_damage
+        self.regen = regen
+        self.isregen = False
+
+
+
+
+
 class Teacher:
     def __init__(self, name, health, min_damage, max_damage):
         self.name = name

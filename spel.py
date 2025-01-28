@@ -9,35 +9,6 @@ def clear_screen():
     os.system('cls' if os.name == 'nt' else 'clear')
 
 
-def potion_inventory_vissa():
-    print(f'Du har {antal_potion_vanlig} vanliga potion')
-    print(f"Du har {antal_potion_epic} epic potion")
-
-def potion_inventory_plus_vanlig():
-    global antal_potion_vanlig
-    antal_potion_vanlig = antal_potion_vanlig + 1
-    print(f'Du har nu {antal_potion_vanlig} vanliga potion')
-
-def potion_inventory_plus_epic():
-    global antal_potion_epic
-    antal_potion_epic = antal_potion_epic + 1
-    print(f'Du har nu {antal_potion_epic} epic potion')
-
-def potion_inventory_minus_vanlig():
-    global antal_potion_vanlig
-    if antal_potion_vanlig >= 1:
-        antal_potion_vanlig = antal_potion_vanlig - 1
-        print(f'Du har nu {antal_potion_vanlig} vanliga potion')
-    else:
-        print("Redan 0 potion vanlig")
-
-def potion_inventory_minus_epic():
-    global antal_potion_epic
-    if antal_potion_epic >= 1:
-        antal_potion_epic = antal_potion_epic - 1
-        print(f'Du har nu {antal_potion_epic} epic potion')
-    else:
-        print("Redan 0 potion epic")
 
 #Du glömde att sätta in den för minus epic potion 
 
@@ -156,13 +127,23 @@ class Character:
         self.shields = 1
         self.antal_potion_vanlig = 5 # Här behövs tänkas på ifall något blir fel med potions och om dessa nummer ska ändras. Det ät satt på 5 för DEMO just nu.-
         self.antal_potion_epic = 5
-
-        # Simpelt inventory
         self.inventory = {
             "swords": {"träsvärd": 10, "järnsvärd": 20},  # Ifall vi ska lägga till fler
             "potions": {"normal": 2, "epic": 1}          
         }
+def potion_inventory_vissa():
+    print(f'Du har {antal_potion_vanlig} vanliga potion')
+    print(f"Du har {antal_potion_epic} epic potion")
 
+def potion_inventory_plus_vanlig():
+    global antal_potion_vanlig
+    antal_potion_vanlig = antal_potion_vanlig + 1
+    print(f'Du har nu {antal_potion_vanlig} vanliga potion')
+
+def potion_inventory_plus_epic():
+    global antal_potion_epic
+    antal_potion_epic = antal_potion_epic + 1
+    print(f'Du har nu {antal_potion_epic} epic potion')
         
     def is_critical_hit(self):
         return random.random() < 0.15 #15 % chans att göra kritisk träff
@@ -1360,7 +1341,7 @@ def Larsboss(stdscr, transition_to):
             os.system('cls' if os.name == 'nt' else 'clear')
             curses.endwin()
             larsquestion()
-            break #är allt b
+            break #är allt b #bra fråga
         elif player_pos in door_pos:
             transition_to("hallway2")
             break

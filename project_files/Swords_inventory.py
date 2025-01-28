@@ -102,16 +102,15 @@ def potion_inventory_minus_epic():
 
 
 def lootbox_normal():
-    lootpool = list[Pie, järnsvärd, katana, Dagger, Pinne]
 
     if player.coins >= 5:
         
-        lootpool = ["Pie", "järnsvärd", "normal_potion", "katana", "Dagger", "Pinne"]
-        chosen_item = random.choice(lootpool)
+        lootpool_normal = ["Kukri", "Järnsvärd", "normal_potion", "katana", "Dagger", "Pinne"]
+        chosen_item = random.choice(lootpool_normal)
 
         if chosen_item == "normal_potion":
             potion_inventory_plus_vanlig()
-            print(antal_potion_vanlig)
+            print(antal_potion_vanlig)   
         elif chosen_item == "Pie":
             player.add_sword_to_inventory(Pie)
         elif chosen_item == "järnsvärd":
@@ -122,17 +121,52 @@ def lootbox_normal():
             player.add_sword_to_inventory(Dagger)
         elif chosen_item == "Pinne":
             player.add_sword_to_inventory(Pinne)
+        else:
+            print("Du har inte nog med coins!")
 
-            
-    else:
-        print("Du har inte nog med coins!")
+
+def lootbox_epic():
+
+    if player.coins >= 5:
+        
+        lootpool_epic = ["Epic_potion", "battle_axe", "totem", "lightsaber", "stekpanna"]
+        chosen_item = random.choice(lootpool_epic)
+
+        if chosen_item == "Epic_potion":
+            potion_inventory_plus_vanlig()
+            print(antal_potion_vanlig)   
+        elif chosen_item == "battle_axe":
+            player.add_sword_to_inventory(battle_axe)
+        elif chosen_item == "totem":
+            print("totem")
+            # player.add_sword_to_inventory(totem)
+        elif chosen_item == "lightsaber":
+            player.add_sword_to_inventory(lightsaber)
+        elif chosen_item == "stekpanna":
+            player.add_sword_to_inventory(stekpanna)
+        
+            print("Du har inte nog med coins!")
+
+
+
+    #Lootbox_epic
+        #liten chan för normal items men större chans för epic item
 
 
 
 #funktionen ska först kolla om spelaren har nog med mynt
 #sen ta bort X mängd mynt och sen ge spelaren vad dem förtjänar
 
-lootbox_normal()
+
+jonathan = int(input(""))
+
+if jonathan == 0:
+    lootbox_normal()
+
+else:
+    lootbox_epic()
+
+
 print(player.inventory)
 
 
