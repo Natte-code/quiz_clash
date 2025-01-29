@@ -231,7 +231,7 @@ class Teacher:
     def attack(self):
         return random.randint(self.min_damage, self.max_damage) #Slumpar skadan teacher gör mot spelaren. för att definera max och min dmg så gör man det när man definerar läraren
 #definerar Lärararna osv
-#boss = boss(name="Lars", health=450, min_damage=10, max_damage=95)
+bos = boss(name="Lars", health=450, min_damage=10, max_damage=95)
 
 teacher1 = Teacher(name="johanna", health=100, min_damage=1, max_damage=10) #klassrumm 1
 teacher2 = Teacher(name="Ronja", health=110, min_damage=5, max_damage=15)
@@ -664,6 +664,53 @@ def larsquestion():
     if inputv == 5:
         os.system('cls' if os.name == 'nt' else 'clear')
         curses.initscr()
+
+def status_player():
+    if teacher1.health == 0 and teacher2.health == 0 and teacher3.health == 0 and teacher4.health == 0 and teacher5.health == 0 and teacher6.health == 0 and bos.health == 0:
+        print("Du dödade alla")
+    else:
+        if teacher1.health == 0:
+            print("Johanna är besegrad")
+        else:
+            print("Du har kvar Johanna att slåss mot\n")
+
+
+        if teacher2.health == 0:
+            print("Ronja är besegrad")
+        else:
+            print("Du har kvar Ronja att slåss mot\n")
+
+
+        if teacher3.health == 0:
+            print("Henrik är besegrad")
+        else:
+            print("Du har kvar Henrik att slåss mot\n")
+
+
+        if teacher4.health == 0:
+            print("Victor är besegrad")
+        else:
+            print("Du har kvar Victor att slåss mot\n")
+
+
+        if teacher5.health == 0:
+            print("David är besegrad")
+        else:
+            print("Du har kvar David att slåss mot\n")
+
+
+        if teacher6.health == 0:
+            print("Mirella är besegrad")
+        else:
+            print("Du har kvar Mirella att slåss mot \n")
+    
+#Måste kunna hålla koll på vad som kan göras efter en lärare är död
+#den ska kunna stoppa spelaren från att möta lars om inte alla teachers är döda
+
+#MAN SKA INTE KUNNA GÅ TILL LÄRAREN IGEN
+
+#spelaren ska få coins av att defeata läraren
+
 
 #kod skaffad från Chatgpt och används för att insperara denna kod.
 ####################################################################################################
