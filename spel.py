@@ -770,12 +770,27 @@ def status_player():
         else:
             print("Du har kvar Mirella att slåss mot \n")
     
+def exit_door():
+    os.system('cls' if os.name == 'nt' else 'clear')
+    if teacher1.health == 0 and teacher2.health == 0 and teacher3.health == 0 and teacher4.health == 0 and teacher5.health == 0 and teacher6.health == 0 and bos.health == 0:
+        end2()
+    else:
+        print("Nope, this door is closed")
+        time.sleep(2)
+        os.system('cls' if os.name == 'nt' else 'clear')
+        curses.initscr()
 
-
-
-
-
-
+def lars_door():
+    os.system('cls' if os.name == 'nt' else 'clear')
+    if teacher1.health == 0 and teacher2.health == 0 and teacher3.health == 0 and teacher4.health == 0 and teacher5.health == 0 and teacher6.health == 0:
+        os.system('cls' if os.name == 'nt' else 'clear')
+        curses.initscr()
+        Larsboss()
+    else:
+        print("Nope, This door is closed")
+        time.sleep(2)
+        os.system('cls' if os.name == 'nt' else 'clear')
+        curses.initscr()
 
 #Måste kunna hålla koll på vad som kan göras efter en lärare är död
 #den ska kunna stoppa spelaren från att möta lars om inte alla teachers är döda
@@ -1603,10 +1618,18 @@ def Hallway2(stdscr, transition_to):
             transition_to('room6')
             break
         elif player_pos in door_pos5:
-            break
+            stdscr.clear()
+            os.system('cls' if os.name == 'nt' else 'clear')
+            curses.endwin()
+            player_pos = [12, 23]
+            exit_door()
         elif player_pos in Larsboss_pos:
-            transition_to('Larsboss')
-            break
+            stdscr.clear()
+            os.system('cls' if os.name == 'nt' else 'clear')
+            curses.endwin()
+            player_pos = [12, 23]
+            lars_door()
+            
         
 ###############################################################################
 #Hallway 1
