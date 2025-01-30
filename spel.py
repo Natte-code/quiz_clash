@@ -107,6 +107,7 @@ Kukri = Sword("Kukri", 25)
 battle_axe = Sword("battle_axe", 35)
 lightsaber = Sword("lightsaber", 50)
 stekpanna = Sword("stekpanna", 69)
+skibidi = Sword("Skibidi", 1005745283746239746295786395876395876349857365873465927648972364924)
 
 
 def add_sword_to_inventory(self, sword: Sword):
@@ -332,6 +333,69 @@ def combat_loop(player, teacher): #combat loopen1
 
 
 #--------------------------------------------------------------------------
+
+
+def lootbox_normal():
+
+    if player.coins >= 5:
+        
+        lootpool_normal = ["Kukri", "Järnsvärd", "normal_potion", "katana", "Dagger", "Pinne"]
+        chosen_item = random.choice(lootpool_normal)
+
+        if chosen_item == "normal_potion":
+            potion_inventory_plus_vanlig()
+            print(antal_potion_vanlig)   
+        elif chosen_item == "Pie":
+            player.add_sword_to_inventory(Pie)
+        elif chosen_item == "järnsvärd":
+            player.add_sword_to_inventory(järnsvärd)
+        elif chosen_item == "katana":
+            player.add_sword_to_inventory(katana)
+        elif chosen_item == "Dagger":
+            player.add_sword_to_inventory(Dagger)
+        elif chosen_item == "Pinne":
+            player.add_sword_to_inventory(Pinne)
+        else:
+            print("Du har inte nog med coins!")
+
+
+def lootbox_epic():
+
+    if player.coins >= 15:
+        
+        lootpool_epic = ["Epic_potion", "battle_axe", "totem", "lightsaber", "stekpanna"]
+        chosen_item = random.choice(lootpool_epic)
+
+        if chosen_item == "Epic_potion":
+            potion_inventory_plus_vanlig()
+            print(antal_potion_vanlig)   
+        elif chosen_item == "battle_axe":
+            player.add_sword_to_inventory(battle_axe)
+        elif chosen_item == "totem":
+            print("totem")
+            # player.add_sword_to_inventory(totem)
+        elif chosen_item == "lightsaber":
+            player.add_sword_to_inventory(lightsaber)
+        elif chosen_item == "stekpanna":
+            player.add_sword_to_inventory(stekpanna)
+        
+            print("Du har inte nog med coins!")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ###########################################################################

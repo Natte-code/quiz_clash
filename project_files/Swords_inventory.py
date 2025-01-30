@@ -127,7 +127,7 @@ def lootbox_normal():
 
 def lootbox_epic():
 
-    if player.coins >= 5:
+    if player.coins >= 15:
         
         lootpool_epic = ["Epic_potion", "battle_axe", "totem", "lightsaber", "stekpanna"]
         chosen_item = random.choice(lootpool_epic)

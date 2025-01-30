@@ -58,3 +58,4 @@ def statu_player():
  # Där ska man har end2() som säger du vann spelet
 
 statu_player()
+
