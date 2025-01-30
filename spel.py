@@ -231,7 +231,7 @@ class Teacher:
     def attack(self):
         return random.randint(self.min_damage, self.max_damage) #Slumpar skadan teacher gör mot spelaren. för att definera max och min dmg så gör man det när man definerar läraren
 #definerar Lärararna osv
-bos = boss(name="Lars", health=450, min_damage=10, max_damage=95)
+bos = boss(name="Lars", health=450, min_damage=10, max_damage=95, regen=10)
 
 teacher1 = Teacher(name="johanna", health=100, min_damage=1, max_damage=10) #klassrumm 1
 teacher2 = Teacher(name="Ronja", health=110, min_damage=5, max_damage=15)
@@ -337,7 +337,7 @@ def combat_loop(player, teacher): #combat loopen1
 ###########################################################################
 #där skrivs alla frågor för lärare
 #alla lärare har sin egen definition med 20 frågor, bara 5 av de är plockad för varje lärare
-#den kod skrivs av eliot
+#den kod är skriven av eliot
 
 
 # starta frågorna
@@ -861,6 +861,7 @@ def room1(stdscr, transition_to):
             stdscr.clear()
             os.system('cls' if os.name == 'nt' else 'clear')
             curses.endwin()
+            player_pos = [12, 37]
             johannaquestion()
             
         elif player_pos in door_pos:
@@ -944,6 +945,7 @@ def room2(stdscr, transition_to):
             stdscr.clear()
             os.system('cls' if os.name == 'nt' else 'clear')
             curses.endwin()
+            player_pos = [12, 37]
             ronjaquestion()
             
         elif player_pos in door_pos:
@@ -1027,6 +1029,7 @@ def room3(stdscr, transition_to):
             stdscr.clear()
             os.system('cls' if os.name == 'nt' else 'clear')
             curses.endwin()
+            player_pos = [12, 7]
             henrikquestion()
             
         elif player_pos in door_pos:
@@ -1109,6 +1112,7 @@ def room4(stdscr, transition_to):
             stdscr.clear()
             os.system('cls' if os.name == 'nt' else 'clear')
             curses.endwin()
+            player_pos = [12, 7]
             vicorquestion()
             
         elif player_pos in door_pos:
@@ -1191,6 +1195,7 @@ def room5(stdscr, transition_to):
             stdscr.clear()
             os.system('cls' if os.name == 'nt' else 'clear')
             curses.endwin()
+            player_pos = [12, 7]
             davidquestion()
             break
         elif player_pos in door_pos:
@@ -1272,6 +1277,7 @@ def room6(stdscr, transition_to):
             stdscr.clear()
             os.system('cls' if os.name == 'nt' else 'clear')
             curses.endwin()
+            player_pos = [12, 37]
             mirrelaquestion()
             break
         elif player_pos in door_pos:
@@ -1290,7 +1296,8 @@ def Chestroom(stdscr, transition_to):
     rows, cols = 25, 45  # Game board dimensions
     player_pos = [2, 22]  # Player's starting position
     block_pos = [[23, 21], [22, 21], [21, 21], [12, 43], [12, 42], [12, 41], [12, 40], [12, 39]]   # Block positions
-    Lärar_pos = [12, 3]      # Goal position
+    Chest_pos1 = [12, 3] # Chest position
+    Chest_pos2 = []
     door_pos = [[1, 19], [1, 20], [1, 21], [1, 22], [1, 23], [1, 24], [1, 25]]
 
     key = None           # Key press tracker
@@ -1342,7 +1349,7 @@ def Chestroom(stdscr, transition_to):
             player_pos = new_pos
 
         # Check for goal and special positions
-        if player_pos == Lärar_pos:
+        if player_pos == Chest_pos1:
             message = "You reached the goal!"
             break
         elif player_pos in door_pos:
@@ -1574,6 +1581,8 @@ def main(stdscr, transiton_to):
         stdscr.addstr(rows, 0, f"Message: {message}")
         message = 'Main room'
         stdscr.refresh()
+
+       
 
         # Handle user input
         key = stdscr.getch()
