@@ -4,6 +4,8 @@ import curses
 import os
 import threading
 
+
+
 #Def av några sid funktioner som kallas på igenom spelet
 def clear_screen():
     os.system('cls' if os.name == 'nt' else 'clear')
@@ -15,6 +17,11 @@ def clear_screen():
 
 #kod skaffad från Chatgpt och används för att insperara denna kod.
 ####################################################################################################
+# Loggan definierad som en lista av strängar
+import time
+
+#Här skrivs funktioner som man ska gömma från main koden
+
 # Loggan definierad som en lista av strängar
 logo = [
     " ________  ___  ___  ___  ________                    ",
@@ -70,11 +77,10 @@ def start_screen(name): #startar start skärmen, förklarar hur man spelar och v
    input()
 
 
-if __name__ == "__main__":
-    start_screen(NameError)
-#Kontrollerar om filen körs direkt (inte importeras som en modul).
+
 
 player_name = input("innan spelet börjar helt... Ange ditt namn: ")
+
 
 
 
@@ -300,7 +306,7 @@ def combat_loop(player, teacher): #combat loopen1
             
         time.sleep(2)
         os.system('cls' if os.name == 'nt' else 'clear')
-        curses.initscr()
+        
             
             #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!lägg till vad som ska hända här när teacher är död
 
@@ -705,7 +711,7 @@ def larsquestion():
     # Olika frågor och rätta svar
     q_and_a_boss = [
         #omöjlig att svara rätt på
-        ("Är det möjligt att svara nej på denna fråga och ändå ha rätt?", "båda"),
+        ("Är det möjligt att svara nej på denna fråga och ändå ha rätt?", "dnjgfj28736t542iuyfh2iuf8888888888888888888888888888888888888888888888UHIFOI"),
         ("Vad är 1/100 av 50?", "0,5"),
         ("Är en hårddisk till för att lagra data", "ja"),
         ("Kan ett föremål flyta om dess densitet är högre än vattnets?", "nej"),
@@ -731,9 +737,9 @@ def larsquestion():
         curses.initscr()
 
 def status_player():
-    if teacher1.health == 0 and teacher2.health == 0 and teacher3.health == 0 and teacher4.health == 0 and teacher5.health == 0 and teacher6.health == 0 and bos.health == 0:
-        print("Du dödade alla")
-    else:
+    #if teacher1.health == 0 and teacher2.health == 0 and teacher3.health == 0 and teacher4.health == 0 and teacher5.health == 0 and teacher6.health == 0 and bos.health == 0:
+        #print("Du dödade alla")
+    #else:
         if teacher1.health == 0:
             print("Johanna är besegrad")
         else:
@@ -768,11 +774,10 @@ def status_player():
             print("Mirella är besegrad")
         else:
             print("Du har kvar Mirella att slåss mot \n")
-    
 
 
-def status():
-    
+
+
 
 
 
@@ -851,6 +856,18 @@ def end4():
     exit()
     
 #--------------------------------------------------------------------------
+
+
+def val_av_end():
+    if teacher1.health == 0 and teacher2.health == 0 and teacher3.health == 0 and teacher4.health == 0 and teacher5.health == 0 and teacher6.health == 0 and bos.health == 0:
+        end2()
+    
+    if teacher1.health == 0 and teacher2.health == 0 and teacher3.health == 0 and teacher4.health == 0 and teacher5.health == 0 and teacher6.health == 0 and bos.health == 450:
+        end3()
+    
+    if teacher1.health == 100 and teacher2.health == 110 and teacher3.health == 125 and teacher4.health == 135 and teacher5.health == 150 and teacher6.health == 200 and bos.health == 450:
+        end4()
+
 
 
 ###########################################################################
