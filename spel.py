@@ -96,6 +96,7 @@ class Sword:
     def get_stats(self):
         return {"name": self.name, "damage": self.damage}
 
+
 #-------------(Normal)-----------------
 Pie = Sword("Pie", 3.14)
 järnsvärd = Sword("järnsvärd", 20)
@@ -107,6 +108,7 @@ Kukri = Sword("Kukri", 25)
 battle_axe = Sword("battle_axe", 35)
 lightsaber = Sword("lightsaber", 50)
 stekpanna = Sword("stekpanna", 69)
+skibidi = Sword("Skibidi", 1005745283746239746295786395876395876349857365873465927648972364924)
 
 
 def add_sword_to_inventory(self, sword: Sword):
@@ -145,46 +147,46 @@ def potion_inventory_plus_epic():
     antal_potion_epic = antal_potion_epic + 1
     print(f'Du har nu {antal_potion_epic} epic potion')
         
-    def is_critical_hit(self):
-        return random.random() < 0.15 #15 % chans att göra kritisk träff
+def is_critical_hit(self):
+    return random.random() < 0.15 #15 % chans att göra kritisk träff
     
 
-    def attack(self, weapon):
-        """Beräknar skada baserat på vapen och kritisk chans."""
-        # Om vapnet finns i inventoryt, använd dess skada; annars använd händerna
-        base_damage = self.inventory["swords"].get(weapon, random.randint(5, 10))
-        if self.is_critical_hit():
-            crit_damage = int(base_damage * 2.5)
-            print(f"KRITISK TRÄFF! Du gör {crit_damage} skada!\n------------")
-            return crit_damage
-        return base_damage
+def attack(self, weapon):
+    # Om vapnet finns i inventoryt, använd dess skada; annars använd händerna
+    """Beräknar skada baserat på vapen och kritisk chans."""
+    base_damage = self.inventory["swords"].get(weapon, random.randint(5, 10))
+    if self.is_critical_hit():
+        crit_damage = int(base_damage * 2.5)
+        print(f"KRITISK TRÄFF! Du gör {crit_damage} skada!\n------------")
+        return crit_damage
+    return base_damage
 
 
-    def heal(self, potion_type):
-        if potion_type == "normal" and self.antal_potion_vanlig > 0:
-            self.antal_potion_vanlig -= 1
-            return 50
-        elif potion_type == "epic" and self.antal_potion_epic > 0:
-            self.antal_potion_epic -= 1
-            return 100
-        return 0 #koden för att heala--
+def heal(self, potion_type):
+    if potion_type == "normal" and self.antal_potion_vanlig > 0:
+        self.antal_potion_vanlig -= 1
+        return 50
+    elif potion_type == "epic" and self.antal_potion_epic > 0:
+        self.antal_potion_epic -= 1
+        return 100
+    return 0 #koden för att heala--
 
                                                                 ## Nu Får vi fan se om denna bootleg ändring funkar
                                                                     # Modifierade koden bara rakt av utav huvudet
                                                                     #(om något inte funkar så är det mitt fel - Nathaniel)
 
-    def block(self):
-        return random.random() < 0.3 #30% chans att blockera en attack
+def block(self):
+    return random.random() < 0.3 #30% chans att blockera en attack
 
-    def totem(self):
-        """Använd totem automatiskt när HP når 0."""
-        if self.totems > 0:
-            self.totems -= 1
-            self.health = 100
-            print(f"------------\nDu använde en totem! {self.name} är återupplivad med 100 HP!\n------------")
-            input("Tryck ENTER för att fortsätta...")
-            return True #Använder en totem om spelaren har en och ger spelaren 100 hp
-        return False #om spelaren inte har totem så dör spelaren här.
+def totem(self):
+    """Använd totem automatiskt när HP når 0."""
+    if self.totems > 0:
+        self.totems -= 1
+        self.health = 100
+        print(f"------------\nDu använde en totem! {self.name} är återupplivad med 100 HP!\n------------")
+        input("Tryck ENTER för att fortsätta...")
+        return True #Använder en totem om spelaren har en och ger spelaren 100 hp
+    return False #om spelaren inte har totem så dör spelaren här.
 
 
     
@@ -231,7 +233,8 @@ class Teacher:
     def attack(self):
         return random.randint(self.min_damage, self.max_damage) #Slumpar skadan teacher gör mot spelaren. för att definera max och min dmg så gör man det när man definerar läraren
 #definerar Lärararna osv
-bos = boss(name="Lars", health=450, min_damage=10, max_damage=95, regen=10)
+
+bos = boss(name="Lars", health=450, min_damage=10, max_damage=95, regen=15)
 
 teacher1 = Teacher(name="johanna", health=100, min_damage=1, max_damage=10) #klassrumm 1
 teacher2 = Teacher(name="Ronja", health=110, min_damage=5, max_damage=15)
@@ -332,6 +335,69 @@ def combat_loop(player, teacher): #combat loopen1
 
 
 #--------------------------------------------------------------------------
+
+
+def lootbox_normal():
+
+    if player.coins >= 5:
+        
+        lootpool_normal = ["Kukri", "Järnsvärd", "normal_potion", "katana", "Dagger", "Pinne"]
+        chosen_item = random.choice(lootpool_normal)
+
+        if chosen_item == "normal_potion":
+            potion_inventory_plus_vanlig()
+            print(antal_potion_vanlig)   
+        elif chosen_item == "Pie":
+            player.add_sword_to_inventory(Pie)
+        elif chosen_item == "järnsvärd":
+            player.add_sword_to_inventory(järnsvärd)
+        elif chosen_item == "katana":
+            player.add_sword_to_inventory(katana)
+        elif chosen_item == "Dagger":
+            player.add_sword_to_inventory(Dagger)
+        elif chosen_item == "Pinne":
+            player.add_sword_to_inventory(Pinne)
+        else:
+            print("Du har inte nog med coins!")
+
+
+def lootbox_epic():
+
+    if player.coins >= 15:
+        
+        lootpool_epic = ["Epic_potion", "battle_axe", "totem", "lightsaber", "stekpanna"]
+        chosen_item = random.choice(lootpool_epic)
+
+        if chosen_item == "Epic_potion":
+            potion_inventory_plus_vanlig()
+            print(antal_potion_vanlig)   
+        elif chosen_item == "battle_axe":
+            player.add_sword_to_inventory(battle_axe)
+        elif chosen_item == "totem":
+            print("totem")
+            # player.add_sword_to_inventory(totem)
+        elif chosen_item == "lightsaber":
+            player.add_sword_to_inventory(lightsaber)
+        elif chosen_item == "stekpanna":
+            player.add_sword_to_inventory(stekpanna)
+        
+            print("Du har inte nog med coins!")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ###########################################################################
@@ -704,6 +770,13 @@ def status_player():
         else:
             print("Du har kvar Mirella att slåss mot \n")
     
+
+
+
+
+
+
+
 #Måste kunna hålla koll på vad som kan göras efter en lärare är död
 #den ska kunna stoppa spelaren från att möta lars om inte alla teachers är döda
 
