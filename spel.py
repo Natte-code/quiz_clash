@@ -239,6 +239,7 @@ class Teacher:
     def attack(self):
         return random.randint(self.min_damage, self.max_damage) #Slumpar skadan teacher gör mot spelaren. för att definera max och min dmg så gör man det när man definerar läraren
 #definerar Lärararna osv
+
 bos = boss(name="Lars", health=450, min_damage=10, max_damage=95, regen=15)
 
 teacher1 = Teacher(name="johanna", health=100, min_damage=1, max_damage=10) #klassrumm 1
@@ -408,7 +409,7 @@ def lootbox_epic():
 ###########################################################################
 #där skrivs alla frågor för lärare
 #alla lärare har sin egen definition med 20 frågor, bara 5 av de är plockad för varje lärare
-#den kod skrivs av eliot
+#den kod är skriven av eliot
 
 
 # starta frågorna
@@ -774,13 +775,28 @@ def status_player():
             print("Mirella är besegrad")
         else:
             print("Du har kvar Mirella att slåss mot \n")
+    
+def exit_door():
+    os.system('cls' if os.name == 'nt' else 'clear')
+    if teacher1.health == 0 and teacher2.health == 0 and teacher3.health == 0 and teacher4.health == 0 and teacher5.health == 0 and teacher6.health == 0 and bos.health == 0:
+        end2()
+    else:
+        print("Nope, this door is closed")
+        time.sleep(2)
+        os.system('cls' if os.name == 'nt' else 'clear')
+        curses.initscr()
 
-
-
-
-
-
-
+def lars_door():
+    os.system('cls' if os.name == 'nt' else 'clear')
+    if teacher1.health == 0 and teacher2.health == 0 and teacher3.health == 0 and teacher4.health == 0 and teacher5.health == 0 and teacher6.health == 0:
+        os.system('cls' if os.name == 'nt' else 'clear')
+        curses.initscr()
+        Larsboss()
+    else:
+        print("Nope, This door is closed")
+        time.sleep(2)
+        os.system('cls' if os.name == 'nt' else 'clear')
+        curses.initscr()
 
 #Måste kunna hålla koll på vad som kan göras efter en lärare är död
 #den ska kunna stoppa spelaren från att möta lars om inte alla teachers är döda
@@ -951,6 +967,7 @@ def room1(stdscr, transition_to):
             stdscr.clear()
             os.system('cls' if os.name == 'nt' else 'clear')
             curses.endwin()
+            player_pos = [12, 37]
             johannaquestion()
             
         elif player_pos in door_pos:
@@ -1034,6 +1051,7 @@ def room2(stdscr, transition_to):
             stdscr.clear()
             os.system('cls' if os.name == 'nt' else 'clear')
             curses.endwin()
+            player_pos = [12, 37]
             ronjaquestion()
             
         elif player_pos in door_pos:
@@ -1117,6 +1135,7 @@ def room3(stdscr, transition_to):
             stdscr.clear()
             os.system('cls' if os.name == 'nt' else 'clear')
             curses.endwin()
+            player_pos = [12, 7]
             henrikquestion()
             
         elif player_pos in door_pos:
@@ -1199,6 +1218,7 @@ def room4(stdscr, transition_to):
             stdscr.clear()
             os.system('cls' if os.name == 'nt' else 'clear')
             curses.endwin()
+            player_pos = [12, 7]
             vicorquestion()
             
         elif player_pos in door_pos:
@@ -1281,6 +1301,7 @@ def room5(stdscr, transition_to):
             stdscr.clear()
             os.system('cls' if os.name == 'nt' else 'clear')
             curses.endwin()
+            player_pos = [12, 7]
             davidquestion()
             break
         elif player_pos in door_pos:
@@ -1362,6 +1383,7 @@ def room6(stdscr, transition_to):
             stdscr.clear()
             os.system('cls' if os.name == 'nt' else 'clear')
             curses.endwin()
+            player_pos = [12, 37]
             mirrelaquestion()
             break
         elif player_pos in door_pos:
@@ -1380,7 +1402,8 @@ def Chestroom(stdscr, transition_to):
     rows, cols = 25, 45  # Game board dimensions
     player_pos = [2, 22]  # Player's starting position
     block_pos = [[23, 21], [22, 21], [21, 21], [12, 43], [12, 42], [12, 41], [12, 40], [12, 39]]   # Block positions
-    Lärar_pos = [12, 3]      # Goal position
+    Chest_pos1 = [12, 3] # Chest position
+    Chest_pos2 = []
     door_pos = [[1, 19], [1, 20], [1, 21], [1, 22], [1, 23], [1, 24], [1, 25]]
 
     key = None           # Key press tracker
@@ -1432,7 +1455,7 @@ def Chestroom(stdscr, transition_to):
             player_pos = new_pos
 
         # Check for goal and special positions
-        if player_pos == Lärar_pos:
+        if player_pos == Chest_pos1:
             message = "You reached the goal!"
             break
         elif player_pos in door_pos:
@@ -1613,10 +1636,18 @@ def Hallway2(stdscr, transition_to):
             transition_to('room6')
             break
         elif player_pos in door_pos5:
-            break
+            stdscr.clear()
+            os.system('cls' if os.name == 'nt' else 'clear')
+            curses.endwin()
+            player_pos = [12, 23]
+            exit_door()
         elif player_pos in Larsboss_pos:
-            transition_to('Larsboss')
-            break
+            stdscr.clear()
+            os.system('cls' if os.name == 'nt' else 'clear')
+            curses.endwin()
+            player_pos = [12, 23]
+            lars_door()
+            
         
 ###############################################################################
 #Hallway 1
@@ -1664,6 +1695,8 @@ def main(stdscr, transiton_to):
         stdscr.addstr(rows, 0, f"Message: {message}")
         message = 'Main room'
         stdscr.refresh()
+
+       
 
         # Handle user input
         key = stdscr.getch()
