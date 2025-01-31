@@ -65,7 +65,7 @@ def start_screen(name): #startar start skärmen, förklarar hur man spelar och v
    time.sleep(1)
    print("")
    print("""Hur man spelar:
-                Rör dig med WASD, inte med PILL-tagneter
+                Rör dig med WASD, inte med PILL-tangenter
                 Samla mynt, öppna lådor och upptäck klassrum. 
                 Svara på lärarens frågor. Fel svar leder till turordningsbaserade strider.
                 Håll terminalen i FULL SCREEN!!
@@ -775,13 +775,32 @@ def status_player():
             print("Mirella är besegrad")
         else:
             print("Du har kvar Mirella att slåss mot \n")
+
+def status():
+
+    if teacher1.health == 0 and teacher2.health == 0 and teacher3.health == 0 and teacher4.health == 0 and teacher5.health == 0 and teacher6.health == 0 and bos.health == 0:
+        print("Alla Lärare och Lars är besegrade")
+    elif teacher1.health == 0 and teacher2.health == 0 and teacher3.health == 0 and teacher4.health == 0 and teacher5.health == 0 and teacher6.health == 0:
+        print("Du har bara Lars kvar nu")
+    else:
+        print(f""" 
+        Johanna är
+        Ronja är
+        Victor är
+        Henrik är
+        David är
+        Mirrela är
+        
+
+""")
     
 def exit_door():
     os.system('cls' if os.name == 'nt' else 'clear')
     if teacher1.health == 0 and teacher2.health == 0 and teacher3.health == 0 and teacher4.health == 0 and teacher5.health == 0 and teacher6.health == 0 and bos.health == 0:
         end2()
     else:
-        print("Nope, this door is closed")
+        print("Nope, Exit dörren är stängd,")
+        print("Besegra alla lärare och Lars först innan du kan komma igenom!")
         time.sleep(2)
         os.system('cls' if os.name == 'nt' else 'clear')
         curses.initscr()
@@ -793,7 +812,8 @@ def lars_door():
         curses.initscr()
         Larsboss()
     else:
-        print("Nope, This door is closed")
+        print("Nope, Dörren till Lars rum är stängt,")
+        print("Besegra alla lärare inna du kan komma igenom!")
         time.sleep(2)
         os.system('cls' if os.name == 'nt' else 'clear')
         curses.initscr()
@@ -964,11 +984,15 @@ def room1(stdscr, transition_to):
 
         # Check for goal and special positions
         if player_pos == Lärar_pos:
-            stdscr.clear()
-            os.system('cls' if os.name == 'nt' else 'clear')
-            curses.endwin()
-            player_pos = [12, 37]
-            johannaquestion()
+            if teacher1.health == 0:
+                player_pos = [12, 37]
+                message = ("Johanna är död")
+            else:
+                stdscr.clear()
+                os.system('cls' if os.name == 'nt' else 'clear')
+                curses.endwin()
+                player_pos = [12, 37]
+                johannaquestion()
             
         elif player_pos in door_pos:
             transition_to("main")
@@ -1048,11 +1072,15 @@ def room2(stdscr, transition_to):
 
         # Check for goal and special positions
         if player_pos == Lärar_pos:
-            stdscr.clear()
-            os.system('cls' if os.name == 'nt' else 'clear')
-            curses.endwin()
-            player_pos = [12, 37]
-            ronjaquestion()
+            if teacher2.health == 0:
+                player_pos = [12, 37]
+                message = ("Ronja är död")
+            else:
+                stdscr.clear()
+                os.system('cls' if os.name == 'nt' else 'clear')
+                curses.endwin()
+                player_pos = [12, 37]
+                ronjaquestion()
             
         elif player_pos in door_pos:
             transition_to("main")
@@ -1132,11 +1160,15 @@ def room3(stdscr, transition_to):
 
         # Check for goal and special positions
         if player_pos == Lärar_pos:
-            stdscr.clear()
-            os.system('cls' if os.name == 'nt' else 'clear')
-            curses.endwin()
-            player_pos = [12, 7]
-            henrikquestion()
+            if teacher3.health == 0:
+                player_pos = [12, 37]
+                message = ("Henrik är död")
+            else:
+                stdscr.clear()
+                os.system('cls' if os.name == 'nt' else 'clear')
+                curses.endwin()
+                player_pos = [12, 7]
+                henrikquestion()
             
         elif player_pos in door_pos:
             transition_to("main")
@@ -1215,11 +1247,15 @@ def room4(stdscr, transition_to):
 
         # Check for goal and special positions
         if player_pos == Lärar_pos:
-            stdscr.clear()
-            os.system('cls' if os.name == 'nt' else 'clear')
-            curses.endwin()
-            player_pos = [12, 7]
-            vicorquestion()
+            if teacher4.health == 0:
+                player_pos = [12, 7]
+                message = ("Victor är död")
+            else:
+                stdscr.clear()
+                os.system('cls' if os.name == 'nt' else 'clear')
+                curses.endwin()
+                player_pos = [12, 7]
+                vicorquestion()
             
         elif player_pos in door_pos:
             transition_to("main")
@@ -1298,12 +1334,16 @@ def room5(stdscr, transition_to):
 
         # Check for goal and special positions
         if player_pos == Lärar_pos:
-            stdscr.clear()
-            os.system('cls' if os.name == 'nt' else 'clear')
-            curses.endwin()
-            player_pos = [12, 7]
-            davidquestion()
-            break
+            if teacher5.health == 0:
+                player_pos = [12, 7]
+                message = ("David är död")
+            else:
+                stdscr.clear()
+                os.system('cls' if os.name == 'nt' else 'clear')
+                curses.endwin()
+                player_pos = [12, 7]
+                davidquestion()
+            
         elif player_pos in door_pos:
             transition_to("hallway2")
             break
@@ -1380,12 +1420,15 @@ def room6(stdscr, transition_to):
 
         # Check for goal and special positions
         if player_pos == Lärar_pos:
-            stdscr.clear()
-            os.system('cls' if os.name == 'nt' else 'clear')
-            curses.endwin()
-            player_pos = [12, 37]
-            mirrelaquestion()
-            break
+            if teacher6.health == 0:
+                player_pos = [12, 37]
+                message = ("Mirrela är död")
+            else:
+                stdscr.clear()
+                os.system('cls' if os.name == 'nt' else 'clear')
+                curses.endwin()
+                player_pos = [12, 37]
+                mirrelaquestion()
         elif player_pos in door_pos:
             transition_to("hallway2")
             break
@@ -1538,12 +1581,15 @@ def Larsboss(stdscr, transition_to):
 
         # Check for goal and special positions
         if player_pos == Lärar_pos:
-            stdscr.clear()
-            os.system('cls' if os.name == 'nt' else 'clear')
-            curses.endwin()
-            larsquestion()
-            
-            break #är allt b #bra fråga
+            if boss.health == 0:
+                player_pos = [12, 37]
+                message = ("Lars är död")
+            else:
+                stdscr.clear()
+                os.system('cls' if os.name == 'nt' else 'clear')
+                curses.endwin()
+                player_pos = [12, 37]
+                larsquestion()
         elif player_pos in door_pos:
             transition_to("hallway2")
             break
@@ -1696,6 +1742,7 @@ def main(stdscr, transiton_to):
         message = 'Main room'
         stdscr.refresh()
 
+        stdscr.addstr(0, cols, f"status: {status()}")
        
 
         # Handle user input
