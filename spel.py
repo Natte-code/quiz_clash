@@ -1444,13 +1444,13 @@ def Chestroom(stdscr, transition_to):
     # Game variables
     rows, cols = 25, 45  # Game board dimensions
     player_pos = [2, 22]  # Player's starting position
-    block_pos = [[23, 21], [22, 21], [21, 21], [12, 43], [12, 42], [12, 41], [12, 40], [12, 39]]   # Block positions
-    Chest_pos1 = [12, 3] # Chest position
-    Chest_pos2 = []
+    block_pos = [[23, 21], [22, 21], [21, 21], [12, 43], [12, 42], [12, 41], [12, 40], [12, 39], [12, 1], [12, 2], [12, 3], [12, 4], [12, 5]]   # Block positions
+    Chest_pos1 = [21, 11] # Chest position
+    Chest_pos2 = [21, 33]
     door_pos = [[1, 19], [1, 20], [1, 21], [1, 22], [1, 23], [1, 24], [1, 25]]
 
     key = None           # Key press tracker
-    message = ""
+    
 
     while True:
         # Draw game board
@@ -1463,18 +1463,23 @@ def Chestroom(stdscr, transition_to):
                     stdscr.addch(r, c, '-')
                 elif [r, c] in block_pos:
                     stdscr.addch(r, c, '#')  # Block
-                elif [r, c] == Lärar_pos:
-                    stdscr.addch(r, c, 'X')  # Goal
+                elif [r, c] == Chest_pos1:
+                    stdscr.addch(r, c, 'N')  # normal chest
+                elif [r, c] == Chest_pos2:
+                    stdscr.addch(r, c, 'E')  # Epic chest
                 elif [r, c] == player_pos:
                     stdscr.addch(r, c, 'O')  # Player
                 else:
                     stdscr.addch(r, c, ' ')  # Empty space
 
         # Display the message
-        stdscr.addstr(rows, 0, f"Message: {message}")
         message = 'ChestRoom'
+        stdscr.addstr(0, cols, f"Message: {message}")
+        
         stdscr.refresh()
 
+        stdscr.addstr(rows, 0, 'Normal chest')
+        stdscr.addstr(rows, 21, 'Epic chest')
         # Handle user input
         key = stdscr.getch()
         new_pos = player_pos.copy()
@@ -1499,11 +1504,14 @@ def Chestroom(stdscr, transition_to):
 
         # Check for goal and special positions
         if player_pos == Chest_pos1:
-            message = "You reached the goal!"
+            message = "You reached the goal!" # Normal chest är här!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            break
+        elif player_pos == Chest_pos2:
+            message = 'you reached a chest' # Epic chest är här!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             break
         elif player_pos in door_pos:
             transition_to("hallway2")
-            break
+            
         
 ###############################################################################
 #Lars Boss Room
