@@ -401,19 +401,6 @@ def lootbox_epic():
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 ###########################################################################
 #där skrivs alla frågor för lärare
 #alla lärare har sin egen definition med 20 frågor, bara 5 av de är plockad för varje lärare
@@ -478,8 +465,6 @@ def johannaquestion():
         
     return input_j
 
-
-    
 #ronja
 def ronjaquestion():
     global input_r
@@ -902,7 +887,7 @@ def val_av_end():
 #bas kod är skapad av ChatGPT och modifierad av Felix
 
 
-def room1(stdscr, transition_to, input_j):
+def room1(stdscr, transition_to):
     input_j = johannaquestion()
     # Initialize curses
     curses.initscr()
