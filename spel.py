@@ -737,63 +737,23 @@ def larsquestion():
         os.system('cls' if os.name == 'nt' else 'clear')
         curses.initscr()
 
-def status_player():
-    #if teacher1.health == 0 and teacher2.health == 0 and teacher3.health == 0 and teacher4.health == 0 and teacher5.health == 0 and teacher6.health == 0 and bos.health == 0:
-        #print("Du dödade alla")
-    #else:
-        if teacher1.health == 0:
-            print("Johanna är besegrad")
-        else:
-            print("Du har kvar Johanna att slåss mot\n")
-
-
-        if teacher2.health == 0:
-            print("Ronja är besegrad")
-        else:
-            print("Du har kvar Ronja att slåss mot\n")
-
-
-        if teacher3.health == 0:
-            print("Henrik är besegrad")
-        else:
-            print("Du har kvar Henrik att slåss mot\n")
-
-
-        if teacher4.health == 0:
-            print("Victor är besegrad")
-        else:
-            print("Du har kvar Victor att slåss mot\n")
-
-
-        if teacher5.health == 0:
-            print("David är besegrad")
-        else:
-            print("Du har kvar David att slåss mot\n")
-
-
-        if teacher6.health == 0:
-            print("Mirella är besegrad")
-        else:
-            print("Du har kvar Mirella att slåss mot \n")
-
+# ändrade så att status saken funkade bättre med hjälp av AI
 def status():
-
-    if teacher1.health == 0 and teacher2.health == 0 and teacher3.health == 0 and teacher4.health == 0 and teacher5.health == 0 and teacher6.health == 0 and bos.health == 0:
-        print("Alla Lärare och Lars är besegrade")
-    elif teacher1.health == 0 and teacher2.health == 0 and teacher3.health == 0 and teacher4.health == 0 and teacher5.health == 0 and teacher6.health == 0:
-        print("Du har bara Lars kvar nu")
-    else:
-        print(f""" 
-        Johanna är
-        Ronja är
-        Victor är
-        Henrik är
-        David är
-        Mirrela är
-        
-
-""")
     
+    teachers = [teacher1, teacher2, teacher3, teacher4, teacher5, teacher6]
+    
+    if all(t.health == 0 for t in teachers) and bos.health == 0:
+        return "Alla lärare och Lars är besegrade!"
+    elif all(t.health == 0 for t in teachers):
+        return "Du har bara Lars kvar nu!"
+    else:
+        status_msg = "Lärare hälsostatus:\n"
+        for t in teachers:
+            status_msg += f"{t.name}: {'Besegrad' if t.health == 0 else 'Levande'}\n"
+        status_msg += f"Lars: {'Besegrad' if bos.health == 0 else 'Levande'}"
+        return status_msg
+    
+# Denna hindra en från att gå ut ur dörren innan alla lärare och boss är döda
 def exit_door():
     os.system('cls' if os.name == 'nt' else 'clear')
     if teacher1.health == 0 and teacher2.health == 0 and teacher3.health == 0 and teacher4.health == 0 and teacher5.health == 0 and teacher6.health == 0 and bos.health == 0:
@@ -805,6 +765,8 @@ def exit_door():
         os.system('cls' if os.name == 'nt' else 'clear')
         curses.initscr()
 
+
+# Denna göra så att man inte kan komma in i lars rum om lärare lever
 def lars_door():
     os.system('cls' if os.name == 'nt' else 'clear')
     if teacher1.health == 0 and teacher2.health == 0 and teacher3.health == 0 and teacher4.health == 0 and teacher5.health == 0 and teacher6.health == 0:
@@ -817,11 +779,6 @@ def lars_door():
         time.sleep(2)
         os.system('cls' if os.name == 'nt' else 'clear')
         curses.initscr()
-
-#Måste kunna hålla koll på vad som kan göras efter en lärare är död
-#den ska kunna stoppa spelaren från att möta lars om inte alla teachers är döda
-
-#MAN SKA INTE KUNNA GÅ TILL LÄRAREN IGEN
 
 #spelaren ska få coins av att defeata läraren
 
@@ -1504,11 +1461,20 @@ def Chestroom(stdscr, transition_to):
 
         # Check for goal and special positions
         if player_pos == Chest_pos1:
+            stdscr.clear()
+            os.system('cls' if os.name == 'nt' else 'clear')
+            curses.endwin()
+            player_pos = [2, 22]
             message = "You reached the goal!" # Normal chest är här!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            break
+            
+            
         elif player_pos == Chest_pos2:
+            stdscr.clear()
+            os.system('cls' if os.name == 'nt' else 'clear')
+            curses.endwin()
+            player_pos = [2, 22]
             message = 'you reached a chest' # Epic chest är här!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            break
+            
         elif player_pos in door_pos:
             transition_to("hallway2")
             
@@ -1621,7 +1587,7 @@ def Hallway2(stdscr, transition_to):
     door_pos5 = [[1, 20], [1, 21], [1, 22], [1, 23], [1, 23], [1, 24], [1, 25], [1, 26]]
     Larsboss_pos =[[7, 2], [8, 1], [6, 3]]
     key = None           # Key press tracker
-    message = ""
+    message = 'Hallway2'
 
     while True:
         # Draw game board
@@ -1650,8 +1616,8 @@ def Hallway2(stdscr, transition_to):
                     stdscr.addch(r, c, ' ')  # Empty space
 
         # Display the message
-        stdscr.addstr(rows, 0, f"Message: {message}")
-        message = 'Hallway2'
+        stdscr.addstr(rows, 0, f"Room: {message}")
+        stdscr.addstr(rows, 0, f"status: {status()}", curses.A_BOLD)
         stdscr.refresh()
 
         # Handle user input
@@ -1721,7 +1687,7 @@ def main(stdscr, transiton_to):
     door_pos4 = [[11, 31], [10, 32], [9, 33]]
     door_pos5 = [[27, 31], [26, 32], [25, 33]]
     key = None           # Key press tracker
-    message = ""
+    message = 'Main room'
 
     while True:
         # Draw game board
@@ -1746,12 +1712,10 @@ def main(stdscr, transiton_to):
                     stdscr.addch(r, c, ' ')  # Empty space
 
         # Display the message
-        stdscr.addstr(rows, 0, f"Message: {message}")
-        message = 'Main room'
+        stdscr.addstr(0, cols, f"Room: {message}")
+        stdscr.addstr(rows, 0, f"status: {status()}", curses.A_BOLD)
         stdscr.refresh()
 
-        stdscr.addstr(0, cols, f"status: {status()}")
-       
 
         # Handle user input
         key = stdscr.getch()
