@@ -65,21 +65,22 @@ def start_screen(): #startar start skärmen, förklarar hur man spelar och visar
    time.sleep(1)
    print("")
    print("""Hur man spelar:
-                Rör dig med WASD, inte med PILL-tangenter
+                Rör dig med WASD
                 Samla mynt, öppna lådor och upptäck klassrum. 
                 Svara på lärarens frågor. Fel svar leder till turordningsbaserade strider.
-                Håll terminalen i FULL SCREEN!!
-                Tryck "i" för att öppna ditt inventory (går ej att släppa saker, så använd varsamt!)
+                Håll terminalen i FULL SCREEN (Och zooma ut om spelet krashar (med hjälp av att trycka CTRL och - ))!!
+                Håll årdning på ditt inventory (går ej att släppa saker, så använd varsamt!)
                 Lycka till!!
          """)
    print("")
+
    print("\nTryck på ENTER knappen för att starta spelet!")
    input()
 
 start_screen()
+player_name = input("Ange ditt namn: ")
 
 
-player_name = input("innan spelet börjar helt... Ange ditt namn: ")
 
 
 
@@ -333,7 +334,12 @@ def combat_loop(player, teacher): #combat loopen1
         if player.health <= 0:
             print("Du förlorade kampen! Bättre lycka nästa gång.\n------------")
             end1()
-
+        if teacher.health <= 0:
+            break
+    # print(f"{teacher.name} är besegrad! Du vann!\n------------")
+    # player.coins += 10  # Reward coins
+    # print(f"Du fick 10 mynt! Du har nu {player.coins} mynt.")
+    # defeated_teachers.append(teacher.name)
 
 
 
@@ -416,9 +422,10 @@ def lootbox_epic():
 
 #johanna
 def johannaquestion():
+    global input_j
     os.system('cls' if os.name == 'nt' else 'clear')
     # Olika frågor och rätta svar
-    inputv = 1 # Gör så att man vet när den har frågat fem frågor
+    input_j = 1 # Gör så att man vet när den har frågat fem frågor
     q_and_a_johanna = [
         ("Vad är 15 + 27?", "42"),
         ("Vad är 12 × 9?", "108"),
@@ -451,8 +458,8 @@ def johannaquestion():
 
         if answer == correct_answer.lower():
             print("Rätt!\n")
+            input_j =  input_j + 1
 
-            inputv =  inputv + 1
         else:
             # Spelaren går in i fight
             print(f"Fel!")
@@ -461,14 +468,16 @@ def johannaquestion():
             time.sleep(5)
             combat_loop(player, teacher1)
 
-    if inputv == 5:
+    if input_j == 5:
         os.system('cls' if os.name == 'nt' else 'clear')
         curses.initscr()
+        return input_j
         
 #ronja
 def ronjaquestion():
+    global input_r
     os.system('cls' if os.name == 'nt' else 'clear')
-    inputv = 1
+    input_r = 1
     # Olika frågor och rätta svar
     q_and_a_ronja = [
     ("What is the capital of the United Kingdom?", "London"),
@@ -502,20 +511,22 @@ def ronjaquestion():
 
         if answer == correct_answer.lower():
             print("Rätt!\n")
-            inputv = inputv + 1
+            input_r = input_r + 1
         else:
             # Spelaren går in i fight
             print(f"Fel!")
             combat_loop(player, teacher2)
             break
-    if inputv == 5:
+    if input_r == 5:
         os.system('cls' if os.name == 'nt' else 'clear')
         curses.initscr()
+        return input_r
 
 #henrik
 def henrikquestion():
+    global input_h
     os.system('cls' if os.name == 'nt' else 'clear')
-    inputv = 1
+    input_h = 1
     # Olika frågor och rätta svar
     q_and_a_henrik = [
     ("Är solen en stjärna?", "Ja"),
@@ -550,21 +561,23 @@ def henrikquestion():
 
         if answer == correct_answer.lower():
             print("Rätt!\n")
-            inputv = inputv + 1
+            input_h = input_h + 1
         else:
             # Spelaren går in i fight
             print(f"Fel!")
             combat_loop(player, teacher3)
             break
 
-    if inputv == 5:
+    if input_h == 5:
         os.system('cls' if os.name == 'nt' else 'clear')
         curses.initscr()
+        return input_h
 
 #Victor
 def vicorquestion():
+    global input_v
     os.system('cls' if os.name == 'nt' else 'clear')
-    inputv = 1
+    input_v = 1
     # Olika frågor och rätta svar
     q_and_a_victor = [
     ("Vilket tal saknas i serien: 2, 4, 8, 16, ?", "32"),
@@ -601,20 +614,22 @@ def vicorquestion():
 
         if answer == correct_answer.lower():
             print("Rätt!\n")
-            inputv = inputv + 1
+            input_v = input_v + 1
         else:
             # Spelaren går in i fight
             print(f"Fel!")
             combat_loop(player, teacher4)
             break
-    if inputv == 5:
+    if input_v == 5:
         os.system('cls' if os.name == 'nt' else 'clear')
         curses.initscr()
+        return input_v
 
 #David
 def davidquestion():
+    global input_d
     os.system('cls' if os.name == 'nt' else 'clear')
-    inputv = 1
+    input_d = 1
     # Olika frågor och rätta svar
     q_and_a_david = [
     ("Hur många spelare finns det i ett fotbollslag?", "11"),
@@ -650,20 +665,22 @@ def davidquestion():
 
         if answer == correct_answer.lower():
             print("Rätt!\n")
-            inputv = inputv + 1
+            input_d = input_d + 1
         else:
             # Spelaren går in i fight
             print(f"Fel!")
             break
         combat_loop(player, teacher5)
-    if inputv == 5:
+    if input_d == 5:
         os.system('cls' if os.name == 'nt' else 'clear')
         curses.initscr()
+        return input_d
             
 #Mirrela
 def mirrelaquestion():
+    global input_m
     os.system('cls' if os.name == 'nt' else 'clear')
-    inputv = 1
+    input_m = 1
     # Olika frågor och rätta svar
     q_and_a_mirrela = [
     ("Är CPU detsamma som datorns hjärna?", "Ja"),
@@ -698,20 +715,24 @@ def mirrelaquestion():
 
         if answer == correct_answer.lower():
             print("Rätt!\n")
-            inputv = inputv + 1
+            input_m = input_m + 1
+        
             
         else:
             # Spelaren går in i fight
             print(f"Fel!")
             combat_loop(player, teacher6)
             break
-    if inputv == 5:
+    if input_m == 5:
         os.system('cls' if os.name == 'nt' else 'clear')
+        
         curses.initscr()
+        return input_m
+
 
 #Lars boss
 def larsquestion(): 
-    inputv = 1
+    inputl = 1
     # Olika frågor och rätta svar
     q_and_a_boss = [
         #omöjlig att svara rätt på
@@ -731,14 +752,15 @@ def larsquestion():
 
         if answer == correct_answer.lower():
             print("Rätt!\n")
-            inputv = inputv + 1
+            inputl = inputl + 1
         else:
             print("Fel!")
             combat_loop(player, boss)
             break
-    if inputv == 5:
+    if inputl == 5:
         os.system('cls' if os.name == 'nt' else 'clear')
         curses.initscr()
+        
 
 # ändrade så att status saken funkade bättre med hjälp av AI
 def status():
@@ -872,6 +894,7 @@ def val_av_end():
 
 
 def room1(stdscr, transition_to):
+    
     # Initialize curses
     curses.initscr()
     curses.curs_set(0)  # Hide the cursor
@@ -944,7 +967,7 @@ def room1(stdscr, transition_to):
 
         # Check for goal and special positions
         if player_pos == Lärar_pos:
-            if teacher1.health == 0:
+            if teacher1.health == 0 or input_j == 5:
                 player_pos = [12, 37]
                 message = ("Johanna är död")
             else:
@@ -1031,7 +1054,7 @@ def room2(stdscr, transition_to):
             player_pos = new_pos
 
         # Check for goal and special positions
-        if player_pos == Lärar_pos:
+        if player_pos == Lärar_pos or input_r == 5:
             if teacher2.health == 0:
                 player_pos = [12, 37]
                 message = ("Ronja är död")
@@ -1119,7 +1142,7 @@ def room3(stdscr, transition_to):
             player_pos = new_pos
 
         # Check for goal and special positions
-        if player_pos == Lärar_pos:
+        if player_pos == Lärar_pos or input_h == 0:
             if teacher3.health == 0:
                 player_pos = [12, 37]
                 message = ("Henrik är död")
@@ -1206,7 +1229,7 @@ def room4(stdscr, transition_to):
             player_pos = new_pos
 
         # Check for goal and special positions
-        if player_pos == Lärar_pos:
+        if player_pos == Lärar_pos or input_v == 5:
             if teacher4.health == 0:
                 player_pos = [12, 7]
                 message = ("Victor är död")
@@ -1293,7 +1316,7 @@ def room5(stdscr, transition_to):
             player_pos = new_pos
 
         # Check for goal and special positions
-        if player_pos == Lärar_pos:
+        if player_pos == Lärar_pos or input_d == 5:
             if teacher5.health == 0:
                 player_pos = [12, 7]
                 message = ("David är död")
@@ -1379,7 +1402,7 @@ def room6(stdscr, transition_to):
             player_pos = new_pos
 
         # Check for goal and special positions
-        if player_pos == Lärar_pos:
+        if player_pos == Lärar_pos or input_m == 5:
             if teacher6.health == 0:
                 player_pos = [12, 37]
                 message = ("Mirrela är död")
@@ -1468,7 +1491,7 @@ def Chestroom(stdscr, transition_to):
             os.system('cls' if os.name == 'nt' else 'clear')
             curses.endwin()
             player_pos = [2, 22]
-            message = "You reached the goal!" # Normal chest är här!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            lootbox_normal()
             
             
         elif player_pos == Chest_pos2:
@@ -1476,7 +1499,7 @@ def Chestroom(stdscr, transition_to):
             os.system('cls' if os.name == 'nt' else 'clear')
             curses.endwin()
             player_pos = [2, 22]
-            message = 'you reached a chest' # Epic chest är här!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            lootbox_epic()
             
         elif player_pos in door_pos:
             transition_to("hallway2")
