@@ -51,7 +51,7 @@ def logo_print(logo, delay=0.15):
 
 
 
-def start_screen(name): #startar start skärmen, förklarar hur man spelar och visar loggan
+def start_screen(): #startar start skärmen, förklarar hur man spelar och visar loggan
    print("")
    print("\n" * 100)
    print("")
@@ -76,7 +76,7 @@ def start_screen(name): #startar start skärmen, förklarar hur man spelar och v
    print("\nTryck på ENTER knappen för att starta spelet!")
    input()
 
-
+start_screen()
 
 
 player_name = input("innan spelet börjar helt... Ange ditt namn: ")
@@ -456,6 +456,9 @@ def johannaquestion():
         else:
             # Spelaren går in i fight
             print(f"Fel!")
+            time.sleep(1)
+            print("Nu du ska vi slåss >:)")
+            time.sleep(5)
             combat_loop(player, teacher1)
 
     if inputv == 5:
