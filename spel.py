@@ -134,11 +134,11 @@ class Character:
         self.coins = 5
         self.totems = 1
         self.shields = 1
-        self.antal_potion_vanlig = 5 # Här behövs tänkas på ifall något blir fel med potions och om dessa nummer ska ändras. Det ät satt på 5 för DEMO just nu.-
-        self.antal_potion_epic = 5
+        self.antal_potion_vanlig = 5  # Number of normal potions
+        self.antal_potion_epic = 5    # Number of epic potions
         self.inventory = {
-            "swords": {"träsvärd": 10, "järnsvärd": 20},  # Ifall vi ska lägga till fler
-            "potions": {"normal": 2, "epic": 1}          
+            "swords": {"träsvärd": 10, "järnsvärd": 20},  # Initial swords
+            "potions": {"normal potions": self.antal_potion_vanlig, "epic potions": self.antal_potion_epic}  # Potions
         }
 def potion_inventory_vissa():
     print(f'Du har {antal_potion_vanlig} vanliga potion')
@@ -156,7 +156,14 @@ def potion_inventory_plus_epic():
         
 def is_critical_hit(self):
     return random.random() < 0.15 #15 % chans att göra kritisk träff
-    
+
+def add_sword_to_inventory(self, sword: Sword):
+    """Adds a sword to the player's inventory."""
+    category = "swords"
+    if category not in self.inventory:
+        self.inventory[category] = {}
+    self.inventory[category][sword.name] = sword.damage
+    print(f"Added {sword.name} with damage {sword.damage} to inventory.")
 
 def attack(self, weapon):
     # Om vapnet finns i inventoryt, använd dess skada; annars använd händerna
@@ -350,17 +357,15 @@ def combat_loop(player, teacher): #combat loopen1
 
 
 def lootbox_normal():
-
     if player.coins >= 5:
-        
         lootpool_normal = ["Kukri", "Järnsvärd", "normal_potion", "katana", "Dagger", "Pinne"]
         chosen_item = random.choice(lootpool_normal)
 
         if chosen_item == "normal_potion":
-            potion_inventory_plus_vanlig()
-            print(antal_potion_vanlig)   
-        elif chosen_item == "Pie":
-            player.add_sword_to_inventory(Pie)
+            player.antal_potion_vanlig += 1
+            print(f"Du har nu {player.antal_potion_vanlig} vanliga potion.")
+        elif chosen_item == "Kukri":
+            player.add_sword_to_inventory(Kukri)
         elif chosen_item == "järnsvärd":
             player.add_sword_to_inventory(järnsvärd)
         elif chosen_item == "katana":
@@ -372,41 +377,25 @@ def lootbox_normal():
         else:
             print("Du har inte nog med coins!")
 
-
 def lootbox_epic():
-
     if player.coins >= 15:
-        
         lootpool_epic = ["Epic_potion", "battle_axe", "totem", "lightsaber", "stekpanna"]
         chosen_item = random.choice(lootpool_epic)
 
         if chosen_item == "Epic_potion":
-            potion_inventory_plus_vanlig()
-            print(antal_potion_vanlig)   
+            player.antal_potion_epic += 1
+            print(f"Du har nu {player.antal_potion_epic} epic potion.")
         elif chosen_item == "battle_axe":
             player.add_sword_to_inventory(battle_axe)
         elif chosen_item == "totem":
-            print("totem")
-            # player.add_sword_to_inventory(totem)
+            player.totems += 1
+            print(f"Du har nu {player.totems} totems.")
         elif chosen_item == "lightsaber":
             player.add_sword_to_inventory(lightsaber)
         elif chosen_item == "stekpanna":
             player.add_sword_to_inventory(stekpanna)
-        
+        else:
             print("Du har inte nog med coins!")
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -422,9 +411,10 @@ def lootbox_epic():
 
 #johanna
 def johannaquestion():
-    global input_j
+    global input_j, check_j 
     os.system('cls' if os.name == 'nt' else 'clear')
     # Olika frågor och rätta svar
+    check_j = 0
     input_j = 1 # Gör så att man vet när den har frågat fem frågor
     q_and_a_johanna = [
         ("Vad är 15 + 27?", "42"),
@@ -459,6 +449,7 @@ def johannaquestion():
         if answer == correct_answer.lower():
             print("Rätt!\n")
             input_j =  input_j + 1
+            
 
         else:
             # Spelaren går in i fight
@@ -471,8 +462,9 @@ def johannaquestion():
     if input_j == 5:
         os.system('cls' if os.name == 'nt' else 'clear')
         curses.initscr()
-        return input_j
         
+    return input_j
+
 #ronja
 def ronjaquestion():
     global input_r
@@ -520,13 +512,15 @@ def ronjaquestion():
     if input_r == 5:
         os.system('cls' if os.name == 'nt' else 'clear')
         curses.initscr()
-        return input_r
+
+    return input_r
 
 #henrik
 def henrikquestion():
     global input_h
     os.system('cls' if os.name == 'nt' else 'clear')
     input_h = 1
+    
     # Olika frågor och rätta svar
     q_and_a_henrik = [
     ("Är solen en stjärna?", "Ja"),
@@ -894,7 +888,7 @@ def val_av_end():
 
 
 def room1(stdscr, transition_to):
-    
+    input_j = johannaquestion()
     # Initialize curses
     curses.initscr()
     curses.curs_set(0)  # Hide the cursor
@@ -967,7 +961,7 @@ def room1(stdscr, transition_to):
 
         # Check for goal and special positions
         if player_pos == Lärar_pos:
-            if teacher1.health == 0 or input_j == 5:
+            if check_j == 0 and teacher1.health == 0 or input_j == 5:
                 player_pos = [12, 37]
                 message = ("Johanna är död")
             else:
@@ -1318,6 +1312,7 @@ def room5(stdscr, transition_to):
         # Check for goal and special positions
         if player_pos == Lärar_pos:
             if teacher5.health == 0 or input_d == 5:
+
                 player_pos = [12, 7]
                 message = ("David är död")
             else:
@@ -1372,7 +1367,7 @@ def room6(stdscr, transition_to):
         message = '''
         Mirella rum
 
-        Hej, jag heter Mirella och jag är en dator och nätwerks teknik lärare.
+        Hej, jag heter Mirella och jag är en dator och nätverks teknik lärare.
 
         Jag kommer ställa dig 5 olika frågor, om du svarar rätt på alla då får du gå iväg.
         Om du gör ett ända fel då ska jag krasha din dator. 
@@ -1456,7 +1451,8 @@ def Chestroom(stdscr, transition_to):
                     stdscr.addch(r, c, ' ')  # Empty space
 
         # Display the message
-        message = 'ChestRoom'
+        message = 'ChestRoom' "players coins:"(player.coins)
+
         stdscr.addstr(0, cols, f"Message: {message}")
         
         stdscr.refresh()
@@ -1713,7 +1709,7 @@ def main(stdscr, transiton_to):
     door_pos4 = [[11, 31], [10, 32], [9, 33]]
     door_pos5 = [[27, 31], [26, 32], [25, 33]]
     key = None           # Key press tracker
-    message = 'Main room'
+    message = player.health, player.coins, player.inventory
 
     while True:
         # Draw game board
