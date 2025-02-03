@@ -1054,8 +1054,8 @@ def room2(stdscr, transition_to):
             player_pos = new_pos
 
         # Check for goal and special positions
-        if player_pos == Lärar_pos or input_r == 5:
-            if teacher2.health == 0:
+        if player_pos == Lärar_pos:
+            if teacher2.health == 0 or input_r == 5:
                 player_pos = [12, 37]
                 message = ("Ronja är död")
             else:
@@ -1142,8 +1142,8 @@ def room3(stdscr, transition_to):
             player_pos = new_pos
 
         # Check for goal and special positions
-        if player_pos == Lärar_pos or input_h == 0:
-            if teacher3.health == 0:
+        if player_pos == Lärar_pos:
+            if teacher3.health == 0 or input_h == 5:
                 player_pos = [12, 37]
                 message = ("Henrik är död")
             else:
@@ -1229,8 +1229,8 @@ def room4(stdscr, transition_to):
             player_pos = new_pos
 
         # Check for goal and special positions
-        if player_pos == Lärar_pos or input_v == 5:
-            if teacher4.health == 0:
+        if player_pos == Lärar_pos:
+            if teacher4.health == 0 or input_v == 5:
                 player_pos = [12, 7]
                 message = ("Victor är död")
             else:
@@ -1316,8 +1316,8 @@ def room5(stdscr, transition_to):
             player_pos = new_pos
 
         # Check for goal and special positions
-        if player_pos == Lärar_pos or input_d == 5:
-            if teacher5.health == 0:
+        if player_pos == Lärar_pos:
+            if teacher5.health == 0 or input_d == 5:
                 player_pos = [12, 7]
                 message = ("David är död")
             else:
@@ -1402,8 +1402,8 @@ def room6(stdscr, transition_to):
             player_pos = new_pos
 
         # Check for goal and special positions
-        if player_pos == Lärar_pos or input_m == 5:
-            if teacher6.health == 0:
+        if player_pos == Lärar_pos:
+            if teacher6.health == 0 or input_m == 5:
                 player_pos = [12, 37]
                 message = ("Mirrela är död")
             else:
