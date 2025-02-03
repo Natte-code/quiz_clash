@@ -1311,7 +1311,8 @@ def room5(stdscr, transition_to):
 
         # Check for goal and special positions
         if player_pos == Lärar_pos:
-            if teacher5.health == 0 or input_v == 5:
+            if teacher5.health == 0 or input_d == 5:
+
                 player_pos = [12, 7]
                 message = ("David är död")
             else:
@@ -1397,7 +1398,7 @@ def room6(stdscr, transition_to):
 
         # Check for goal and special positions
         if player_pos == Lärar_pos:
-            if teacher6.health == 0 or input_v == 5:
+            if teacher6.health == 0 or input_m == 5:
                 player_pos = [12, 37]
                 message = ("Mirrela är död")
             else:
