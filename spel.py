@@ -411,10 +411,8 @@ def lootbox_epic():
 
 #johanna
 def johannaquestion():
-    global input_j, check_j 
     os.system('cls' if os.name == 'nt' else 'clear')
     # Olika frågor och rätta svar
-    check_j = 0
     input_j = 1 # Gör så att man vet när den har frågat fem frågor
     q_and_a_johanna = [
         ("Vad är 15 + 27?", "42"),
@@ -450,7 +448,6 @@ def johannaquestion():
             print("Rätt!\n")
             input_j =  input_j + 1
             
-
         else:
             # Spelaren går in i fight
             print(f"Fel!")
@@ -463,11 +460,11 @@ def johannaquestion():
         os.system('cls' if os.name == 'nt' else 'clear')
         curses.initscr()
         
-    return input_j
+
 
 #ronja
 def ronjaquestion():
-    global input_r
+    
     os.system('cls' if os.name == 'nt' else 'clear')
     input_r = 1
     # Olika frågor och rätta svar
@@ -513,11 +510,11 @@ def ronjaquestion():
         os.system('cls' if os.name == 'nt' else 'clear')
         curses.initscr()
 
-    return input_r
+
 
 #henrik
 def henrikquestion():
-    global input_h
+    
     os.system('cls' if os.name == 'nt' else 'clear')
     input_h = 1
     
@@ -565,11 +562,11 @@ def henrikquestion():
     if input_h == 5:
         os.system('cls' if os.name == 'nt' else 'clear')
         curses.initscr()
-        return input_h
+        
 
 #Victor
 def vicorquestion():
-    global input_v
+    
     os.system('cls' if os.name == 'nt' else 'clear')
     input_v = 1
     # Olika frågor och rätta svar
@@ -617,11 +614,10 @@ def vicorquestion():
     if input_v == 5:
         os.system('cls' if os.name == 'nt' else 'clear')
         curses.initscr()
-        return input_v
+        
 
 #David
 def davidquestion():
-    global input_d
     os.system('cls' if os.name == 'nt' else 'clear')
     input_d = 1
     # Olika frågor och rätta svar
@@ -668,11 +664,10 @@ def davidquestion():
     if input_d == 5:
         os.system('cls' if os.name == 'nt' else 'clear')
         curses.initscr()
-        return input_d
+        
             
 #Mirrela
-def mirrelaquestion():
-    global input_m
+def mirrelaquestion(): 
     os.system('cls' if os.name == 'nt' else 'clear')
     input_m = 1
     # Olika frågor och rätta svar
@@ -719,9 +714,7 @@ def mirrelaquestion():
             break
     if input_m == 5:
         os.system('cls' if os.name == 'nt' else 'clear')
-        
         curses.initscr()
-        return input_m
 
 
 #Lars boss
@@ -888,7 +881,7 @@ def val_av_end():
 
 
 def room1(stdscr, transition_to):
-    input_j = johannaquestion()
+    
     # Initialize curses
     curses.initscr()
     curses.curs_set(0)  # Hide the cursor
@@ -961,7 +954,7 @@ def room1(stdscr, transition_to):
 
         # Check for goal and special positions
         if player_pos == Lärar_pos:
-            if check_j == 0 and teacher1.health == 0 or input_j == 5:
+            if teacher1.health == 0:
                 player_pos = [12, 37]
                 message = ("Johanna är död")
             else:
@@ -1049,7 +1042,7 @@ def room2(stdscr, transition_to):
 
         # Check for goal and special positions
         if player_pos == Lärar_pos:
-            if teacher2.health == 0 or input_r == 5:
+            if teacher2.health == 0:
                 player_pos = [12, 37]
                 message = ("Ronja är död")
             else:
@@ -1137,7 +1130,7 @@ def room3(stdscr, transition_to):
 
         # Check for goal and special positions
         if player_pos == Lärar_pos:
-            if teacher3.health == 0 or input_h == 5:
+            if teacher3.health == 0:
                 player_pos = [12, 37]
                 message = ("Henrik är död")
             else:
@@ -1224,7 +1217,7 @@ def room4(stdscr, transition_to):
 
         # Check for goal and special positions
         if player_pos == Lärar_pos:
-            if teacher4.health == 0 or input_v == 5:
+            if teacher4.health == 0:
                 player_pos = [12, 7]
                 message = ("Victor är död")
             else:
@@ -1311,7 +1304,7 @@ def room5(stdscr, transition_to):
 
         # Check for goal and special positions
         if player_pos == Lärar_pos:
-            if teacher5.health == 0 or input_d == 5:
+            if teacher5.health == 0:
 
                 player_pos = [12, 7]
                 message = ("David är död")
@@ -1398,7 +1391,7 @@ def room6(stdscr, transition_to):
 
         # Check for goal and special positions
         if player_pos == Lärar_pos:
-            if teacher6.health == 0 or input_m == 5:
+            if teacher6.health == 0:
                 player_pos = [12, 37]
                 message = ("Mirrela är död")
             else:
@@ -1709,7 +1702,9 @@ def main(stdscr, transiton_to):
     door_pos4 = [[11, 31], [10, 32], [9, 33]]
     door_pos5 = [[27, 31], [26, 32], [25, 33]]
     key = None           # Key press tracker
-    message = player.health, player.coins, player.inventory
+    Health = player.health
+    coins = player.coins
+    inventory = player.inventory
 
     while True:
         # Draw game board
@@ -1734,7 +1729,7 @@ def main(stdscr, transiton_to):
                     stdscr.addch(r, c, ' ')  # Empty space
 
         # Display the message
-        stdscr.addstr(0, cols, f"Room: {message}")
+        stdscr.addstr(0, cols, f" health:{Health}, Coins:{coins}, inventory:{inventory}")
         stdscr.addstr(rows, 0, f"status: {status()}", curses.A_BOLD)
         stdscr.refresh()
 
