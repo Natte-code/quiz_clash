@@ -60,11 +60,16 @@ Så här öppnar du och kör spelet "Quiz_clash":
      ```
 
 4. **Starta spelet**
+  två Val du har att starta spelet
+  1
    - I samma terminal, kör följande kommando:
      ```bash
      python spel.py
      ```
    - Spelet kommer nu att startas och du kan börja spela! 🎮
+
+  2
+    - Starta spel.exe
 
 ### Vanliga problem och lösningar:
 - **Python-kommandot fungerar inte:**
