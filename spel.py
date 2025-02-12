@@ -764,7 +764,10 @@ def status():
             status_msg += f"{t.name}: {'Besegrad' if t.health == 0 else 'Levande'}\n"
         status_msg += f"Lars: {'Besegrad' if bos.health == 0 else 'Levande'}"
         return status_msg
-    
+
+def inventorystats():
+    return(f"""helth: {player.health}\ncoins: {player.coins}\ninventory: {player.inventory}\n""")   
+
 # Denna hindra en från att gå ut ur dörren innan alla lärare och boss är döda
 def exit_door():
     os.system('cls' if os.name == 'nt' else 'clear')
@@ -896,7 +899,16 @@ def room1(stdscr, transition_to):
     door_pos = [[13, 41], [12, 42], [11, 43]]
 
     key = None           # Key press tracker
-    message = ""
+    message = '''
+        Johannas rum
+
+        Hej, jag heter Johanna och jag är en matte lärare.
+
+        Jag kommer ställa dig 5 olika frågor, om du svarar rätt på alla då får du gå iväg.
+        Om du gör ett ända fel då kommer det blir kaos för dig.
+
+        Hehe
+        '''
 
     while True:
         # Draw game board
@@ -917,17 +929,12 @@ def room1(stdscr, transition_to):
                     stdscr.addch(r, c, ' ')  # Empty space
 
         # Display the message
+        stats = inventorystats()
+        stats_lines = stats.strip().split('\n')  # Split stats into lines
+        for i, line in enumerate(stats_lines):
+            stdscr.addstr(i, cols + 2, line) 
+        # Display the message
         stdscr.addstr(rows, 0, f"Message: {message}")
-        message = '''
-        Johannas rum
-
-        Hej, jag heter Johanna och jag är en matte lärare.
-
-        Jag kommer ställa dig 5 olika frågor, om du svarar rätt på alla då får du gå iväg.
-        Om du gör ett ända fel då kommer det blir kaos för dig.
-
-        Hehe
-        '''
         stdscr.refresh()
 
         # Handle user input
@@ -984,7 +991,16 @@ def room2(stdscr, transition_to):
     door_pos = [[13, 41], [12, 42], [11, 43]]
 
     key = None           # Key press tracker
-    message = ""
+    message ='''
+        Ronja rum
+
+        Hi my name is Ronja, I am a english/swedish teatcher.
+
+        I am going to ask you 5 question, if you answer correct to all of them you can leave.
+        If you do one single mistake this is going to be really bad for you.
+
+        Let's go!
+        '''
 
     while True:
         # Draw game board
@@ -1004,18 +1020,12 @@ def room2(stdscr, transition_to):
                 else:
                     stdscr.addch(r, c, ' ')  # Empty space
 
+        stats = inventorystats()
+        stats_lines = stats.strip().split('\n')  # Split stats into lines
+        for i, line in enumerate(stats_lines):
+            stdscr.addstr(i, cols + 2, line) 
         # Display the message
         stdscr.addstr(rows, 0, f"Message: {message}")
-        message ='''
-        Ronja rum
-
-        Hi my name is Ronja, I am a english/swedish teatcher.
-
-        I am going to ask you 5 question, if you answer correct to all of them you can leave.
-        If you do one single mistake this is going to be really bad for you.
-
-        Let's go!
-        '''
         stdscr.refresh()
 
         # Handle user input
@@ -1072,7 +1082,16 @@ def room3(stdscr, transition_to):
     door_pos = [[13, 1], [12, 2], [11, 3]]
 
     key = None           # Key press tracker
-    message = ""
+    message = '''
+        Henrik rum
+
+        Hej, jag heter Henrik och jag är en matte och fysik lärare.
+
+        Jag kommer ställa dig 5 olika frågor, om du svarar rätt på alla då får du gå iväg.
+        Om du gör ett ända fel då kommer det blir  för dig.
+
+        Hehe
+        '''
 
     while True:
         # Draw game board
@@ -1092,18 +1111,13 @@ def room3(stdscr, transition_to):
                 else:
                     stdscr.addch(r, c, ' ')  # Empty space
 
+        stats = inventorystats()
+        stats_lines = stats.strip().split('\n')  # Split stats into lines
+        for i, line in enumerate(stats_lines):
+            stdscr.addstr(i, cols + 2, line)
         # Display the message
         stdscr.addstr(rows, 0, f"Message: {message}")
-        message = '''
-        Henrik rum
-
-        Hej, jag heter Henrik och jag är en matte och fysik lärare.
-
-        Jag kommer ställa dig 5 olika frågor, om du svarar rätt på alla då får du gå iväg.
-        Om du gör ett ända fel då kommer det blir  för dig.
-
-        Hehe
-        '''
+        
         stdscr.refresh()
 
         # Handle user input
@@ -1160,7 +1174,15 @@ def room4(stdscr, transition_to):
     door_pos = [[13, 1], [12, 2], [11, 3]]
 
     key = None           # Key press tracker
-    message = ""
+    message = '''
+        Victor rum
+
+        Hej, jag heter Victor och jag är en matte lärare.
+
+        Jag kommer ställa dig 5 olika frågor om logisk tänkande, om du svarar rätt på alla då får du gå iväg.
+        Om du gör ett ända fel då kommer det blir.... du vill inte veta hehehe.
+
+        '''
 
     while True:
         # Draw game board
@@ -1180,17 +1202,12 @@ def room4(stdscr, transition_to):
                 else:
                     stdscr.addch(r, c, ' ')  # Empty space
 
+        stats = inventorystats()
+        stats_lines = stats.strip().split('\n')  # Split stats into lines
+        for i, line in enumerate(stats_lines):
+            stdscr.addstr(i, cols + 2, line) 
         # Display the message
         stdscr.addstr(rows, 0, f"Message: {message}")
-        message = '''
-        Victor rum
-
-        Hej, jag heter Victor och jag är en matte lärare.
-
-        Jag kommer ställa dig 5 olika frågor om logisk tänkande, om du svarar rätt på alla då får du gå iväg.
-        Om du gör ett ända fel då kommer det blir.... du vill inte veta hehehe.
-
-        '''
         stdscr.refresh()
 
         # Handle user input
@@ -1247,7 +1264,15 @@ def room5(stdscr, transition_to):
     door_pos = [[13, 1], [12, 2], [11, 3]]
 
     key = None           # Key press tracker
-    message = ""
+    message = '''
+        David rum
+
+        Hej, jag heter David och jag är idrotts läraren.
+
+        Jag kommer ställa dig 5 olika frågor om idrott, om du svarar rätt på alla då får du gå iväg.
+        Om du gör ett ända fel då måste kommer det blir riktgit dåligt för dig...
+
+        '''
 
     while True:
         # Draw game board
@@ -1267,17 +1292,13 @@ def room5(stdscr, transition_to):
                 else:
                     stdscr.addch(r, c, ' ')  # Empty space
 
+
+        stats = inventorystats()
+        stats_lines = stats.strip().split('\n')  # Split stats into lines
+        for i, line in enumerate(stats_lines):
+            stdscr.addstr(i, cols + 2, line) 
         # Display the message
         stdscr.addstr(rows, 0, f"Message: {message}")
-        message = '''
-        David rum
-
-        Hej, jag heter David och jag är idrotts läraren.
-
-        Jag kommer ställa dig 5 olika frågor om idrott, om du svarar rätt på alla då får du gå iväg.
-        Om du gör ett ända fel då måste kommer det blir riktgit dåligt för dig...
-
-        '''
         stdscr.refresh()
 
         # Handle user input
@@ -1335,7 +1356,14 @@ def room6(stdscr, transition_to):
     door_pos = [[13, 41], [12, 42], [11, 43]]
 
     key = None           # Key press tracker
-    message = ""
+    message = '''
+        Mirella rum
+
+        Hej, jag heter Mirella och jag är en dator och nätverks teknik lärare.
+
+        Jag kommer ställa dig 5 olika frågor, om du svarar rätt på alla då får du gå iväg.
+        Om du gör ett ända fel då ska jag krasha din dator. 
+        '''
 
     while True:
         # Draw game board
@@ -1355,16 +1383,13 @@ def room6(stdscr, transition_to):
                 else:
                     stdscr.addch(r, c, ' ')  # Empty space
 
+
+        stats = inventorystats()
+        stats_lines = stats.strip().split('\n')  # Split stats into lines
+        for i, line in enumerate(stats_lines):
+            stdscr.addstr(i, cols + 2, line) 
         # Display the message
         stdscr.addstr(rows, 0, f"Message: {message}")
-        message = '''
-        Mirella rum
-
-        Hej, jag heter Mirella och jag är en dator och nätverks teknik lärare.
-
-        Jag kommer ställa dig 5 olika frågor, om du svarar rätt på alla då får du gå iväg.
-        Om du gör ett ända fel då ska jag krasha din dator. 
-        '''
         stdscr.refresh()
 
         # Handle user input
@@ -1443,8 +1468,13 @@ def Chestroom(stdscr, transition_to):
                 else:
                     stdscr.addch(r, c, ' ')  # Empty space
 
+
+        stats = inventorystats()
+        stats_lines = stats.strip().split('\n')  # Split stats into lines
+        for i, line in enumerate(stats_lines):
+            stdscr.addstr(i, cols + 2, line) 
         # Display the message
-        message = 'ChestRoom' "players coins:"(player.coins)
+        message = 'ChestRoom'
 
         stdscr.addstr(0, cols, f"Message: {message}")
         
@@ -1510,7 +1540,18 @@ def Larsboss(stdscr, transition_to):
     door_pos = [[13, 41], [12, 42], [11, 43]]
 
     key = None           # Key press tracker
-    message = ""
+    message = '''
+        Lars boss rum
+
+        Hello there, jag heter Lars men folk brukar kalla mig Mr aura eller Albert Einstein
+
+        Jag är den bästa läraren någonsin, min kunskapnivå är obeskrivligt och jag har mystiskt aura.
+        Min skalle är så slät att de reflekterar allt som matte, fysik och mycket mer.
+        Jag kommer ställa dig fem frågor också fast denna gången du kan inte åka iväg så lätt.
+
+        Det kommer blir roligt hehe...
+
+        '''
 
     while True:
         # Draw game board
@@ -1530,20 +1571,13 @@ def Larsboss(stdscr, transition_to):
                 else:
                     stdscr.addch(r, c, ' ')  # Empty space
 
+
+        stats = inventorystats()
+        stats_lines = stats.strip().split('\n')  # Split stats into lines
+        for i, line in enumerate(stats_lines):
+            stdscr.addstr(i, cols + 2, line) 
         # Display the message
         stdscr.addstr(rows, 0, f"Message: {message}")
-        message = '''
-        Lars boss rum
-
-        Hello there, jag heter Lars men folk brukar kalla mig Mr aura eller Albert Einstein
-
-        Jag är den bästa läraren någonsin, min kunskapnivå är obeskrivligt och jag har mystiskt aura.
-        Min skalle är så slät att de reflekterar allt som matte, fysik och mycket mer.
-        Jag kommer ställa dig fem frågor också fast denna gången du kan inte åka iväg så lätt.
-
-        Det kommer blir roligt hehe...
-
-        '''
         stdscr.refresh()
 
         # Handle user input
@@ -1602,7 +1636,7 @@ def Hallway2(stdscr, transition_to):
     door_pos5 = [[1, 20], [1, 21], [1, 22], [1, 23], [1, 23], [1, 24], [1, 25], [1, 26]]
     Larsboss_pos =[[7, 2], [8, 1], [6, 3]]
     key = None           # Key press tracker
-    message = 'Hallway2'
+    
 
     while True:
         # Draw game board
@@ -1631,8 +1665,13 @@ def Hallway2(stdscr, transition_to):
                     stdscr.addch(r, c, ' ')  # Empty space
 
         # Display the message
-        stdscr.addstr(rows, 0, f"Room: {message}")
-        stdscr.addstr(rows, 0, f"status: {status()}", curses.A_BOLD)
+        stats = inventorystats()
+        stats_lines = stats.strip().split('\n')  # Split stats into lines
+        for i, line in enumerate(stats_lines):
+            stdscr.addstr(i, cols + 2, line) 
+        # Display the message
+       
+        stdscr.addstr(rows, 0, f"{status()}", curses.A_BOLD)
         stdscr.refresh()
 
         # Handle user input
@@ -1687,6 +1726,14 @@ def Hallway2(stdscr, transition_to):
 ###############################################################################
 #Hallway 1
 def main(stdscr, transiton_to):
+        # Check terminal size
+    max_y, max_x = stdscr.getmaxyx()
+    required_y, required_x = 35, 65  # Minimum terminal size
+    if max_y < required_y or max_x < required_x:
+        stdscr.addstr(0, 0, "Terminal fönster är för littet! gör det till big screan")
+        stdscr.refresh()
+        stdscr.getch()
+        return
     # Initialize curses
     curses.initscr()
     curses.curs_set(0)  # Hide the cursor
@@ -1702,9 +1749,6 @@ def main(stdscr, transiton_to):
     door_pos4 = [[11, 31], [10, 32], [9, 33]]
     door_pos5 = [[27, 31], [26, 32], [25, 33]]
     key = None           # Key press tracker
-    Health = player.health
-    coins = player.coins
-    inventory = player.inventory
 
     while True:
         # Draw game board
@@ -1728,9 +1772,14 @@ def main(stdscr, transiton_to):
                 else:
                     stdscr.addch(r, c, ' ')  # Empty space
 
+        # Display inventory stats
+        stats = inventorystats()
+        stats_lines = stats.strip().split('\n')  # Split stats into lines
+        for i, line in enumerate(stats_lines):
+            stdscr.addstr(i, cols + 2, line) 
         # Display the message
-        stdscr.addstr(0, cols, f" health:{Health}, Coins:{coins}, inventory:{inventory}")
-        stdscr.addstr(rows, 0, f"status: {status()}", curses.A_BOLD)
+       
+        stdscr.addstr(rows, 0, f"{status()}", curses.A_BOLD)
         stdscr.refresh()
 
 
@@ -1748,8 +1797,7 @@ def main(stdscr, transiton_to):
             new_pos[1] -= 1
         elif key == ord('d'):  # Move right
             new_pos[1] += 1
-        elif key == ord('i'): # inventory
-            break #ta bork break och lägg in befinitionen för inventory
+
         
         # Validate movement
         if not (new_pos[0] == 0 or new_pos[0] == rows - 1 or 
