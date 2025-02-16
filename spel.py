@@ -778,11 +778,19 @@ def exit_door():
     if teacher1.health == 0 and teacher2.health == 0 and teacher3.health == 0 and teacher4.health == 0 and teacher5.health == 0 and teacher6.health == 0 and final_boss.health == 0:
         end2()
     else:
-        print("Nope, Exit dörren är stängd,")
-        print("Besegra alla lärare och Lars först innan du kan komma igenom!")
-        time.sleep(2)
-        os.system('cls' if os.name == 'nt' else 'clear')
-        curses.initscr()
+        print("Är du säker på att du vill lämna")
+        print("Du har inte besegrat alla lärare än!")
+        svar = input("Ja eller Nej: ")
+        while True:
+            if svar == "Ja" or "ja":
+                end3()
+            elif svar == "Nej" or "nej":
+                os.system('cls' if os.name == 'nt' else 'clear')
+                curses.initscr()
+                break
+            else:
+                print("Ja eller Nej är frågan!")
+
 
 
 # Denna göra så att man inte kan komma in i lars rum om lärare lever
