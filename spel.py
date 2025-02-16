@@ -18,7 +18,7 @@ def clear_screen():
 #kod skaffad från Chatgpt och används för att insperara denna kod.
 ####################################################################################################
 # Loggan definierad som en lista av strängar
-import time
+
 
 #Här skrivs funktioner som man ska gömma från main koden
 
@@ -114,20 +114,20 @@ Kukri = Sword("Kukri", 25)
 battle_axe = Sword("battle_axe", 35)
 lightsaber = Sword("lightsaber", 50)
 stekpanna = Sword("stekpanna", 69)
-skibidi = Sword("Skibidi", 150)
+skibidi = Sword("Skibidi", 15230489572938759283750)
 träsvärd = Sword("Träsvärd", 5)
 
 class Character:
     def __init__(self, name, health):
         self.name = name
         self.health = health
-        self.coins = 15
+        self.coins = 1500
         self.totems = 1
         self.shields = 1
         self.antal_potion_vanlig = 5
         self.antal_potion_epic = 3
         self.inventory = {
-            "swords": {sword.name: sword.damage for sword in [träsvärd]},
+            "swords": {sword.name: sword.damage for sword in [träsvärd, skibidi]},
             "potions": {
                 "normal": self.antal_potion_vanlig,
                 "epic": self.antal_potion_epic
@@ -237,15 +237,8 @@ class Teacher:
         return random.randint(self.min_damage, self.max_damage)
 
 # Enemy instances
-teacher1 = Teacher(name="johanna", health=100, min_damage=1, max_damage=10) #klassrumm 1
-teacher2 = Teacher(name="Ronja", health=110, min_damage=5, max_damage=15)
-teacher3 = Teacher(name="Henrik", health=125, min_damage=8, max_damage=18)
-teacher4 = Teacher(name="Victor", health=135, min_damage=1, max_damage=13)
-teacher5 = Teacher(name="David", health=150, min_damage=9, max_damage=20)
-teacher6 = Teacher(name="Mirrela", health=200, min_damage=11, max_damage=25)
 
-final_boss = Boss("Lars", 500, 20, 50, 20)
-
+#Union är OR-gate bassicly -Felix söndag 2025-02-16 21:39 
 def combat_loop(player: Character, enemy: Union[Teacher, Boss]) -> bool:
     """
     Starts a combat loop between the player and an enemy.
@@ -334,7 +327,14 @@ def combat_loop(player: Character, enemy: Union[Teacher, Boss]) -> bool:
 
 
 
+teacher1 = Teacher(name="johanna", health=100, min_damage=1, max_damage=10) #klassrumm 1
+teacher2 = Teacher(name="Ronja", health=110, min_damage=5, max_damage=15)
+teacher3 = Teacher(name="Henrik", health=125, min_damage=8, max_damage=18)
+teacher4 = Teacher(name="Victor", health=135, min_damage=1, max_damage=13)
+teacher5 = Teacher(name="David", health=150, min_damage=9, max_damage=20)
+teacher6 = Teacher(name="Mirrela", health=200, min_damage=11, max_damage=25)
 
+final_boss = Boss("Lars", 500, 20, 50, 20)
 player = Character(player_name, 100)
 
 # combat_loop(player, final_boss )
@@ -363,22 +363,26 @@ def lootbox_normal():
         if chosen_item == "normal_potion":
             player.antal_potion_vanlig += 1
             print(f"Du fick 1 vanlig potion! Totalt: {player.antal_potion_vanlig}")
+            time.sleep(2)
             
         # Använd exakt samma namn som svärden har i sin Sword-instans (lowercase)
         elif chosen_item == "kukri":
             player.add_sword_to_inventory(Kukri)
             print(f"Du fick {Kukri.name}!")
+            time.sleep(2)
             
         elif chosen_item == "järnsvärd":
             player.add_sword_to_inventory(järnsvärd)
             print(f"Du fick {järnsvärd.name}!")
+            time.sleep(2)
             
         elif chosen_item == "dagger":  # Sword-instansen för Dagger har name="dagger"
             player.add_sword_to_inventory(Dagger)
             print(f"Du fick {Dagger.name}!")
-            
+            time.sleep(2)
     else:
         print("Du behöver 5 coins för en normal lootbox!")
+        time.sleep(2)
 
 def lootbox_epic():
     if player.coins >= 15:
@@ -390,17 +394,21 @@ def lootbox_epic():
         if chosen_item == "epic_potion":
             player.antal_potion_epic += 1
             print(f"Du fick 1 epic potion! Totalt: {player.antal_potion_epic}")
+            time.sleep(2)
             
         elif chosen_item == "battle_axe":
             player.add_sword_to_inventory(battle_axe)
             print(f"Du fick {battle_axe.name}!")
+            time.sleep(2)
             
         elif chosen_item == "totem":
             player.totems += 1
             print(f"Du fick 1 totem! Totalt: {player.totems}")
+            time.sleep(2)
             
     else:
         print("Du behöver 15 coins för en epic lootbox!")
+        time.sleep(2)
 
 
 
@@ -462,6 +470,7 @@ def johannaquestion():
 
     if input_j == 5:
         os.system('cls' if os.name == 'nt' else 'clear')
+        player.add_coins()
         curses.initscr()
         
 
@@ -758,21 +767,25 @@ def status():
     
     teachers = [teacher1, teacher2, teacher3, teacher4, teacher5, teacher6]
     
-    if all(t.health == 0 for t in teachers) and final_boss.health == 0:
+    if all(t.health <= 0 for t in teachers) and final_boss.health >= 0:
         return "Alla lärare och Lars är besegrade!"
-    elif all(t.health == 0 for t in teachers):
+    elif all(t.health <= 0 for t in teachers):
         return "Du har bara Lars kvar nu!"
     else:
+        
         status_msg = "Lärare hälsostatus:\n"
         for t in teachers:
-            status_msg += f"{t.name}: {'Besegrad' if t.health == 0 else 'Levande'}\n"
-        status_msg += f"Lars: {'Besegrad' if final_boss.health == 0 else 'Levande'}"
+            status_msg += f"{t.name}: {'Besegrad' if t.health <= 0 else 'Levande'}\n"
+        status_msg += f"Lars: {'Besegrad' if final_boss.health <= 0 else 'Levande'}"
         return status_msg
 
+
+
 def inventorystats():
-    return(f"""helth: {player.health}\ncoins: {player.coins}\ninventory: {player.inventory}\n""")   
+    return(f"""Player: {player_name}\nHealth: {player.health}\nCoins: {player.coins}\nInventory: {player.inventory}\n""")   
 
 # Denna hindra en från att gå ut ur dörren innan alla lärare och boss är döda
+#lars.skibidi
 def exit_door():
     os.system('cls' if os.name == 'nt' else 'clear')
     if teacher1.health == 0 and teacher2.health == 0 and teacher3.health == 0 and teacher4.health == 0 and teacher5.health == 0 and teacher6.health == 0 and final_boss.health == 0:
@@ -780,11 +793,13 @@ def exit_door():
     else:
         print("Är du säker på att du vill lämna")
         print("Du har inte besegrat alla lärare än!")
-        svar = input("Ja eller Nej: ")
+        
         while True:
-            if svar == "Ja" or "ja":
+            svar = input("Ja eller Nej: ")
+            if svar.lower() == "ja":
+                os.system('cls' if os.name == 'nt' else 'clear')
                 end3()
-            elif svar == "Nej" or "nej":
+            elif svar.lower() == "nej":
                 os.system('cls' if os.name == 'nt' else 'clear')
                 curses.initscr()
                 break
@@ -860,7 +875,8 @@ def end3():
     --Spela igen för hela slutet--
     --Slut 3 av 4, (afraid ending)--""")
     exit()
-
+    
+#Går denna ens att kalla på?
 def end4():
     clear_terminal_visual()
     print("""
@@ -877,15 +893,15 @@ def end4():
     
 #--------------------------------------------------------------------------
 
-
+#pangs baguette kod
 def val_av_end():
-    if teacher1.health == 0 and teacher2.health == 0 and teacher3.health == 0 and teacher4.health == 0 and teacher5.health == 0 and teacher6.health == 0 and final_boss.health == 0:
+    if teacher1.health <= 0 and teacher2.health <= 0 and teacher3.health <= 0 and teacher4.health <= 0 and teacher5.health <= 0 and teacher6.health <= 0 and final_boss.health <= 0:
         end2()
     
-    if teacher1.health == 0 and teacher2.health == 0 and teacher3.health == 0 and teacher4.health == 0 and teacher5.health == 0 and teacher6.health == 0 and final_boss.health == 450:
+    if teacher1.health <= 0 and teacher2.health <= 0 and teacher3.health <= 0 and teacher4.health <= 0 and teacher5.health <= 0 and teacher6.health <= 0 and final_boss.health <= 450:
         end3()
     
-    if teacher1.health == 100 and teacher2.health == 110 and teacher3.health == 125 and teacher4.health == 135 and teacher5.health == 150 and teacher6.health == 200 and final_boss.health == 450:
+    if teacher1.health <= 100 and teacher2.health <= 110 and teacher3.health <= 125 and teacher4.health <= 135 and teacher5.health <= 150 and teacher6.health <= 200 and final_boss.health <= 450:
         end4()
 
 
@@ -973,7 +989,7 @@ def room1(stdscr, transition_to):
 
         # Check for goal and special positions
         if player_pos == Lärar_pos:
-            if teacher1.health == 0:
+            if teacher1.health <= 0:
                 player_pos = [12, 37]
                 message = ("Johanna är död")
             else:
@@ -1064,7 +1080,7 @@ def room2(stdscr, transition_to):
 
         # Check for goal and special positions
         if player_pos == Lärar_pos:
-            if teacher2.health == 0:
+            if teacher2.health <= 0:
                 player_pos = [12, 37]
                 message = ("Ronja är död")
             else:
@@ -1156,7 +1172,7 @@ def room3(stdscr, transition_to):
 
         # Check for goal and special positions
         if player_pos == Lärar_pos:
-            if teacher3.health == 0:
+            if teacher3.health <= 0:
                 player_pos = [12, 37]
                 message = ("Henrik är död")
             else:
@@ -1246,7 +1262,7 @@ def room4(stdscr, transition_to):
 
         # Check for goal and special positions
         if player_pos == Lärar_pos:
-            if teacher4.health == 0:
+            if teacher4.health <= 0:
                 player_pos = [12, 7]
                 message = ("Victor är död")
             else:
@@ -1337,7 +1353,7 @@ def room5(stdscr, transition_to):
 
         # Check for goal and special positions
         if player_pos == Lärar_pos:
-            if teacher5.health == 0:
+            if teacher5.health <= 0:
 
                 player_pos = [12, 7]
                 message = ("David är död")
@@ -1428,7 +1444,7 @@ def room6(stdscr, transition_to):
 
         # Check for goal and special positions
         if player_pos == Lärar_pos:
-            if teacher6.health == 0:
+            if teacher6.health <= 0:
                 player_pos = [12, 37]
                 message = ("Mirrela är död")
             else:
@@ -1535,7 +1551,6 @@ def Chestroom(stdscr, transition_to):
         elif player_pos in door_pos:
             transition_to("hallway2")
             
-        
 ###############################################################################
 #Lars Boss Room
 def Larsboss(stdscr, transition_to):
@@ -1742,7 +1757,7 @@ def main(stdscr, transiton_to):
     max_y, max_x = stdscr.getmaxyx()
     required_y, required_x = 35, 65  # Minimum terminal size
     if max_y < required_y or max_x < required_x:
-        stdscr.addstr(0, 0, "Terminal fönster är för littet! gör det till big screan")
+        stdscr.addstr(0, 0, "Terminal fönstret är för littet! gör det till big screen")
         stdscr.refresh()
         stdscr.getch()
         return
@@ -1865,8 +1880,19 @@ if __name__ == "__main__":
     curses.wrapper(entry_point)
 
 
-    #Buggar som jag hittar nu
+#Buggar som jag hittar nu
 
         #2 Buggar som är relaterade till lars-regen funktion (Non-Issue)
         #Bugg med kartan och combat systemet
         #Overlapp med statusen i spelet och kartan och skärmen är för inzoomad
+        #status funktionen funkar ej
+
+        #johanna är paj
+        #ronja kan du prata med efter du dödar henne men inte tydligen strida med henne även om du svarar fel
+        #samma med henrik och troligen alla lärare (vad fan är detta för spagheti kod)
+        #David vill fan inte slåss (pacifist?????)
+
+
+#todo: lägg till coins efter alla rätt svar på frågor vid läraren
+
+#GLÖM FAN INTE ATT FIXA DEFULT VARDEN. SPELAREN FÅR INTE HA SKIBIDI!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
