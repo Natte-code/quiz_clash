@@ -114,15 +114,15 @@ Kukri = Sword("Kukri", 25)
 battle_axe = Sword("battle_axe", 35)
 lightsaber = Sword("lightsaber", 50)
 stekpanna = Sword("stekpanna", 69)
-skibidi = Sword("Skibidi", 15230489572938759283750)
+skibidi = Sword("Skibidi", 15230489572938759283750) #debug
 träsvärd = Sword("Träsvärd", 5)
 
 class Character:
     def __init__(self, name, health):
         self.name = name
         self.health = health
-        self.coins = 1500
-        self.totems = 1
+        self.coins = 1500 #debug
+        self.totems = 1 #debug
         self.shields = 1
         self.antal_potion_vanlig = 5
         self.antal_potion_epic = 3
@@ -186,6 +186,10 @@ class Character:
             return True
         return False
 
+
+        
+
+
     def add_coins(self, amount):
         self.coins += amount
         print(f"Earned {amount} coins! Total: {self.coins}")
@@ -198,6 +202,11 @@ class Character:
             print(f"★ Du har låst upp {sword.name.capitalize()}! ★")
         else:
             print(f"Du har redan {sword.name.capitalize()} i inventoryt.")
+
+    def add_coins_random(self, amount):
+        random.randint(amount)
+        player.coins += amount
+        print(f"Du fick {amount} coins")
 
 class Boss:
     def __init__(self, name, health, min_damage, max_damage, regen):
@@ -344,11 +353,6 @@ player = Character(player_name, 100)
 #Bugg 2, Input saken av spelaren kan brytas när lars får en regen. Texten överskriver spelarens input, Men spelaren kan fortfarande skriva in
 
 
-# combat_loop(player, teacher1)
-# Starta en strid när du vill
-# combat_loop(player, teacher1)  # Strid mot Johanna
-# combat_loop(player, boss)       # Strid mot bossen
-
 #Kod optimized av Deepseek r1. 
 #--------------------------------------------------------------------------
 
@@ -470,11 +474,10 @@ def johannaquestion():
 
     if input_j == 5:
         os.system('cls' if os.name == 'nt' else 'clear')
-        player.add_coins()
+        player.add_coins_random(15)
         curses.initscr()
+     
         
-
-
 #ronja
 def ronjaquestion():
     
@@ -521,8 +524,8 @@ def ronjaquestion():
             break
     if input_r == 5:
         os.system('cls' if os.name == 'nt' else 'clear')
+        player.add_coins()
         curses.initscr()
-
 
 
 #henrik
@@ -798,7 +801,7 @@ def exit_door():
             svar = input("Ja eller Nej: ")
             if svar.lower() == "ja":
                 os.system('cls' if os.name == 'nt' else 'clear')
-                end3()
+                val_av_end()
             elif svar.lower() == "nej":
                 os.system('cls' if os.name == 'nt' else 'clear')
                 curses.initscr()
@@ -895,13 +898,11 @@ def end4():
 
 #pangs baguette kod
 def val_av_end():
-    if teacher1.health <= 0 and teacher2.health <= 0 and teacher3.health <= 0 and teacher4.health <= 0 and teacher5.health <= 0 and teacher6.health <= 0 and final_boss.health <= 0:
-        end2()
     
     if teacher1.health <= 0 and teacher2.health <= 0 and teacher3.health <= 0 and teacher4.health <= 0 and teacher5.health <= 0 and teacher6.health <= 0 and final_boss.health <= 450:
         end3()
     
-    if teacher1.health <= 100 and teacher2.health <= 110 and teacher3.health <= 125 and teacher4.health <= 135 and teacher5.health <= 150 and teacher6.health <= 200 and final_boss.health <= 450:
+    elif teacher1.health <= 100 and teacher2.health <= 110 and teacher3.health <= 125 and teacher4.health <= 135 and teacher5.health <= 150 and teacher6.health <= 200 and final_boss.health <= 450:
         end4()
 
 
