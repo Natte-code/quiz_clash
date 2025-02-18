@@ -358,6 +358,7 @@ player = Character(player_name, 100)
 
 
 def lootbox_normal():
+    os.system('cls' if os.name == 'nt' else 'clear')
     if player.coins >= 5:
         player.coins -= 5  # Dra av coins direkt
         
@@ -367,28 +368,29 @@ def lootbox_normal():
         if chosen_item == "normal_potion":
             player.antal_potion_vanlig += 1
             print(f"Du fick 1 vanlig potion! Totalt: {player.antal_potion_vanlig}")
-            time.sleep(2)
+            time.sleep(3)
             
         # Använd exakt samma namn som svärden har i sin Sword-instans (lowercase)
         elif chosen_item == "kukri":
             player.add_sword_to_inventory(Kukri)
             print(f"Du fick {Kukri.name}!")
-            time.sleep(2)
+            time.sleep(3)
             
         elif chosen_item == "järnsvärd":
             player.add_sword_to_inventory(järnsvärd)
             print(f"Du fick {järnsvärd.name}!")
-            time.sleep(2)
+            time.sleep(3)
             
         elif chosen_item == "dagger":  # Sword-instansen för Dagger har name="dagger"
             player.add_sword_to_inventory(Dagger)
             print(f"Du fick {Dagger.name}!")
-            time.sleep(2)
+            time.sleep(3)
     else:
         print("Du behöver 5 coins för en normal lootbox!")
-        time.sleep(2)
+        time.sleep(3)
 
 def lootbox_epic():
+    os.system('cls' if os.name == 'nt' else 'clear')
     if player.coins >= 15:
         player.coins -= 15
         
@@ -398,21 +400,21 @@ def lootbox_epic():
         if chosen_item == "epic_potion":
             player.antal_potion_epic += 1
             print(f"Du fick 1 epic potion! Totalt: {player.antal_potion_epic}")
-            time.sleep(2)
+            time.sleep(3)
             
         elif chosen_item == "battle_axe":
             player.add_sword_to_inventory(battle_axe)
             print(f"Du fick {battle_axe.name}!")
-            time.sleep(2)
+            time.sleep(3)
             
         elif chosen_item == "totem":
             player.totems += 1
             print(f"Du fick 1 totem! Totalt: {player.totems}")
-            time.sleep(2)
+            time.sleep(3)
             
     else:
         print("Du behöver 15 coins för en epic lootbox!")
-        time.sleep(2)
+        time.sleep(3)
 
 
 
@@ -427,6 +429,9 @@ def lootbox_epic():
 
 #johanna
 def johannaquestion():
+    os.system('cls' if os.name == 'nt' else 'clear')
+    print("Hur bra är du på matte då?")
+    time.sleep(2)
     os.system('cls' if os.name == 'nt' else 'clear')
     # Olika frågor och rätta svar
     input_j = 1 # Gör så att man vet när den har frågat fem frågor
@@ -475,13 +480,19 @@ def johannaquestion():
 
     if input_j == 5:
         os.system('cls' if os.name == 'nt' else 'clear')
+        print("Du va bra på matte, kull för dig")
+        time.sleep(2)
+        os.system('cls' if os.name == 'nt' else 'clear')
         player.add_coins_random(15)
+        teacher1.health == 0
         curses.initscr()
      
         
 #ronja
 def ronjaquestion():
-    
+    os.system('cls' if os.name == 'nt' else 'clear')
+    print("How god in english?")
+    time.sleep(2)
     os.system('cls' if os.name == 'nt' else 'clear')
     input_r = 1
     # Olika frågor och rätta svar
@@ -520,18 +531,26 @@ def ronjaquestion():
             input_r = input_r + 1
         else:
             # Spelaren går in i fight
-            print(f"Fel!")
+            print(f"Wrong!")
+            print("Thats the wrong anser, now DIE")
+            time.sleep(2)
             combat_loop(player, teacher2)
             break
     if input_r == 5:
         os.system('cls' if os.name == 'nt' else 'clear')
-        player.add_coins()
+        print("okey, so you could our english, move on now")
+        time.sleep(2)
+        os.system('cls' if os.name == 'nt' else 'clear')
+        player.add_coins(15)
+        teacher2.health == 0
         curses.initscr()
 
 
 #henrik
 def henrikquestion():
-    
+    os.system('cls' if os.name == 'nt' else 'clear')
+    print("Hur bra på fysik är du?")
+    time.sleep(2)
     os.system('cls' if os.name == 'nt' else 'clear')
     input_h = 1
     
@@ -573,17 +592,26 @@ def henrikquestion():
         else:
             # Spelaren går in i fight
             print(f"Fel!")
+            print("sämst, va dålig du va på fysik då, Nu ska du dö för det!")
+            time.sleep(2)
             combat_loop(player, teacher3)
             break
 
     if input_h == 5:
         os.system('cls' if os.name == 'nt' else 'clear')
+        print("Du kunde fysik asså, bra gjort!")
+        time.sleep(2)
+        os.system('cls' if os.name == 'nt' else 'clear')
+        player.add_coins_random(15)
+        teacher3.health == 0
         curses.initscr()
         
 
 #Victor
 def vicorquestion():
-    
+    os.system('cls' if os.name == 'nt' else 'clear')
+    print("Kan du svara på mina matte frågor?")
+    time.sleep(2)
     os.system('cls' if os.name == 'nt' else 'clear')
     input_v = 1
     # Olika frågor och rätta svar
@@ -626,15 +654,24 @@ def vicorquestion():
         else:
             # Spelaren går in i fight
             print(f"Fel!")
+            print("Så du är dålig på matte, det var dåligt för dig då! >:)")
+            time.sleep(2)
             combat_loop(player, teacher4)
             break
     if input_v == 5:
+        print("jäklar, du var bra på matte då. aja du besegrade mig. ha det bra unge man.")
+        time.sleep(2)
         os.system('cls' if os.name == 'nt' else 'clear')
+        player.add_coins_random(15)
+        teacher4.health == 0
         curses.initscr()
         
 
 #David
 def davidquestion():
+    os.system('cls' if os.name == 'nt' else 'clear')
+    print("Tjena, kan du svara rätt på mina idrotts frågot?")
+    time.sleep(1)
     os.system('cls' if os.name == 'nt' else 'clear')
     input_d = 1
     # Olika frågor och rätta svar
@@ -676,15 +713,25 @@ def davidquestion():
         else:
             # Spelaren går in i fight
             print(f"Fel!")
+            print("Men ojojoj, Du hade fel. Du vet nog vad som händer nu.")
+            time.sleep(2)
             combat_loop(player, teacher5)
             break
     if input_d == 5:
         os.system('cls' if os.name == 'nt' else 'clear')
+        print("Du är bra på idrott, det ger dig ett sort A min unge gosse. Ha det bra nu :)")
+        time.sleep(2)
+        os.system('cls' if os.name == 'nt' else 'clear')
+        player.add_coins_random(15)
+        teacher5.health == 0
         curses.initscr()
         
             
 #Mirrela
-def mirrelaquestion(): 
+def mirrelaquestion():
+    os.system('cls' if os.name == 'nt' else 'clear')
+    print("Hur bra är du på datorer?")
+    time.sleep(2) 
     os.system('cls' if os.name == 'nt' else 'clear')
     input_m = 1
     # Olika frågor och rätta svar
@@ -722,20 +769,30 @@ def mirrelaquestion():
         if answer == correct_answer.lower():
             print("Rätt!\n")
             input_m = input_m + 1
-        
-            
         else:
             # Spelaren går in i fight
             print(f"Fel!")
+            print("Du hade fel, nu ska vi slås!")
+            time.sleep(2)
             combat_loop(player, teacher6)
             break
     if input_m == 5:
         os.system('cls' if os.name == 'nt' else 'clear')
+        print("Du kan dina datorer du, gå vidare nu med din kunskap.")
+        time.sleep(2)
+        os.system('cls' if os.name == 'nt' else 'clear')
+        player.add_coins_random(15)
+        teacher6.health == 0
         curses.initscr()
 
 
 #Lars boss
-def larsquestion(): 
+def larsquestion():
+    os.system('cls' if os.name == 'nt' else 'clear') 
+    print("""Så du har besegrat alla andra lärare. Men du kommer att in se att jag inte är lätt att slå.
+    Jag är nog du kommer ha svårats för att möta. Så nu ska vi se om du kan svara på mina frågor! >:)""")
+    time.sleep(3)
+    os.system('cls' if os.name == 'nt' else 'clear')
     inputl = 1
     # Olika frågor och rätta svar
     q_and_a_boss = [
@@ -759,11 +816,19 @@ def larsquestion():
             inputl = inputl + 1
         else:
             print("Fel!")
+            print("""HAHAHHAHAHA, jag viste att du inte skulle kunna svara på mina frågor. Nu vet du nog vad som händer.
+            Du kommer alrdig att vinna min fight! 
+            SÅ DÖ!!! >:)""")
+            time.sleep(3)
             combat_loop(player, final_boss)
             break
     if inputl == 5:
         os.system('cls' if os.name == 'nt' else 'clear')
-        curses.initscr()
+        print("Hur kunde du svara på alla mina frågor. Ingen har någonsin kunnat göra det.")
+        time.sleep(2)
+        print("Aja, du ska dö ändå din homosexuela jävel! >:)")
+        time.sleep(2)
+        combat_loop(player, final_boss)
         
 
 # ändrade så att status saken funkade bättre med hjälp av AI
@@ -896,7 +961,6 @@ def end4():
     --Spela igen för hela slutet--
     --Slut 4 av 4, (pacifist ending)--""")
     exit()
-    
 #--------------------------------------------------------------------------
 
 #pangs baguette kod
@@ -1751,7 +1815,7 @@ def Hallway2(stdscr, transition_to):
             os.system('cls' if os.name == 'nt' else 'clear')
             curses.endwin()
             player_pos = [12, 23]
-            lars_door()
+            transition_to('Larsboss')
             
         
 ###############################################################################
