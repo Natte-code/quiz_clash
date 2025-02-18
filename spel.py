@@ -469,8 +469,9 @@ def johannaquestion():
             print(f"Fel!")
             time.sleep(1)
             print("Nu du ska vi slåss >:)")
-            time.sleep(5)
+            time.sleep(1)
             combat_loop(player, teacher1)
+            break
 
     if input_j == 5:
         os.system('cls' if os.name == 'nt' else 'clear')
@@ -675,8 +676,8 @@ def davidquestion():
         else:
             # Spelaren går in i fight
             print(f"Fel!")
+            combat_loop(player, teacher5)
             break
-        combat_loop(player, teacher5)
     if input_d == 5:
         os.system('cls' if os.name == 'nt' else 'clear')
         curses.initscr()
@@ -791,7 +792,7 @@ def inventorystats():
 #lars.skibidi
 def exit_door():
     os.system('cls' if os.name == 'nt' else 'clear')
-    if teacher1.health == 0 and teacher2.health == 0 and teacher3.health == 0 and teacher4.health == 0 and teacher5.health == 0 and teacher6.health == 0 and final_boss.health == 0:
+    if teacher1.health <= 0 and teacher2.health <= 0 and teacher3.health <= 0 and teacher4.health <= 0 and teacher5.health <= 0 and teacher6.health <= 0 and final_boss.health <= 0:
         end2()
     else:
         print("Är du säker på att du vill lämna")
@@ -802,19 +803,21 @@ def exit_door():
             if svar.lower() == "ja":
                 os.system('cls' if os.name == 'nt' else 'clear')
                 val_av_end()
+                break
             elif svar.lower() == "nej":
                 os.system('cls' if os.name == 'nt' else 'clear')
                 curses.initscr()
                 break
             else:
                 print("Ja eller Nej är frågan!")
+                time.sleep(1)
 
 
 
 # Denna göra så att man inte kan komma in i lars rum om lärare lever
 def lars_door():
     os.system('cls' if os.name == 'nt' else 'clear')
-    if teacher1.health == 0 and teacher2.health == 0 and teacher3.health == 0 and teacher4.health == 0 and teacher5.health == 0 and teacher6.health == 0:
+    if teacher1.health <= 0 and teacher2.health <= 0 and teacher3.health <= 0 and teacher4.health <= 0 and teacher5.health <= 0 and teacher6.health <= 0:
         os.system('cls' if os.name == 'nt' else 'clear')
         curses.initscr()
         Larsboss()
@@ -901,10 +904,10 @@ def val_av_end():
     
     if teacher1.health <= 0 and teacher2.health <= 0 and teacher3.health <= 0 and teacher4.health <= 0 and teacher5.health <= 0 and teacher6.health <= 0 and final_boss.health <= 450:
         end3()
-    
+            
     elif teacher1.health <= 100 and teacher2.health <= 110 and teacher3.health <= 125 and teacher4.health <= 135 and teacher5.health <= 150 and teacher6.health <= 200 and final_boss.health <= 450:
         end4()
-
+        
 
 
 ###########################################################################
