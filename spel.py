@@ -1889,12 +1889,9 @@ if __name__ == "__main__":
         #2 Buggar som är relaterade till lars-regen funktion (Non-Issue)
         #Bugg med kartan och combat systemet
         #Overlapp med statusen i spelet och kartan och skärmen är för inzoomad
-        #status funktionen funkar ej
 
-        #johanna är paj
-        #ronja kan du prata med efter du dödar henne men inte tydligen strida med henne även om du svarar fel
         #samma med henrik och troligen alla lärare (vad fan är detta för spagheti kod)
-        #David vill fan inte slåss (pacifist?????)
+        
 
 
 #todo: lägg till coins efter alla rätt svar på frågor vid läraren
