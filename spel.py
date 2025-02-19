@@ -1446,10 +1446,10 @@ def room6(stdscr, transition_to):
 
     # Game variables
     rows, cols = 25, 45  # Game board dimensions
-    player_pos = [12, 37]  # Player's starting position
+    player_pos = [21, 20]  # Player's starting position
     block_pos = []   # Block positions
-    Lärar_pos = [12, 3]      # Goal position
-    door_pos = [[13, 41], [12, 42], [11, 43]]
+    Lärar_pos = [3, 20]      # Goal position
+    door_pos = [[23, 17], [23, 18], [23, 19], [23, 20], [23, 21], [23, 22], [23, 23]]
 
     key = None           # Key press tracker
     message = '''
@@ -1469,7 +1469,7 @@ def room6(stdscr, transition_to):
                 if (r == 0 or r == rows - 1 or c == 0 or c == cols - 1):
                     stdscr.addch(r, c, '#')  # Wall
                 elif [r, c] in door_pos:
-                    stdscr.addch(r, c, '/')
+                    stdscr.addch(r, c, '-')
                 elif [r, c] in block_pos:
                     stdscr.addch(r, c, 'B')  # Block
                 elif [r, c] == Lärar_pos:
