@@ -121,13 +121,13 @@ class Character:
     def __init__(self, name, health):
         self.name = name
         self.health = health
-        self.coins = 1500 #debug
-        self.totems = 1 #debug
+        self.coins = 5 #debug
+        self.totems = 0 #debug
         self.shields = 1
-        self.antal_potion_vanlig = 5
-        self.antal_potion_epic = 3
+        self.antal_potion_vanlig = 2 #debug
+        self.antal_potion_epic = 1 #debug
         self.inventory = {
-            "swords": {sword.name: sword.damage for sword in [träsvärd, skibidi]},
+            "swords": {sword.name: sword.damage for sword in [träsvärd]},
             "potions": {
                 "normal": self.antal_potion_vanlig,
                 "epic": self.antal_potion_epic
@@ -207,6 +207,8 @@ class Character:
         random.randint(amount)
         player.coins += amount
         print(f"Du fick {amount} coins")
+
+
 
 class Boss:
     def __init__(self, name, health, min_damage, max_damage, regen):
@@ -330,6 +332,7 @@ def combat_loop(player: Character, enemy: Union[Teacher, Boss]) -> bool:
                 continue
             print("\n☠️ GAME OVER! ☠️")
             input("Press ENTER to exit...")
+            end1()
             return False
 
         time.sleep(2)
@@ -541,7 +544,7 @@ def ronjaquestion():
         print("okey, so you could our english, move on now")
         time.sleep(2)
         os.system('cls' if os.name == 'nt' else 'clear')
-        player.add_coins(15)
+        player.add_coins_random(15)
         teacher2.health == 0
         curses.initscr()
 
@@ -581,30 +584,30 @@ def henrikquestion():
 
     # Välj slumpmässigt 5 frågor
     selected_questions = random.sample(q_and_a_henrik, 5)
+    if teacher3.health == 125: #Förhoppningsvis stoppar inf loop
+        for i, (question, correct_answer) in enumerate(selected_questions, start=1):
+            print(f"Fråga {i}: {question}")
+            answer = input("Ditt svar: ").strip().lower()
 
-    for i, (question, correct_answer) in enumerate(selected_questions, start=1):
-        print(f"Fråga {i}: {question}")
-        answer = input("Ditt svar: ").strip().lower()
+            if answer == correct_answer.lower():
+                print("Rätt!\n")
+                input_h = input_h + 1
+            else:
+                # Spelaren går in i fight
+                print(f"Fel!")
+                print("sämst, va dålig du va på fysik då, Nu ska du dö för det!")
+                time.sleep(2)
+                combat_loop(player, teacher3)
+                break
 
-        if answer == correct_answer.lower():
-            print("Rätt!\n")
-            input_h = input_h + 1
-        else:
-            # Spelaren går in i fight
-            print(f"Fel!")
-            print("sämst, va dålig du va på fysik då, Nu ska du dö för det!")
+        if input_h == 5:
+            os.system('cls' if os.name == 'nt' else 'clear')
+            print("Du kunde fysik asså, bra gjort!")
             time.sleep(2)
-            combat_loop(player, teacher3)
-            break
-
-    if input_h == 5:
-        os.system('cls' if os.name == 'nt' else 'clear')
-        print("Du kunde fysik asså, bra gjort!")
-        time.sleep(2)
-        os.system('cls' if os.name == 'nt' else 'clear')
-        player.add_coins_random(15)
-        teacher3.health == 0
-        curses.initscr()
+            os.system('cls' if os.name == 'nt' else 'clear')
+            player.add_coins_random(15)
+            teacher3.health == 0
+            curses.initscr()
         
 
 #Victor
@@ -832,6 +835,7 @@ def larsquestion():
         
 
 # ändrade så att status saken funkade bättre med hjälp av AI
+#funkar inte här!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 def status():
     
     teachers = [teacher1, teacher2, teacher3, teacher4, teacher5, teacher6]
@@ -859,6 +863,7 @@ def exit_door():
     os.system('cls' if os.name == 'nt' else 'clear')
     if teacher1.health <= 0 and teacher2.health <= 0 and teacher3.health <= 0 and teacher4.health <= 0 and teacher5.health <= 0 and teacher6.health <= 0 and final_boss.health <= 0:
         end2()
+
     else:
         print("Är du säker på att du vill lämna")
         print("Du har inte besegrat alla lärare än!")
@@ -1958,6 +1963,6 @@ if __name__ == "__main__":
         
 
 
-#todo: lägg till coins efter alla rätt svar på frågor vid läraren
+#todo: lägg till coins efter alla rätt svar på frågor vid läraren (gjord)
 
 #GLÖM FAN INTE ATT FIXA DEFULT VARDEN. SPELAREN FÅR INTE HA SKIBIDI!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
