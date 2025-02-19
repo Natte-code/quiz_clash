@@ -115,9 +115,9 @@ battle_axe = Sword("battle_axe", 35)
 lightsaber = Sword("lightsaber", 50)
 stekpanna = Sword("stekpanna", 69)
 skibidi = Sword("Skibidi", 15230489572938759283750) #debug
-träsvärd = Sword("Träsvärd", 5)
+träsvärd = Sword("Träsvärd", 10)
 
-class Character:
+class Character:   
     def __init__(self, name, health):
         self.name = name
         self.health = health
@@ -316,6 +316,7 @@ def combat_loop(player: Character, enemy: Union[Teacher, Boss]) -> bool:
             reward = random.randint(10, 20)
             player.add_coins(reward)
             print(f"\n★ {enemy.name} defeated! ★")
+            print("Tip: Go and open a chest in the chest room. \n Normal chests: 5 coins. Epic 15.")
             input("Press ENTER to continue...")
             return True
 
@@ -433,8 +434,10 @@ def lootbox_epic():
 #johanna
 def johannaquestion():
     os.system('cls' if os.name == 'nt' else 'clear')
+
     print("Hur bra är du på matte då?")
     time.sleep(2)
+
     os.system('cls' if os.name == 'nt' else 'clear')
     # Olika frågor och rätta svar
     input_j = 1 # Gör så att man vet när den har frågat fem frågor
@@ -494,8 +497,10 @@ def johannaquestion():
 #ronja
 def ronjaquestion():
     os.system('cls' if os.name == 'nt' else 'clear')
+
     print("How god in english?")
     time.sleep(2)
+
     os.system('cls' if os.name == 'nt' else 'clear')
     input_r = 1
     # Olika frågor och rätta svar
@@ -541,7 +546,7 @@ def ronjaquestion():
                 break
         if input_r == 5:
             os.system('cls' if os.name == 'nt' else 'clear')
-            print("okey, so you could our english, move on now")
+            print("Wow, Your english is impressive. Move on")
             time.sleep(2)
             os.system('cls' if os.name == 'nt' else 'clear')
             player.add_coins_random(15)
@@ -1064,7 +1069,7 @@ def room1(stdscr, transition_to):
         if player_pos == Lärar_pos:
             if teacher1.health <= 0:
                 player_pos = [12, 37]
-                message = ("Johanna är död")
+                message = ("Johanna är besegrad")
             else:
                 stdscr.clear()
                 os.system('cls' if os.name == 'nt' else 'clear')
@@ -1155,7 +1160,7 @@ def room2(stdscr, transition_to):
         if player_pos == Lärar_pos:
             if teacher2.health <= 0:
                 player_pos = [12, 37]
-                message = ("Ronja är död")
+                message = ("Ronja är besegrad")
             else:
                 stdscr.clear()
                 os.system('cls' if os.name == 'nt' else 'clear')
@@ -1247,7 +1252,7 @@ def room3(stdscr, transition_to):
         if player_pos == Lärar_pos:
             if teacher3.health <= 0:
                 player_pos = [12, 37]
-                message = ("Henrik är död")
+                message = ("Henrik är besegrad")
             else:
                 stdscr.clear()
                 os.system('cls' if os.name == 'nt' else 'clear')
@@ -1337,7 +1342,7 @@ def room4(stdscr, transition_to):
         if player_pos == Lärar_pos:
             if teacher4.health <= 0:
                 player_pos = [12, 7]
-                message = ("Victor är död")
+                message = ("Victor är besegrad")
             else:
                 stdscr.clear()
                 os.system('cls' if os.name == 'nt' else 'clear')
@@ -1429,7 +1434,7 @@ def room5(stdscr, transition_to):
             if teacher5.health <= 0:
 
                 player_pos = [12, 7]
-                message = ("David är död")
+                message = ("David är besegrad")
             else:
                 stdscr.clear()
                 os.system('cls' if os.name == 'nt' else 'clear')
@@ -1519,7 +1524,7 @@ def room6(stdscr, transition_to):
         if player_pos == Lärar_pos:
             if teacher6.health <= 0:
                 player_pos = [12, 37]
-                message = ("Mirrela är död")
+                message = ("Mirrela är besegrad")
             else:
                 stdscr.clear()
                 os.system('cls' if os.name == 'nt' else 'clear')
@@ -1848,6 +1853,10 @@ def main(stdscr, transiton_to):
     door_pos3 = [[27, 1], [26, 2], [25, 3]]
     door_pos4 = [[11, 31], [10, 32], [9, 33]]
     door_pos5 = [[27, 31], [26, 32], [25, 33]]
+    one = [10, 1]
+    two = [26, 1]
+    tre = [10, 33]
+    foure = [26, 33]
     key = None           # Key press tracker
 
     while True:
@@ -1859,12 +1868,20 @@ def main(stdscr, transiton_to):
                     stdscr.addch(r, c, '#')  # Wall
                 elif [r, c] in door_pos:
                     stdscr.addch(r, c, '/')
+                elif [r, c] in one:
+                    stdscr.addch(r, c, '1')
                 elif [r, c] in door_pos2:
                     stdscr.addch(r, c, '-')
+                elif [r, c] in two:
+                    stdscr.addch(r, c, '2')
                 elif [r, c] in door_pos3:
                     stdscr.addch(r, c, '/')
+                elif [r, c] in tre:
+                    stdscr.addch(r, c, '3')
                 elif [r, c] in door_pos4:
                     stdscr.addch(r, c, '/')
+                elif [r, c] in foure:
+                    stdscr.addch(r, c, '4')
                 elif [r, c] in door_pos5:
                     stdscr.addch(r, c, '/')
                 elif [r, c] == player_pos:
@@ -1965,4 +1982,4 @@ if __name__ == "__main__":
 
 #todo: lägg till coins efter alla rätt svar på frågor vid läraren (gjord)
 
-#GLÖM FAN INTE ATT FIXA DEFULT VARDEN. SPELAREN FÅR INTE HA SKIBIDI!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+#GLÖM FAN INTE ATT FIXA DEFULT VäRDEN. SPELAREN FÅR INTE HA SKIBIDI!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
