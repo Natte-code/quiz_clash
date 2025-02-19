@@ -900,7 +900,7 @@ def status():
 
 
 def inventorystats():
-    return(f"""Player: {player_name}\nHealth: {player.health}\nCoins: {player.coins}\nInventory: {player.inventory}\n""")   
+    return(f"""Player: {player_name}\nHealth: {player.health}\nCoins: {player.coins}Totem: {player.totems}\nInventory: {player.inventory}\n""")   
 
 # Denna hindra en från att gå ut ur dörren innan alla lärare och boss är döda
 #lars.skibidi
