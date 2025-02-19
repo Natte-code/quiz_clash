@@ -4,6 +4,7 @@ import time
 import os
 import threading
 from typing import Union
+from colorama import Fore, Style
 
 
 #Def av några sid funktioner som kallas på igenom spelet
@@ -195,19 +196,12 @@ class Character:
         print(f"Earned {amount} coins! Total: {self.coins}")
 
 
-    def add_sword_to_inventory(self, sword: Sword):
-        """Lägger till ett svärd i inventoryt om det inte redan finns"""
-        if sword.name not in self.inventory["swords"]:
-            self.inventory["swords"][sword.name] = sword.damage
-            print(f"★ Du har låst upp {sword.name.capitalize()}! ★")
-        else:
-            print(f"Du har redan {sword.name.capitalize()} i inventoryt.")
 
     def add_coins_random(self, amount):
         random.randint(amount)
         player.coins += amount
         print(f"Du fick {amount} coins")
-
+ 
 
 
 class Boss:
@@ -361,65 +355,111 @@ player = Character(player_name, 100)
 #--------------------------------------------------------------------------
 
 
-def lootbox_normal():
+
+# Anta att Player-klassen och Sword-klassen redan finns
+class Player:
+    def __init__(self):
+        self.coins = 0
+        self.inventory = {"swords": {}}
+        self.antal_potion_vanlig = 0
+        self.antal_potion_epic = 0
+        self.totems = 0
+
+    def add_sword_to_inventory(self, sword):
+        if sword.name not in self.inventory["swords"]:
+            self.inventory["swords"][sword.name] = sword.damage
+            print_success(f"Du har låst upp {sword.name.capitalize()}!")
+        else:
+            print_error(f"Du har redan {sword.name.capitalize()} i inventoryt.")
+
+class Sword:
+    def __init__(self, name, damage):
+        self.name = name
+        self.damage = damage
+
+# -----------------------------------------------------------------------------
+# Hjälpfunktioner för färger och bekräftelse
+# -----------------------------------------------------------------------------
+def print_success(message):
+    print(Fore.GREEN + "★ " + message + " ★" + Style.RESET_ALL)
+
+def print_error(message):
+    print(Fore.RED + "✘ " + message + " ✘" + Style.RESET_ALL)
+
+def confirm_purchase(cost, box_type):
     os.system('cls' if os.name == 'nt' else 'clear')
-    if player.coins >= 5:
-        player.coins -= 5  # Dra av coins direkt
-        
-        lootpool_normal = ["kukri", "järnsvärd", "normal_potion", "katana", "dagger", "pinne"]
-        chosen_item = random.choice(lootpool_normal)
+    print(f"Vill du öppna en {box_type} lootbox för {cost} coins? (ja/nej)")
+    choice = input("> ").lower()
+    return choice == "ja"
 
-        if chosen_item == "normal_potion":
-            player.antal_potion_vanlig += 1
-            print(f"Du fick 1 vanlig potion! Totalt: {player.antal_potion_vanlig}")
-            time.sleep(3)
-            
-        # Använd exakt samma namn som svärden har i sin Sword-instans (lowercase)
-        elif chosen_item == "kukri":
-            player.add_sword_to_inventory(Kukri)
-            print(f"Du fick {Kukri.name}!")
-            time.sleep(3)
-            
-        elif chosen_item == "järnsvärd":
-            player.add_sword_to_inventory(järnsvärd)
-            print(f"Du fick {järnsvärd.name}!")
-            time.sleep(3)
-            
-        elif chosen_item == "dagger":  # Sword-instansen för Dagger har name="dagger"
-            player.add_sword_to_inventory(Dagger)
-            print(f"Du fick {Dagger.name}!")
-            time.sleep(3)
-    else:
-        print("Du behöver 5 coins för en normal lootbox!")
-        time.sleep(3)
-
-def lootbox_epic():
+# -----------------------------------------------------------------------------
+# Lootbox-systemet
+# -----------------------------------------------------------------------------
+def open_lootbox(lootpool, cost, box_type):
     os.system('cls' if os.name == 'nt' else 'clear')
-    if player.coins >= 15:
-        player.coins -= 15
-        
-        lootpool_epic = ["epic_potion", "battle_axe", "totem", "lightsaber", "stekpanna"]
-        chosen_item = random.choice(lootpool_epic)
+    
+    if player.coins < cost:
+        print_error(f"Du behöver {cost} coins för en {box_type} lootbox!")
+        time.sleep(2)
+        return
 
-        if chosen_item == "epic_potion":
-            player.antal_potion_epic += 1
-            print(f"Du fick 1 epic potion! Totalt: {player.antal_potion_epic}")
-            time.sleep(3)
-            
-        elif chosen_item == "battle_axe":
-            player.add_sword_to_inventory(battle_axe)
-            print(f"Du fick {battle_axe.name}!")
-            time.sleep(3)
-            
-        elif chosen_item == "totem":
-            player.totems += 1
-            print(f"Du fick 1 totem! Totalt: {player.totems}")
-            time.sleep(3)
-            
+    player.coins -= cost
+    chosen_item = random.choice(list(lootpool.keys()))
+    lootpool[chosen_item]()  # Kör funktionen för det valda itemet
+
+    # Hantera utskrift
+    if "_potion" in chosen_item:
+        potion_type = chosen_item.split("_")[0]
+        print_success(f"Du fick 1 {potion_type} potion! Totalt: {getattr(player, f'antal_potion_{potion_type}')}")
     else:
-        print("Du behöver 15 coins för en epic lootbox!")
-        time.sleep(3)
+        print_success(f"Du fick {chosen_item.capitalize()}!")
+    
+    time.sleep(2)
 
+# ----------------------------------------------------------------------------- ######INTE KLAR##########
+# Definiera lootpools och Sword-instanser
+# -----------------------------------------------------------------------------
+# Skapa Sword-instanser (exempel, justera efter ditt spel)
+kukri = Sword(name="kukri", damage=10)
+järnsvärd = Sword(name="järnsvärd", damage=12)
+dagger = Sword(name="dagger", damage=8)
+katana = Sword(name="katana", damage=15)
+pinne = Sword(name="pinne", damage=2)
+battle_axe = Sword(name="battle_axe", damage=20)
+lightsaber = Sword(name="lightsaber", damage=25)
+stekpanna = Sword(name="stekpanna", damage=18)
+
+lootpool_normal = {
+    "kukri": lambda: player.add_sword_to_inventory(kukri),
+    "järnsvärd": lambda: player.add_sword_to_inventory(järnsvärd),
+    "normal_potion": lambda: setattr(player, 'antal_potion_vanlig', player.antal_potion_vanlig + 1),
+    "katana": lambda: player.add_sword_to_inventory(katana),
+    "dagger": lambda: player.add_sword_to_inventory(dagger),
+    "pinne": lambda: player.add_sword_to_inventory(pinne),
+}
+
+lootpool_epic = {
+    "epic_potion": lambda: setattr(player, 'antal_potion_epic', player.antal_potion_epic + 1),
+    "battle_axe": lambda: player.add_sword_to_inventory(battle_axe),
+    "totem": lambda: setattr(player, 'totems', player.totems + 1),
+    "lightsaber": lambda: player.add_sword_to_inventory(lightsaber),
+    "stekpanna": lambda: player.add_sword_to_inventory(stekpanna),
+}
+
+# -----------------------------------------------------------------------------
+# Exempel på användning
+# -----------------------------------------------------------------------------
+if __name__ == "__main__":
+    player = Player()
+    player.coins = 20  # Testcoins
+
+    # Öppna en normal lootbox
+    if confirm_purchase(cost=5, box_type="normal"):
+        open_lootbox(lootpool_normal, cost=5, box_type="normal")
+
+    # Öppna en epic lootbox
+    if confirm_purchase(cost=15, box_type="epic"):
+        open_lootbox(lootpool_epic, cost=15, box_type="epic")
 
 
 
