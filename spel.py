@@ -463,32 +463,32 @@ def johannaquestion():
 
     # Välj slumpmässigt 5 frågor
     selected_questions = random.sample(q_and_a_johanna, 5)
+    if teacher1.health == 100: #Förhoppningsvis stoppar inf loop
+        for i, (question, correct_answer) in enumerate(selected_questions, start=1):
+            print(f"Fråga {i}: {question}")
+            answer = input("Ditt svar: ").strip().lower()
 
-    for i, (question, correct_answer) in enumerate(selected_questions, start=1):
-        print(f"Fråga {i}: {question}")
-        answer = input("Ditt svar: ").strip().lower()
+            if answer == correct_answer.lower():
+                print("Rätt!\n")
+                input_j =  input_j + 1
+                
+            else:
+                # Spelaren går in i fight
+                print(f"Fel!")
+                time.sleep(1)
+                print("Nu du ska vi slåss >:)")
+                time.sleep(1)
+                combat_loop(player, teacher1)
+                break
 
-        if answer == correct_answer.lower():
-            print("Rätt!\n")
-            input_j =  input_j + 1
-            
-        else:
-            # Spelaren går in i fight
-            print(f"Fel!")
-            time.sleep(1)
-            print("Nu du ska vi slåss >:)")
-            time.sleep(1)
-            combat_loop(player, teacher1)
-            break
-
-    if input_j == 5:
-        os.system('cls' if os.name == 'nt' else 'clear')
-        print("Du va bra på matte, kull för dig")
-        time.sleep(2)
-        os.system('cls' if os.name == 'nt' else 'clear')
-        player.add_coins_random(15)
-        teacher1.health == 0
-        curses.initscr()
+        if input_j == 5:
+            os.system('cls' if os.name == 'nt' else 'clear')
+            print("Du va bra på matte, kull för dig")
+            time.sleep(2)
+            os.system('cls' if os.name == 'nt' else 'clear')
+            player.add_coins_random(15)
+            teacher1.health == 0
+            curses.initscr()
      
         
 #ronja
@@ -524,29 +524,29 @@ def ronjaquestion():
 
     # Välj slumpmässigt 5 frågor
     selected_questions = random.sample(q_and_a_ronja, 5)
+    if teacher2.health == 110: #Förhoppningsvis stoppar inf loop
+        for i, (question, correct_answer) in enumerate(selected_questions, start=1):
+            print(f"Fråga {i}: {question}")
+            answer = input("Ditt svar: ").strip().lower()
 
-    for i, (question, correct_answer) in enumerate(selected_questions, start=1):
-        print(f"Fråga {i}: {question}")
-        answer = input("Ditt svar: ").strip().lower()
-
-        if answer == correct_answer.lower():
-            print("Rätt!\n")
-            input_r = input_r + 1
-        else:
-            # Spelaren går in i fight
-            print(f"Wrong!")
-            print("Thats the wrong anser, now DIE")
+            if answer == correct_answer.lower():
+                print("Rätt!\n")
+                input_r = input_r + 1
+            else:
+                # Spelaren går in i fight
+                print(f"Wrong!")
+                print("Thats the wrong anser, now DIE")
+                time.sleep(2)
+                combat_loop(player, teacher2)
+                break
+        if input_r == 5:
+            os.system('cls' if os.name == 'nt' else 'clear')
+            print("okey, so you could our english, move on now")
             time.sleep(2)
-            combat_loop(player, teacher2)
-            break
-    if input_r == 5:
-        os.system('cls' if os.name == 'nt' else 'clear')
-        print("okey, so you could our english, move on now")
-        time.sleep(2)
-        os.system('cls' if os.name == 'nt' else 'clear')
-        player.add_coins_random(15)
-        teacher2.health == 0
-        curses.initscr()
+            os.system('cls' if os.name == 'nt' else 'clear')
+            player.add_coins_random(15)
+            teacher2.health == 0
+            curses.initscr()
 
 
 #henrik
@@ -646,29 +646,29 @@ def vicorquestion():
 
     # Välj slumpmässigt 5 frågor
     selected_questions = random.sample(q_and_a_victor, 5)
+    if teacher4.health == 135: #Förhoppningsvis stoppar inf loop
+        for i, (question, correct_answer) in enumerate(selected_questions, start=1):
+            print(f"Fråga {i}: {question}")
+            answer = input("Ditt svar: ").strip().lower()
 
-    for i, (question, correct_answer) in enumerate(selected_questions, start=1):
-        print(f"Fråga {i}: {question}")
-        answer = input("Ditt svar: ").strip().lower()
-
-        if answer == correct_answer.lower():
-            print("Rätt!\n")
-            input_v = input_v + 1
-        else:
-            # Spelaren går in i fight
-            print(f"Fel!")
-            print("Så du är dålig på matte, det var dåligt för dig då! >:)")
+            if answer == correct_answer.lower():
+                print("Rätt!\n")
+                input_v = input_v + 1
+            else:
+                # Spelaren går in i fight
+                print(f"Fel!")
+                print("Så du är dålig på matte, det var dåligt för dig då! >:)")
+                time.sleep(2)
+                combat_loop(player, teacher4)
+                break
+        if input_v == 5:
+            print("jäklar, du var bra på matte då. aja du besegrade mig. ha det bra unge man.")
             time.sleep(2)
-            combat_loop(player, teacher4)
-            break
-    if input_v == 5:
-        print("jäklar, du var bra på matte då. aja du besegrade mig. ha det bra unge man.")
-        time.sleep(2)
-        os.system('cls' if os.name == 'nt' else 'clear')
-        player.add_coins_random(15)
-        teacher4.health == 0
-        curses.initscr()
-        
+            os.system('cls' if os.name == 'nt' else 'clear')
+            player.add_coins_random(15)
+            teacher4.health == 0
+            curses.initscr()
+            
 
 #David
 def davidquestion():
@@ -705,29 +705,29 @@ def davidquestion():
 
     # Välj slumpmässigt 5 frågor
     selected_questions = random.sample(q_and_a_david, 5)
+    if teacher5.health == 150: #Förhoppningsvis stoppar inf loop
+        for i, (question, correct_answer) in enumerate(selected_questions, start=1):
+            print(f"Fråga {i}: {question}")
+            answer = input("Ditt svar: ").strip().lower()
 
-    for i, (question, correct_answer) in enumerate(selected_questions, start=1):
-        print(f"Fråga {i}: {question}")
-        answer = input("Ditt svar: ").strip().lower()
-
-        if answer == correct_answer.lower():
-            print("Rätt!\n")
-            input_d = input_d + 1
-        else:
-            # Spelaren går in i fight
-            print(f"Fel!")
-            print("Men ojojoj, Du hade fel. Du vet nog vad som händer nu.")
+            if answer == correct_answer.lower():
+                print("Rätt!\n")
+                input_d = input_d + 1
+            else:
+                # Spelaren går in i fight
+                print(f"Fel!")
+                print("Men ojojoj, Du hade fel. Du vet nog vad som händer nu.")
+                time.sleep(2)
+                combat_loop(player, teacher5)
+                break
+        if input_d == 5:
+            os.system('cls' if os.name == 'nt' else 'clear')
+            print("Du är bra på idrott, det ger dig ett sort A min unge gosse. Ha det bra nu :)")
             time.sleep(2)
-            combat_loop(player, teacher5)
-            break
-    if input_d == 5:
-        os.system('cls' if os.name == 'nt' else 'clear')
-        print("Du är bra på idrott, det ger dig ett sort A min unge gosse. Ha det bra nu :)")
-        time.sleep(2)
-        os.system('cls' if os.name == 'nt' else 'clear')
-        player.add_coins_random(15)
-        teacher5.health == 0
-        curses.initscr()
+            os.system('cls' if os.name == 'nt' else 'clear')
+            player.add_coins_random(15)
+            teacher5.health == 0
+            curses.initscr()
         
             
 #Mirrela
@@ -764,29 +764,29 @@ def mirrelaquestion():
 
     # Välj slumpmässigt 5 frågor
     selected_questions = random.sample(q_and_a_mirrela, 5)
+    if teacher6.health == 200: #Förhoppningsvis stoppar inf loop
+        for i, (question, correct_answer) in enumerate(selected_questions, start=1):
+            print(f"Fråga {i}: {question}")
+            answer = input("Ditt svar: ").strip().lower()
 
-    for i, (question, correct_answer) in enumerate(selected_questions, start=1):
-        print(f"Fråga {i}: {question}")
-        answer = input("Ditt svar: ").strip().lower()
-
-        if answer == correct_answer.lower():
-            print("Rätt!\n")
-            input_m = input_m + 1
-        else:
-            # Spelaren går in i fight
-            print(f"Fel!")
-            print("Du hade fel, nu ska vi slås!")
+            if answer == correct_answer.lower():
+                print("Rätt!\n")
+                input_m = input_m + 1
+            else:
+                # Spelaren går in i fight
+                print(f"Fel!")
+                print("Du hade fel, nu ska vi slås!")
+                time.sleep(2)
+                combat_loop(player, teacher6)
+                break
+        if input_m == 5:
+            os.system('cls' if os.name == 'nt' else 'clear')
+            print("Du kan dina datorer du, gå vidare nu med din kunskap.")
             time.sleep(2)
-            combat_loop(player, teacher6)
-            break
-    if input_m == 5:
-        os.system('cls' if os.name == 'nt' else 'clear')
-        print("Du kan dina datorer du, gå vidare nu med din kunskap.")
-        time.sleep(2)
-        os.system('cls' if os.name == 'nt' else 'clear')
-        player.add_coins_random(15)
-        teacher6.health == 0
-        curses.initscr()
+            os.system('cls' if os.name == 'nt' else 'clear')
+            player.add_coins_random(15)
+            teacher6.health == 0
+            curses.initscr()
 
 
 #Lars boss
