@@ -840,7 +840,7 @@ def status():
     
     teachers = [teacher1, teacher2, teacher3, teacher4, teacher5, teacher6]
     
-    if all(t.health <= 0 for t in teachers) and final_boss.health >= 0:
+    if all(t.health <= 0 for t in teachers) and final_boss.health <= 0:
         return "Alla lärare och Lars är besegrade!"
     elif all(t.health <= 0 for t in teachers):
         return "Du har bara Lars kvar nu!"
@@ -885,12 +885,12 @@ def exit_door():
 
 
 # Denna göra så att man inte kan komma in i lars rum om lärare lever
-def lars_door():
+def lars_door(transition_to):
     os.system('cls' if os.name == 'nt' else 'clear')
     if teacher1.health <= 0 and teacher2.health <= 0 and teacher3.health <= 0 and teacher4.health <= 0 and teacher5.health <= 0 and teacher6.health <= 0:
         os.system('cls' if os.name == 'nt' else 'clear')
         curses.initscr()
-        Larsboss()
+        transition_to('larsboss')
     else:
         print("Nope, Dörren till Lars rum är stängt,")
         print("Besegra alla lärare inna du kan komma igenom!")
