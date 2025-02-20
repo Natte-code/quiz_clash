@@ -127,7 +127,7 @@ class Character:
         self.antal_potion_vanlig = 2 #debug
         self.antal_potion_epic = 1 #debug
         self.inventory = {
-            "swords": {sword.name: sword.damage for sword in [träsvärd]},
+            "swords": {sword.name: sword.damage for sword in [träsvärd, skibidi]},
             "potions": {
                 "normal": self.antal_potion_vanlig,
                 "epic": self.antal_potion_epic
@@ -340,7 +340,7 @@ def combat_loop(player: Character, enemy: Union[Teacher, Boss]) -> bool:
 
 
 
-teacher1 = Teacher(name="johanna", health=100, min_damage=1, max_damage=10) #klassrumm 1
+teacher1 = Teacher(name="johanna", health=100, min_damage=1, max_damage=10)
 teacher2 = Teacher(name="Ronja", health=110, min_damage=5, max_damage=15)
 teacher3 = Teacher(name="Henrik", health=125, min_damage=8, max_damage=18)
 teacher4 = Teacher(name="Victor", health=135, min_damage=1, max_damage=13)
@@ -860,42 +860,19 @@ def status():
 
 
 def inventorystats():
-    return(f"""Player: {player_name}\nHealth: {player.health}\nCoins: {player.coins}Totem: {player.totems}\nInventory: {player.inventory}\n""")   
+    return(f"""Player: {player_name}\nHealth: {player.health}\nCoins: {player.coins}\nTotem: {player.totems}\nInventory: {player.inventory}\n""")   
 
 # Denna hindra en från att gå ut ur dörren innan alla lärare och boss är döda
 #lars.skibidi
-def exit_door():
-    os.system('cls' if os.name == 'nt' else 'clear')
-    if teacher1.health <= 0 and teacher2.health <= 0 and teacher3.health <= 0 and teacher4.health <= 0 and teacher5.health <= 0 and teacher6.health <= 0 and final_boss.health <= 0:
-        end2()
-
-    else:
-        print("Är du säker på att du vill lämna")
-        print("Du har inte besegrat alla lärare än!")
-        
-        while True:
-            svar = input("Ja eller Nej: ")
-            if svar.lower() == "ja":
-                os.system('cls' if os.name == 'nt' else 'clear')
-                val_av_end()
-                break
-            elif svar.lower() == "nej":
-                os.system('cls' if os.name == 'nt' else 'clear')
-                curses.initscr()
-                break
-            else:
-                print("Ja eller Nej är frågan!")
-                time.sleep(1)
-
 
 
 # Denna göra så att man inte kan komma in i lars rum om lärare lever
-def lars_door(transition_to):
+def lars_door(transition_to, stdscr):
     os.system('cls' if os.name == 'nt' else 'clear')
     if teacher1.health <= 0 and teacher2.health <= 0 and teacher3.health <= 0 and teacher4.health <= 0 and teacher5.health <= 0 and teacher6.health <= 0:
         os.system('cls' if os.name == 'nt' else 'clear')
         curses.initscr()
-        transition_to('larsboss')
+        Larsboss(stdscr, transition_to)
     else:
         print("Nope, Dörren till Lars rum är stängt,")
         print("Besegra alla lärare inna du kan komma igenom!")
@@ -971,7 +948,7 @@ def end4():
     --Spela igen för hela slutet--
     --Slut 4 av 4, (pacifist ending)--""")
     exit()
-#--------------------------------------------------------------------------
+#------------------------------------------------------------------------
 
 #pangs baguette kod
 def val_av_end():
@@ -982,7 +959,34 @@ def val_av_end():
     elif teacher1.health <= 100 and teacher2.health <= 110 and teacher3.health <= 125 and teacher4.health <= 135 and teacher5.health <= 150 and teacher6.health <= 200 and final_boss.health <= 450:
         end4()
         
+def exit_door():
+    os.system('cls' if os.name == 'nt' else 'clear')
+    if teacher1.health <= 0 and teacher2.health <= 0 and teacher3.health <= 0 and teacher4.health <= 0 and teacher5.health <= 0 and teacher6.health <= 0 and final_boss.health <= 0:
+        end2()
 
+    else:
+        print("Är du säker på att du vill lämna")
+        print("Du har inte besegrat alla lärare än!")
+        
+        
+        while True:
+            print("""Vill du lämna skolan eller stanna kvar?:
+1. Lämna
+2. Stanna
+""")
+            svar = int(input("1 eller 2: "))
+            if svar == 1:
+                os.system('cls' if os.name == 'nt' else 'clear')
+                val_av_end()
+                break
+            elif svar == 2:
+                os.system('cls' if os.name == 'nt' else 'clear')
+                curses.initscr()
+                break
+            else:
+                os.system('cls' if os.name == 'nt' else 'clear')
+                print("Svara i sofror tack!")
+                time.sleep(1)
 
 ###########################################################################
 #koden för rörelse i spelet och att skapa spelkartan
@@ -1529,7 +1533,7 @@ def room6(stdscr, transition_to):
                 stdscr.clear()
                 os.system('cls' if os.name == 'nt' else 'clear')
                 curses.endwin()
-                player_pos = [12, 37]
+                player_pos = [21, 20]
                 mirrelaquestion()
         elif player_pos in door_pos:
             transition_to("hallway2")
@@ -1825,7 +1829,7 @@ def Hallway2(stdscr, transition_to):
             os.system('cls' if os.name == 'nt' else 'clear')
             curses.endwin()
             player_pos = [12, 23]
-            transition_to('Larsboss')
+            lars_door(transition_to, stdscr)
             
         
 ###############################################################################
@@ -1954,7 +1958,6 @@ def entry_point(stdscr):
         'Larsboss': Larsboss,
         'Chestroom': Chestroom,
         'hallway2': Hallway2,
-        
         
     }
 
