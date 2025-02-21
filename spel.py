@@ -420,14 +420,6 @@ def open_lootbox(lootpool, cost, box_type):
 # Definiera lootpools och Sword-instanser
 # -----------------------------------------------------------------------------
 # Skapa Sword-instanser (exempel, justera efter ditt spel)
-kukri = Sword(name="kukri", damage=10)
-järnsvärd = Sword(name="järnsvärd", damage=12)
-dagger = Sword(name="dagger", damage=8)
-katana = Sword(name="katana", damage=15)
-pinne = Sword(name="pinne", damage=2)
-battle_axe = Sword(name="battle_axe", damage=20)
-lightsaber = Sword(name="lightsaber", damage=25)
-stekpanna = Sword(name="stekpanna", damage=18)
 
 lootpool_normal = {
     "kukri": lambda: player.add_sword_to_inventory(kukri),
@@ -449,17 +441,6 @@ lootpool_epic = {
 # -----------------------------------------------------------------------------
 # Exempel på användning
 # -----------------------------------------------------------------------------
-if __name__ == "__main__":
-    player = Player()
-    player.coins = 20  # Testcoins
-
-    # Öppna en normal lootbox
-    if confirm_purchase(cost=5, box_type="normal"):
-        open_lootbox(lootpool_normal, cost=5, box_type="normal")
-
-    # Öppna en epic lootbox
-    if confirm_purchase(cost=15, box_type="epic"):
-        open_lootbox(lootpool_epic, cost=15, box_type="epic")
 
 
 
@@ -1660,7 +1641,8 @@ def Chestroom(stdscr, transition_to):
             os.system('cls' if os.name == 'nt' else 'clear')
             curses.endwin()
             player_pos = [2, 22]
-            lootbox_normal()
+            if confirm_purchase(cost=5, box_type="normal"):
+                open_lootbox(lootpool_normal, cost=5, box_type="normal")
             
             
         elif player_pos == Chest_pos2:
@@ -1668,7 +1650,8 @@ def Chestroom(stdscr, transition_to):
             os.system('cls' if os.name == 'nt' else 'clear')
             curses.endwin()
             player_pos = [2, 22]
-            lootbox_epic()
+            if confirm_purchase(cost=15, box_type="epic"):
+                open_lootbox(lootpool_epic, cost=15, box_type="epic")
             
         elif player_pos in door_pos:
             transition_to("hallway2")
