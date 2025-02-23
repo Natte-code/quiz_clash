@@ -136,6 +136,13 @@ class Character:
         }
         self.last_heal = 0
 
+    def add_sword_to_inventory(self, sword):
+        if sword.name not in self.inventory["swords"]:
+            self.inventory["swords"][sword.name] = sword.damage
+            print_success(f"Du har låst upp {sword.name.capitalize()}!")
+        else:
+            print_error(f"Du har redan {sword.name.capitalize()} i inventoryt.")
+
 
 
     def is_critical_hit(self):
@@ -220,8 +227,8 @@ class Boss:
             threading.Thread(target=self.regenerate_health, daemon=True).start()
 
     def regenerate_health(self):
-        while self.is_regen and self.health > 0:
-            time.sleep(10)
+        while self.is_regen and self.health >= 0: #fucking >= buggen >:(. = funkar INTE. AIOWUDFHAOIUWEKHFGAWOIUEGHFBQWOEIUUYGFBQWEPOAIFUGQAWOIFYUGQWEOUYRGFWQEPOIFUGYFWETIGOYHUFPIEHU OLQIWUJRGHRWQAE#UGYITQ#
+            time.sleep(17.5)
             self.health = min(self.max_health, self.health + self.regen)
             print(f"\nBOSS REGENERATES +{self.regen} HP!")
 
@@ -422,12 +429,12 @@ def open_lootbox(lootpool, cost, box_type):
 # Skapa Sword-instanser (exempel, justera efter ditt spel)
 
 lootpool_normal = {
-    "kukri": lambda: player.add_sword_to_inventory(kukri),
+    "kukri": lambda: player.add_sword_to_inventory(Kukri),
     "järnsvärd": lambda: player.add_sword_to_inventory(järnsvärd),
     "normal_potion": lambda: setattr(player, 'antal_potion_vanlig', player.antal_potion_vanlig + 1),
     "katana": lambda: player.add_sword_to_inventory(katana),
-    "dagger": lambda: player.add_sword_to_inventory(dagger),
-    "pinne": lambda: player.add_sword_to_inventory(pinne),
+    "dagger": lambda: player.add_sword_to_inventory(Dagger),
+    "pinne": lambda: player.add_sword_to_inventory(Pinne),
 }
 
 lootpool_epic = {
