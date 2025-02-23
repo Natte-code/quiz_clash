@@ -57,6 +57,7 @@ Så här öppnar du och kör spelet "Quiz_clash":
    - Kör sedan följande kommando för att installera det nödvändiga paketet:
      ```bash
      pip install windows-curses
+     pip install colorama
      ```
 
 4. **Starta spelet**
@@ -77,7 +78,7 @@ Så här öppnar du och kör spelet "Quiz_clash":
   - Kontrollera att Python finns i din PATH.
 
 - **Felmeddelande om beroenden:**
-  - Se till att du kör `pip install windows-curses` innan du startar spelet.
+  - Se till att du kör `pip install windows-curses` och `pip install colorama` innan du startar spelet.
 
 - **Spelet startar inte:**
   - Kontrollera att du befinner dig i samma mapp som filen `spel.py` när du kör kommandot.
