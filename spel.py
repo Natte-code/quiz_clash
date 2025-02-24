@@ -1660,7 +1660,7 @@ def Chestroom(stdscr, transition_to):
             os.system('cls' if os.name == 'nt' else 'clear')
             curses.endwin()
             player_pos = [2, 22]
-            lootbox_normal()
+            open_lootbox(lootpool_normal)
             
             
         elif player_pos == Chest_pos2:
@@ -1668,7 +1668,7 @@ def Chestroom(stdscr, transition_to):
             os.system('cls' if os.name == 'nt' else 'clear')
             curses.endwin()
             player_pos = [2, 22]
-            lootbox_epic()
+            open_lootbox(lootpool_epic)
             
         elif player_pos in door_pos:
             transition_to("hallway2")
