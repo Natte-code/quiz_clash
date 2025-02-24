@@ -1998,6 +1998,7 @@ def entry_point(stdscr):
     # Start the game in the main room
     transition_to('main')
 
+#9/11
 
 if __name__ == "__main__":
     curses.wrapper(entry_point)
