@@ -128,13 +128,20 @@ class Character:
         self.antal_potion_vanlig = 2 #debug
         self.antal_potion_epic = 1 #debug
         self.inventory = {
-            "swords": {sword.name: sword.damage for sword in [träsvärd, skibidi]},
+            "swords": {sword.name: sword.damage for sword in [träsvärd,]},
             "potions": {
                 "normal": self.antal_potion_vanlig,
                 "epic": self.antal_potion_epic
             }
         }
         self.last_heal = 0
+
+    def add_sword_to_inventory(self, sword):
+        if sword.name not in self.inventory["swords"]:
+            self.inventory["swords"][sword.name] = sword.damage
+            print_success(f"Du har låst upp {sword.name.capitalize()}!")
+        else:
+            print_error(f"Du har redan {sword.name.capitalize()} i inventoryt.")
 
 
 
@@ -220,8 +227,8 @@ class Boss:
             threading.Thread(target=self.regenerate_health, daemon=True).start()
 
     def regenerate_health(self):
-        while self.is_regen and self.health > 0:
-            time.sleep(10)
+        while self.is_regen and self.health >= 0: #fucking >= buggen >:(. = funkar INTE. AIOWUDFHAOIUWEKHFGAWOIUEGHFBQWOEIUUYGFBQWEPOAIFUGQAWOIFYUGQWEOUYRGFWQEPOIFUGYFWETIGOYHUFPIEHU OLQIWUJRGHRWQAE#UGYITQ#
+            time.sleep(17.5)
             self.health = min(self.max_health, self.health + self.regen)
             print(f"\nBOSS REGENERATES +{self.regen} HP!")
 
@@ -420,22 +427,14 @@ def open_lootbox(lootpool, cost, box_type):
 # Definiera lootpools och Sword-instanser
 # -----------------------------------------------------------------------------
 # Skapa Sword-instanser (exempel, justera efter ditt spel)
-kukri = Sword(name="kukri", damage=10)
-järnsvärd = Sword(name="järnsvärd", damage=12)
-dagger = Sword(name="dagger", damage=8)
-katana = Sword(name="katana", damage=15)
-pinne = Sword(name="pinne", damage=2)
-battle_axe = Sword(name="battle_axe", damage=20)
-lightsaber = Sword(name="lightsaber", damage=25)
-stekpanna = Sword(name="stekpanna", damage=18)
 
 lootpool_normal = {
-    "kukri": lambda: player.add_sword_to_inventory(kukri),
+    "kukri": lambda: player.add_sword_to_inventory(Kukri),
     "järnsvärd": lambda: player.add_sword_to_inventory(järnsvärd),
     "normal_potion": lambda: setattr(player, 'antal_potion_vanlig', player.antal_potion_vanlig + 1),
     "katana": lambda: player.add_sword_to_inventory(katana),
-    "dagger": lambda: player.add_sword_to_inventory(dagger),
-    "pinne": lambda: player.add_sword_to_inventory(pinne),
+    "dagger": lambda: player.add_sword_to_inventory(Dagger),
+    "pinne": lambda: player.add_sword_to_inventory(Pinne),
 }
 
 lootpool_epic = {
@@ -449,17 +448,6 @@ lootpool_epic = {
 # -----------------------------------------------------------------------------
 # Exempel på användning
 # -----------------------------------------------------------------------------
-if __name__ == "__main__":
-    player = Player()
-    player.coins = 20  # Testcoins
-
-    # Öppna en normal lootbox
-    if confirm_purchase(cost=5, box_type="normal"):
-        open_lootbox(lootpool_normal, cost=5, box_type="normal")
-
-    # Öppna en epic lootbox
-    if confirm_purchase(cost=15, box_type="epic"):
-        open_lootbox(lootpool_epic, cost=15, box_type="epic")
 
 
 
@@ -880,7 +868,7 @@ def larsquestion():
         
 
 # ändrade så att status saken funkade bättre med hjälp av AI
-#funkar inte här!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
 def status():
     
     teachers = [teacher1, teacher2, teacher3, teacher4, teacher5, teacher6]
@@ -902,7 +890,6 @@ def status():
 def inventorystats():
     return(f"""Player: {player_name}\nHealth: {player.health}\nCoins: {player.coins}\nTotem: {player.totems}\nInventory: {player.inventory}\n""")   
 
-# Denna hindra en från att gå ut ur dörren innan alla lärare och boss är döda
 #lars.skibidi
 
 
@@ -1660,7 +1647,7 @@ def Chestroom(stdscr, transition_to):
             os.system('cls' if os.name == 'nt' else 'clear')
             curses.endwin()
             player_pos = [2, 22]
-            open_lootbox(lootpool_normal)
+            lootbox_normal()
             
             
         elif player_pos == Chest_pos2:
@@ -1668,7 +1655,7 @@ def Chestroom(stdscr, transition_to):
             os.system('cls' if os.name == 'nt' else 'clear')
             curses.endwin()
             player_pos = [2, 22]
-            open_lootbox(lootpool_epic)
+            lootbox_epic()
             
         elif player_pos in door_pos:
             transition_to("hallway2")
@@ -2008,6 +1995,7 @@ def entry_point(stdscr):
     # Start the game in the main room
     transition_to('main')
 
+#9/11
 
 if __name__ == "__main__":
     curses.wrapper(entry_point)
