@@ -868,7 +868,7 @@ def larsquestion():
         
 
 # ändrade så att status saken funkade bättre med hjälp av AI
-#funkar inte här!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
 def status():
     
     teachers = [teacher1, teacher2, teacher3, teacher4, teacher5, teacher6]
@@ -890,7 +890,6 @@ def status():
 def inventorystats():
     return(f"""Player: {player_name}\nHealth: {player.health}\nCoins: {player.coins}\nTotem: {player.totems}\nInventory: {player.inventory}\n""")   
 
-# Denna hindra en från att gå ut ur dörren innan alla lärare och boss är döda
 #lars.skibidi
 
 
