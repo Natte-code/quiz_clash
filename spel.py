@@ -128,7 +128,7 @@ class Character:
         self.antal_potion_vanlig = 2 #debug
         self.antal_potion_epic = 1 #debug
         self.inventory = {
-            "swords": {sword.name: sword.damage for sword in [träsvärd, skibidi]},
+            "swords": {sword.name: sword.damage for sword in [träsvärd,]},
             "potions": {
                 "normal": self.antal_potion_vanlig,
                 "epic": self.antal_potion_epic
