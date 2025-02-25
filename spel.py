@@ -902,7 +902,7 @@ def lars_door(transition_to, stdscr):
         Larsboss(stdscr, transition_to)
     else:
         print("Nope, Dörren till Lars rum är stängt,")
-        print("Besegra alla lärare inna du kan komma igenom!")
+        print("Besegra alla lärare innan du kan komma igenom!")
         time.sleep(2)
         os.system('cls' if os.name == 'nt' else 'clear')
         curses.initscr()
@@ -1613,7 +1613,7 @@ def Chestroom(stdscr, transition_to):
         # Display the message
         message = 'ChestRoom'
 
-        stdscr.addstr(0, cols, f"Message: {message}")
+        stdscr.addstr(0, cols+2, f"Message: {message}")
         
         stdscr.refresh()
 
@@ -1866,7 +1866,7 @@ def main(stdscr, transiton_to):
     max_y, max_x = stdscr.getmaxyx()
     required_y, required_x = 35, 65  # Minimum terminal size
     if max_y < required_y or max_x < required_x:
-        stdscr.addstr(0, 0, "Terminal fönstret är för littet! gör det till big screen")
+        stdscr.addstr(0, 0, "Terminal fönstret är för litet! gör det till big screen")
         stdscr.refresh()
         stdscr.getch()
         return
