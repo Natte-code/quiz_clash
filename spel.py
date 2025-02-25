@@ -354,7 +354,7 @@ player = Character(player_name, 100)
 # combat_loop(player, final_boss )
 
 
-#Bugg 1, Lars kan regena efter han är död, Hur fan.
+#Bugg 1, Lars kan regena efter han är död, Hur fan. #löst
 #Bugg 2, Input saken av spelaren kan brytas när lars får en regen. Texten överskriver spelarens input, Men spelaren kan fortfarande skriva in
 
 
@@ -1647,7 +1647,7 @@ def Chestroom(stdscr, transition_to):
             os.system('cls' if os.name == 'nt' else 'clear')
             curses.endwin()
             player_pos = [2, 22]
-            open_lootbox(lootpool_normal)
+            open_lootbox(cost=5, box_type=lootpool_normal, lootpool=lootpool_normal)
             
             
         elif player_pos == Chest_pos2:
@@ -1655,7 +1655,7 @@ def Chestroom(stdscr, transition_to):
             os.system('cls' if os.name == 'nt' else 'clear')
             curses.endwin()
             player_pos = [2, 22]
-            open_lootbox(lootpool_epic)
+            open_lootbox(cost=15, box_type=lootpool_epic, lootpool=lootpool_epic)
             
         elif player_pos in door_pos:
             transition_to("hallway2")
