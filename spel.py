@@ -4,7 +4,7 @@ import time
 import os
 import threading
 from typing import Union
-from colorama import Fore, Style
+from colorama   import Fore, Style
 
 
 #Def av några sid funktioner som kallas på igenom spelet
@@ -1884,6 +1884,7 @@ def main(stdscr, transiton_to):
     door_pos3 = [[27, 1], [26, 2], [25, 3]]
     door_pos4 = [[11, 31], [10, 32], [9, 33]]
     door_pos5 = [[27, 31], [26, 32], [25, 33]]
+    secret_pos = [[1, 1]]  # Make secret_pos a list of positions
     one = [10, 1]
     two = [26, 1]
     tre = [10, 33]
@@ -1917,6 +1918,8 @@ def main(stdscr, transiton_to):
                     stdscr.addch(r, c, '/')
                 elif [r, c] == player_pos:
                     stdscr.addch(r, c, 'O')  # Player
+                elif [r, c] in secret_pos:  # Check if player_pos matches any position in secret_pos
+                    stdscr.addch(r, c, ' ')
                 else:
                     stdscr.addch(r, c, ' ')  # Empty space
 
@@ -1945,6 +1948,7 @@ def main(stdscr, transiton_to):
             new_pos[1] -= 1
         elif key == ord('d'):  # Move right
             new_pos[1] += 1
+        
 
         
         # Validate movement
@@ -1968,6 +1972,14 @@ def main(stdscr, transiton_to):
         elif player_pos in door_pos5:
             transiton_to('room3') #room 3
             break
+        elif player_pos in secret_pos:  # Check if player_pos matches any position in secret_pos
+            player.health += 10  # Fix typo from 'heath' to 'health'
+            try:
+                os.startfile("lars.jpg")  # Ensure the file exists
+            except FileNotFoundError:
+                print("Secret image 'lars.jpg' not found.")
+            os.system('cls' if os.name == 'nt' else 'clear')
+            curses.endwin()
 
 ###############################################################################
 #def libriary
