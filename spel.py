@@ -71,6 +71,7 @@ def start_screen(): #startar start skärmen, förklarar hur man spelar och visar
                 Svara på lärarens frågor. Fel svar leder till turordningsbaserade strider.
                 Håll terminalen i FULL SCREEN (Och zooma ut om spelet krashar (med hjälp av att trycka CTRL och - ))!!
                 Håll årdning på ditt inventory (går ej att släppa saker, så använd varsamt!)
+                Öppna lådor för att få nya vapen och potions. (rummet finns i andra rummet till höger)
                 Lycka till!!
          """)
    print("")
@@ -93,9 +94,6 @@ player_name = input("Ange ditt namn: ")
 
 #koden skrivs av nathaniel och eliot
 
-
-def clear_screen():
-    os.system('cls' if os.name == 'nt' else 'clear')
 
 class Sword:
     def __init__(self, name: str, damage: int):
@@ -220,20 +218,24 @@ class Boss:
         self.max_damage = max_damage
         self.regen = regen
         self.is_regen = False
+        self.regen_thread = None  # Track the thread
 
     def start_regen(self):
         if not self.is_regen:
             self.is_regen = True
-            threading.Thread(target=self.regenerate_health, daemon=True).start()
+            self.regen_thread = threading.Thread(target=self.regenerate_health, daemon=True)
+            self.regen_thread.start()
 
     def regenerate_health(self):
-        while self.is_regen and self.health >= 0: #fucking >= buggen >:(. = funkar INTE. AIOWUDFHAOIUWEKHFGAWOIUEGHFBQWOEIUUYGFBQWEPOAIFUGQAWOIFYUGQWEOUYRGFWQEPOIFUGYFWETIGOYHUFPIEHU OLQIWUJRGHRWQAE#UGYITQ#
+        while self.is_regen and self.health > 0:
             time.sleep(17.5)
             self.health = min(self.max_health, self.health + self.regen)
             print(f"\nBOSS REGENERATES +{self.regen} HP!")
 
     def stop_regen(self):
         self.is_regen = False
+        if self.regen_thread:
+            self.regen_thread.join()  # Ensure thread cleanup
 
     def attack(self):
         return random.randint(self.min_damage, self.max_damage)
@@ -494,7 +496,7 @@ def johannaquestion():
 
     # Välj slumpmässigt 5 frågor
     selected_questions = random.sample(q_and_a_johanna, 5)
-    if teacher1.health == 100: #Förhoppningsvis stoppar inf loop
+    if teacher1.health > 0:  # Prevent infinite loop by checking if health is greater than 0
         for i, (question, correct_answer) in enumerate(selected_questions, start=1):
             print(f"Fråga {i}: {question}")
             answer = input("Ditt svar: ").strip().lower()
@@ -557,7 +559,7 @@ def ronjaquestion():
 
     # Välj slumpmässigt 5 frågor
     selected_questions = random.sample(q_and_a_ronja, 5)
-    if teacher2.health == 110: #Förhoppningsvis stoppar inf loop
+    if teacher2.health > 0:  # Prevent infinite loop by checking if health is greater than 0
         for i, (question, correct_answer) in enumerate(selected_questions, start=1):
             print(f"Fråga {i}: {question}")
             answer = input("Ditt svar: ").strip().lower()
@@ -617,7 +619,7 @@ def henrikquestion():
 
     # Välj slumpmässigt 5 frågor
     selected_questions = random.sample(q_and_a_henrik, 5)
-    if teacher3.health == 125: #Förhoppningsvis stoppar inf loop
+    if teacher3.health > 0:  # Prevent infinite loop by checking if health is greater than 0
         for i, (question, correct_answer) in enumerate(selected_questions, start=1):
             print(f"Fråga {i}: {question}")
             answer = input("Ditt svar: ").strip().lower()
@@ -679,7 +681,7 @@ def vicorquestion():
 
     # Välj slumpmässigt 5 frågor
     selected_questions = random.sample(q_and_a_victor, 5)
-    if teacher4.health == 135: #Förhoppningsvis stoppar inf loop
+    if teacher4.health > 0:  # Prevent infinite loop by checking if health is greater than 0
         for i, (question, correct_answer) in enumerate(selected_questions, start=1):
             print(f"Fråga {i}: {question}")
             answer = input("Ditt svar: ").strip().lower()
@@ -738,7 +740,7 @@ def davidquestion():
 
     # Välj slumpmässigt 5 frågor
     selected_questions = random.sample(q_and_a_david, 5)
-    if teacher5.health == 150: #Förhoppningsvis stoppar inf loop
+    if teacher5.health > 0:  # Prevent infinite loop by checking if health is greater than 0
         for i, (question, correct_answer) in enumerate(selected_questions, start=1):
             print(f"Fråga {i}: {question}")
             answer = input("Ditt svar: ").strip().lower()
@@ -797,7 +799,7 @@ def mirrelaquestion():
 
     # Välj slumpmässigt 5 frågor
     selected_questions = random.sample(q_and_a_mirrela, 5)
-    if teacher6.health == 200: #Förhoppningsvis stoppar inf loop
+    if teacher6.health > 0:  # Prevent infinite loop by checking if health is greater than 0
         for i, (question, correct_answer) in enumerate(selected_questions, start=1):
             print(f"Fråga {i}: {question}")
             answer = input("Ditt svar: ").strip().lower()
@@ -888,7 +890,8 @@ def status():
 
 
 def inventorystats():
-    return(f"""Player: {player_name}\nHealth: {player.health}\nCoins: {player.coins}\nTotem: {player.totems}\nInventory: {player.inventory}\n""")   
+    return (f"""Player: {player_name}\nHealth: {player.health}\nCoins: {player.coins}\n"""
+            f"""Totems: {player.totems}\nInventory: {player.inventory}\n""")   
 
 #lars.skibidi
 
@@ -896,12 +899,12 @@ def inventorystats():
 # Denna göra så att man inte kan komma in i lars rum om lärare lever
 def lars_door(transition_to, stdscr):
     os.system('cls' if os.name == 'nt' else 'clear')
-    if teacher1.health <= 0 and teacher2.health <= 0 and teacher3.health <= 0 and teacher4.health <= 0 and teacher5.health <= 0 and teacher6.health <= 0:
+    if all(teacher.health <= 0 for teacher in [teacher1, teacher2, teacher3, teacher4, teacher5, teacher6]):
         os.system('cls' if os.name == 'nt' else 'clear')
         curses.initscr()
         Larsboss(stdscr, transition_to)
     else:
-        print("Nope, Dörren till Lars rum är stängt,")
+        print("Dörren till Lars rum är stängd.")
         print("Besegra alla lärare innan du kan komma igenom!")
         time.sleep(2)
         os.system('cls' if os.name == 'nt' else 'clear')
@@ -961,7 +964,6 @@ def end3():
     --Slut 3 av 4, (afraid ending)--""")
     exit()
     
-#Går denna ens att kalla på?
 def end4():
     clear_terminal_visual()
     print("""
@@ -974,45 +976,60 @@ def end4():
     --Tack för du har spelat Quiz Clash--
     --Spela igen för hela slutet--
     --Slut 4 av 4, (pacifist ending)--""")
+    input("Press ENTER to exit...")
     exit()
 #------------------------------------------------------------------------
 
 #pangs baguette kod
 def val_av_end():
     
-    if teacher1.health <= 0 and teacher2.health <= 0 and teacher3.health <= 0 and teacher4.health <= 0 and teacher5.health <= 0 and teacher6.health <= 0 and final_boss.health <= 450:
-        end3()
-            
-    elif teacher1.health <= 100 and teacher2.health <= 110 and teacher3.health <= 125 and teacher4.health <= 135 and teacher5.health <= 150 and teacher6.health <= 200 and final_boss.health <= 450:
-        end4()
-        
+    if all(teacher.health <= 0 for teacher in [teacher1, teacher2, teacher3, teacher4, teacher5, teacher6]) and final_boss.health > 0:
+        end3()  # Afraid ending
+    elif all(teacher.health == 100 for teacher in [teacher1, teacher2, teacher3, teacher4, teacher5, teacher6]) and final_boss.health == 500:
+        end4()  # Pacifist ending
+    elif all(teacher.health <= 0 for teacher in [teacher1, teacher2, teacher3, teacher4, teacher5, teacher6]) and final_boss.health <= 0:
+        end2()  # Good ending
+    else:
+        end1()  # Bad ending
+
 def exit_door():
     os.system('cls' if os.name == 'nt' else 'clear')
     if teacher1.health <= 0 and teacher2.health <= 0 and teacher3.health <= 0 and teacher4.health <= 0 and teacher5.health <= 0 and teacher6.health <= 0 and final_boss.health <= 0:
-        end2()
-
+        end2()  # Good ending: Lars is defeated
     else:
-        print("Är du säker på att du vill lämna")
+        print("Är du säker på att du vill lämna?")
         print("Du har inte besegrat alla lärare än!")
-        
         
         while True:
             print("""Vill du lämna skolan eller stanna kvar?:
 1. Lämna
 2. Stanna
 """)
-            svar = int(input("1 eller 2: "))
-            if svar == 1:
-                os.system('cls' if os.name == 'nt' else 'clear')
-                val_av_end()
-                break
-            elif svar == 2:
-                os.system('cls' if os.name == 'nt' else 'clear')
-                curses.initscr()
-                break
-            else:
-                os.system('cls' if os.name == 'nt' else 'clear')
-                print("Svara i sofror tack!")
+            try:
+                svar = int(input("1 eller 2: "))
+                if svar == 1:
+                    os.system('cls' if os.name == 'nt' else 'clear')
+                    if all(teacher.health == 100 for teacher in [teacher1, teacher2, teacher3, teacher4, teacher5, teacher6]) and final_boss.health == 500:
+                        print("Du måste interagera med minst en lärare innan du kan avsluta spelet!")
+                        time.sleep(2)
+                        os.system('cls' if os.name == 'nt' else 'clear')
+                        curses.initscr()
+                        break
+                    elif all(teacher.health > 0 for teacher in [teacher1, teacher2, teacher3, teacher4, teacher5, teacher6]) and final_boss.health == 500:
+                        end4()  # Pacifist ending: No fights, all questions answered correctly
+                    elif all(teacher.health <= 0 for teacher in [teacher1, teacher2, teacher3, teacher4, teacher5, teacher6]) and final_boss.health == 500:
+                        end3()  # Afraid ending: Flee without fighting Lars
+                    else:
+                        end1()  # Bad ending: You die
+                    break
+                elif svar == 2:
+                    os.system('cls' if os.name == 'nt' else 'clear')
+                    curses.initscr()
+                    break
+                else:
+                    print("Ogiltigt val! Vänligen välj 1 eller 2.")
+            except ValueError:
+                print("Ogiltig inmatning! Vänligen skriv en siffra (1 eller 2).")
                 time.sleep(1)
 
 ###########################################################################
