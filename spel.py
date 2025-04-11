@@ -1896,16 +1896,16 @@ def main(stdscr, transiton_to):
     # Game variables
     rows, cols = 35, 35  # Game board dimensions
     player_pos = [31, 16]  # Player's starting positio      
-    door_pos = [[11, 1], [10, 2], [9, 3]]
+    door_pos = [[11, 1], [9, 3]]
     door_pos2 = [[1, 19], [1, 18], [1, 17], [1, 16], [1, 15], [1, 14], [1, 13]]
-    door_pos3 = [[27, 1], [26, 2], [25, 3]]
-    door_pos4 = [[11, 31], [10, 32], [9, 33]]
-    door_pos5 = [[27, 31], [26, 32], [25, 33]]
-    secret_pos = [[1, 1]]  # Make secret_pos a list of positions
-    one = [10, 1]
-    two = [26, 1]
-    tre = [10, 33]
-    foure = [26, 33]
+    door_pos3 = [[27, 1], [25, 3]]
+    door_pos4 = [[11, 31], [9, 33]]
+    door_pos5 = [[27, 31],  [25, 33]]
+    secret_pos = [[1, 1]] 
+    one = [26, 2]
+    two = [10, 2]
+    tre = [10, 32]
+    foure = [26, 32]
     key = None           # Key press tracker
 
     while True:
@@ -1917,25 +1917,25 @@ def main(stdscr, transiton_to):
                     stdscr.addch(r, c, '#')  # Wall
                 elif [r, c] in door_pos:
                     stdscr.addch(r, c, '/')
-                elif [r, c] in one:
+                elif [r, c] == one:
                     stdscr.addch(r, c, '1')
                 elif [r, c] in door_pos2:
                     stdscr.addch(r, c, '-')
-                elif [r, c] in two:
+                elif [r, c] == two:
                     stdscr.addch(r, c, '2')
                 elif [r, c] in door_pos3:
                     stdscr.addch(r, c, '/')
-                elif [r, c] in tre:
+                elif [r, c] == tre:
                     stdscr.addch(r, c, '3')
                 elif [r, c] in door_pos4:
                     stdscr.addch(r, c, '/')
-                elif [r, c] in foure:
+                elif [r, c] == foure:
                     stdscr.addch(r, c, '4')
                 elif [r, c] in door_pos5:
                     stdscr.addch(r, c, '/')
                 elif [r, c] == player_pos:
                     stdscr.addch(r, c, 'O')  # Player
-                elif [r, c] in secret_pos:  # Check if player_pos matches any position in secret_pos
+                elif [r, c] in secret_pos:  
                     stdscr.addch(r, c, ' ')
                 else:
                     stdscr.addch(r, c, ' ')  # Empty space
