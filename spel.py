@@ -2063,3 +2063,4 @@ if __name__ == "__main__":
 #Fortfarande lite cred för att han försökte, koden är bara bort kommenterad inte bortplockad (vad jag vet iallafal.)
 
 
+#felix för fan gör färdigt allt, du glömdee ändra siffrorna i sal 2 på dörrarna i tur ordning
