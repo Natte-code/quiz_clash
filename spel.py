@@ -12,6 +12,11 @@ def clear_screen():
     os.system('cls' if os.name == 'nt' else 'clear')
 
 
+#Denna ska ändras på om spelaren gör något med en lärare och ska då också kollas om den är 1 eller mer då kan spelaren får ett slut.
+teacher_interaction = 0
+#Också, kom på hela denna helt idén själv. fick ingen AI hjälp.
+
+
 
 #Du glömde att sätta in den för minus epic potion 
 
@@ -196,7 +201,7 @@ class Character:
         
 
 
-    def add_coins(self, amount):
+    def add_coins(self, amount): #Vart används ens denna? - nathaniel
         self.coins += amount
         print(f"Earned {amount} coins! Total: {self.coins}")
 
@@ -366,25 +371,8 @@ player = Character(player_name, 100)
 
 
 # Anta att Player-klassen och Sword-klassen redan finns
-class Player:
-    def __init__(self):
-        self.coins = 0
-        self.inventory = {"swords": {}}
-        self.antal_potion_vanlig = 0
-        self.antal_potion_epic = 0
-        self.totems = 0
 
-    def add_sword_to_inventory(self, sword):
-        if sword.name not in self.inventory["swords"]:
-            self.inventory["swords"][sword.name] = sword.damage
-            print_success(f"Du har låst upp {sword.name.capitalize()}!")
-        else:
-            print_error(f"Du har redan {sword.name.capitalize()} i inventoryt.")
 
-class Sword:
-    def __init__(self, name, damage):
-        self.name = name
-        self.damage = damage
 
 # -----------------------------------------------------------------------------
 # Hjälpfunktioner för färger och bekräftelse
@@ -470,6 +458,7 @@ def johannaquestion():
 
     os.system('cls' if os.name == 'nt' else 'clear')
     # Olika frågor och rätta svar
+    global input_j
     input_j = 1 # Gör så att man vet när den har frågat fem frågor
     q_and_a_johanna = [
         ("Vad är 15 + 27?", "42"),
@@ -496,7 +485,8 @@ def johannaquestion():
 
     # Välj slumpmässigt 5 frågor
     selected_questions = random.sample(q_and_a_johanna, 5)
-    if teacher1.health > 0:  # Prevent infinite loop by checking if health is greater than 0
+    teacher_interaction += 1
+    if teacher1.health >= 0:  # Prevent infinite loop by checking if health is greater than 0
         for i, (question, correct_answer) in enumerate(selected_questions, start=1):
             print(f"Fråga {i}: {question}")
             answer = input("Ditt svar: ").strip().lower()
@@ -532,6 +522,8 @@ def ronjaquestion():
     time.sleep(2)
 
     os.system('cls' if os.name == 'nt' else 'clear')
+
+    global input_r
     input_r = 1
     # Olika frågor och rätta svar
     q_and_a_ronja = [
@@ -559,7 +551,8 @@ def ronjaquestion():
 
     # Välj slumpmässigt 5 frågor
     selected_questions = random.sample(q_and_a_ronja, 5)
-    if teacher2.health > 0:  # Prevent infinite loop by checking if health is greater than 0
+    teacher_interaction += 1
+    if teacher2.health >= 0:  # Prevent infinite loop by checking if health is greater than 0
         for i, (question, correct_answer) in enumerate(selected_questions, start=1):
             print(f"Fråga {i}: {question}")
             answer = input("Ditt svar: ").strip().lower()
@@ -590,6 +583,7 @@ def henrikquestion():
     print("Hur bra på fysik är du?")
     time.sleep(2)
     os.system('cls' if os.name == 'nt' else 'clear')
+    global input_h
     input_h = 1
     
     # Olika frågor och rätta svar
@@ -619,7 +613,8 @@ def henrikquestion():
 
     # Välj slumpmässigt 5 frågor
     selected_questions = random.sample(q_and_a_henrik, 5)
-    if teacher3.health > 0:  # Prevent infinite loop by checking if health is greater than 0
+    teacher_interaction += 1
+    if teacher3.health >= 0:  # Prevent infinite loop by checking if health is greater than 0
         for i, (question, correct_answer) in enumerate(selected_questions, start=1):
             print(f"Fråga {i}: {question}")
             answer = input("Ditt svar: ").strip().lower()
@@ -651,6 +646,8 @@ def vicorquestion():
     print("Kan du svara på mina matte frågor?")
     time.sleep(2)
     os.system('cls' if os.name == 'nt' else 'clear')
+    
+    global input_v
     input_v = 1
     # Olika frågor och rätta svar
     q_and_a_victor = [
@@ -681,7 +678,8 @@ def vicorquestion():
 
     # Välj slumpmässigt 5 frågor
     selected_questions = random.sample(q_and_a_victor, 5)
-    if teacher4.health > 0:  # Prevent infinite loop by checking if health is greater than 0
+    teacher_interaction += 1
+    if teacher4.health >= 0:  # Prevent infinite loop by checking if health is greater than 0
         for i, (question, correct_answer) in enumerate(selected_questions, start=1):
             print(f"Fråga {i}: {question}")
             answer = input("Ditt svar: ").strip().lower()
@@ -711,7 +709,9 @@ def davidquestion():
     print("Tjena, kan du svara rätt på mina idrotts frågot?")
     time.sleep(1)
     os.system('cls' if os.name == 'nt' else 'clear')
-    input_d = 1
+    
+    global input_d
+    input_d = 1 #Denna ska användas för att kolla om spelaren har interactat, men när den kallas på är den inte definerad än?
     # Olika frågor och rätta svar
     q_and_a_david = [
     ("Hur många spelare finns det i ett fotbollslag?", "11"),
@@ -740,7 +740,8 @@ def davidquestion():
 
     # Välj slumpmässigt 5 frågor
     selected_questions = random.sample(q_and_a_david, 5)
-    if teacher5.health > 0:  # Prevent infinite loop by checking if health is greater than 0
+    teacher_interaction += 1
+    if teacher5.health >= 0:  # Prevent infinite loop by checking if health is greater than 0
         for i, (question, correct_answer) in enumerate(selected_questions, start=1):
             print(f"Fråga {i}: {question}")
             answer = input("Ditt svar: ").strip().lower()
@@ -771,6 +772,8 @@ def mirrelaquestion():
     print("Hur bra är du på datorer?")
     time.sleep(2) 
     os.system('cls' if os.name == 'nt' else 'clear')
+    
+    global input_m
     input_m = 1
     # Olika frågor och rätta svar
     q_and_a_mirrela = [
@@ -799,7 +802,8 @@ def mirrelaquestion():
 
     # Välj slumpmässigt 5 frågor
     selected_questions = random.sample(q_and_a_mirrela, 5)
-    if teacher6.health > 0:  # Prevent infinite loop by checking if health is greater than 0
+    teacher_interaction += 1
+    if teacher6.health >= 0:  # Prevent infinite loop by checking if health is greater than 0, FÖR FAN ANVÄND >= ISTÄLLET FÖR >
         for i, (question, correct_answer) in enumerate(selected_questions, start=1):
             print(f"Fråga {i}: {question}")
             answer = input("Ditt svar: ").strip().lower()
@@ -915,12 +919,11 @@ def lars_door(transition_to, stdscr):
 
 #kod skaffad från Chatgpt och används för att insperara denna kod.
 ####################################################################################################
-def clear_terminal_visual():
-    os.system('cls' if os.name == 'nt' else 'clear')
+
 
 ##################################
 def end1():
-    clear_terminal_visual()
+    clear_screen()
     print(""" 
  __   __            ____  _          _   _ 
  \ \ / /__  _   _  |  _ \(_) ___  __| | | |
@@ -937,7 +940,7 @@ def end1():
     exit()
 
 def end2():
-    clear_terminal_visual()
+    clear_screen()
     print("""
 __   __                     _       _ 
 \ \ / /__  _   _  __      _(_)_ __ | |
@@ -951,7 +954,7 @@ __   __                     _       _
     exit()
 
 def end3():
-    clear_terminal_visual()
+    clear_screen()
     print("""
     _     __           _     _       
    / \   / _|_ __ __ _(_) __| |      
@@ -965,7 +968,7 @@ def end3():
     exit()
     
 def end4():
-    clear_terminal_visual()
+    clear_screen()
     print("""
                         _    __   _         _   
  _ __     __ _    ___  (_)  / _| (_)  ___  | |_ 
@@ -980,57 +983,25 @@ def end4():
     exit()
 #------------------------------------------------------------------------
 
-#pangs baguette kod
-def val_av_end():
-    
-    if all(teacher.health <= 0 for teacher in [teacher1, teacher2, teacher3, teacher4, teacher5, teacher6]) and final_boss.health > 0:
-        end3()  # Afraid ending
-    elif all(teacher.health == 100 for teacher in [teacher1, teacher2, teacher3, teacher4, teacher5, teacher6]) and final_boss.health == 500:
-        end4()  # Pacifist ending
-    elif all(teacher.health <= 0 for teacher in [teacher1, teacher2, teacher3, teacher4, teacher5, teacher6]) and final_boss.health <= 0:
-        end2()  # Good ending
-    else:
-        end1()  # Bad ending
 
-def exit_door():
-    os.system('cls' if os.name == 'nt' else 'clear')
-    if teacher1.health <= 0 and teacher2.health <= 0 and teacher3.health <= 0 and teacher4.health <= 0 and teacher5.health <= 0 and teacher6.health <= 0 and final_boss.health <= 0:
-        end2()  # Good ending: Lars is defeated
-    else:
-        print("Är du säker på att du vill lämna?")
-        print("Du har inte besegrat alla lärare än!")
-        
-        while True:
-            print("""Vill du lämna skolan eller stanna kvar?:
-1. Lämna
-2. Stanna
-""")
-            try:
-                svar = int(input("1 eller 2: "))
-                if svar == 1:
-                    os.system('cls' if os.name == 'nt' else 'clear')
-                    if all(teacher.health == 100 for teacher in [teacher1, teacher2, teacher3, teacher4, teacher5, teacher6]) and final_boss.health == 500:
-                        print("Du måste interagera med minst en lärare innan du kan avsluta spelet!")
-                        time.sleep(2)
-                        os.system('cls' if os.name == 'nt' else 'clear')
-                        curses.initscr()
-                        break
-                    elif all(teacher.health > 0 for teacher in [teacher1, teacher2, teacher3, teacher4, teacher5, teacher6]) and final_boss.health == 500:
-                        end4()  # Pacifist ending: No fights, all questions answered correctly
-                    elif all(teacher.health <= 0 for teacher in [teacher1, teacher2, teacher3, teacher4, teacher5, teacher6]) and final_boss.health == 500:
-                        end3()  # Afraid ending: Flee without fighting Lars
-                    else:
-                        end1()  # Bad ending: You die
-                    break
-                elif svar == 2:
-                    os.system('cls' if os.name == 'nt' else 'clear')
-                    curses.initscr()
-                    break
-                else:
-                    print("Ogiltigt val! Vänligen välj 1 eller 2.")
-            except ValueError:
-                print("Ogiltig inmatning! Vänligen skriv en siffra (1 eller 2).")
-                time.sleep(1)
+
+
+
+#pangs baguette kod
+
+# #Ska göra kod här som kollar om spelaren ens har gjort något med läraren eller inte, om dem inte har ska han inte kunna få något av dessa
+# def val_av_end():
+    
+#     if all(teacher.health <= 0 for teacher in [teacher1, teacher2, teacher3, teacher4, teacher5, teacher6]) and final_boss.health > 0:
+#         end3()  # Afraid ending
+#     elif all(teacher.health == 100 for teacher in [teacher1, teacher2, teacher3, teacher4, teacher5, teacher6]) and final_boss.health == 500:
+#         end4()  # Pacifist ending
+#     elif all(teacher.health <= 0 for teacher in [teacher1, teacher2, teacher3, teacher4, teacher5, teacher6]) and final_boss.health <= 0:
+#         end2()  # Good ending
+
+    #används ju för fan inte ens. Då försvinner ännu mer av pang pangs kod. Förlåt men skriv bättre kod pls
+
+
 
 ###########################################################################
 #koden för rörelse i spelet och att skapa spelkartan
@@ -1498,9 +1469,10 @@ def room5(stdscr, transition_to):
 #Room 6
 def room6(stdscr, transition_to):
     # Initialize curses
-    curses.curs_set(0)  # Hide the cursor
-    stdscr.nodelay(1)   # Non-blocking getch
-    stdscr.timeout(20000) # Input timeout (ms)
+    curses.curs_set(0)
+    stdscr.nodelay(1)   
+    stdscr.timeout(100) # Reduced from 20000 to 100ms for more responsive input
+    stdscr.keypad(1)    # Enable keypad for arrow keys
 
     # Game variables
     rows, cols = 25, 45  # Game board dimensions
@@ -1547,26 +1519,29 @@ def room6(stdscr, transition_to):
         stdscr.refresh()
 
         # Handle user input
-        key = stdscr.getch()
-        new_pos = player_pos.copy()
+        try:
+            key = stdscr.getch()
+            new_pos = player_pos.copy()
 
-        if key == ord('q'):  # Quit the game
-            break
-        elif key == ord('w'):  # Move up
-            new_pos[0] -= 1
-        elif key == ord('s'):  # Move down
-            new_pos[0] += 1
-        elif key == ord('a'):  # Move left
-            new_pos[1] -= 1
-        elif key == ord('d'):  # Move right
-            new_pos[1] += 1
-        elif key == ord('i'):
-            break
-        
-        # Validate movement
-        if not (new_pos[0] == 0 or new_pos[0] == rows - 1 or 
-                 new_pos[1] == 0 or new_pos[1] == cols - 1) and new_pos not in block_pos:
-            player_pos = new_pos
+            if key == ord('q'):
+                break
+            elif key in [ord('w'), curses.KEY_UP]:
+                new_pos[0] -= 1
+            elif key in [ord('s'), curses.KEY_DOWN]:
+                new_pos[0] += 1
+            elif key in [ord('a'), curses.KEY_LEFT]:
+                new_pos[1] -= 1
+            elif key in [ord('d'), curses.KEY_RIGHT]:
+                new_pos[1] += 1
+
+            # Validate movement
+            if (0 < new_pos[0] < rows-1 and 
+                0 < new_pos[1] < cols-1 and 
+                new_pos not in block_pos):
+                player_pos = new_pos
+
+        except curses.error:
+            continue
 
         # Check for goal and special positions
         if player_pos == Lärar_pos:
@@ -1771,6 +1746,45 @@ def Larsboss(stdscr, transition_to):
             break
         
 ###############################################################################
+#Fan vad jag hatar pythons läsa rad för rad stil. FUCK
+def exit_door():
+    os.system('cls' if os.name == 'nt' else 'clear')
+    while True:
+            print("""Vill du lämna skolan eller stanna kvar?:
+1. Lämna
+2. Stanna
+""")
+            try:
+                svar = int(input("1 eller 2: "))
+                if svar == 1:
+                    os.system('cls' if os.name == 'nt' else 'clear')
+                    if teacher_interaction == 0: #Koden ska nu kolla om du ens har gjort något innan den låter dig gå ut.
+                        print("Du måste interagera med minst en lärare innan du kan avsluta spelet!")
+                        time.sleep(2)
+                        os.system('cls' if os.name == 'nt' else 'clear')
+                        curses.initscr()
+                        break
+                    elif all(teacher.health > 0 for teacher in [teacher1, teacher2, teacher3, teacher4, teacher5, teacher6]) and final_boss.health == 500:
+                        end4()  # Pacifist ending: No fights, all questions answered correctly
+                    elif all(teacher.health <= 0 for teacher in [teacher1, teacher2, teacher3, teacher4, teacher5, teacher6]) and final_boss.health == 500:
+                        end3()  # Afraid ending: Flee without fighting Lars
+                    else:
+                        end1()  # Bad ending: You die
+                    break
+                elif svar == 2:
+                    os.system('cls' if os.name == 'nt' else 'clear')
+                    curses.initscr()
+                    break
+                else:
+                    print("Ogiltigt val! Vänligen välj 1 eller 2.")
+            except ValueError:
+                print("Ogiltig inmatning! Vänligen skriv en siffra (1 eller 2).")
+                time.sleep(1)
+
+
+
+
+
 #Hallway 2
 def Hallway2(stdscr, transition_to):
     # Initialize curses
@@ -2033,13 +2047,19 @@ if __name__ == "__main__":
 #Buggar som jag hittar nu
 
         #2 Buggar som är relaterade till lars-regen funktion (Non-Issue)
-        #Bugg med kartan och combat systemet
+        #Bugg med kartan och combat systemet - Fixad??
         #Overlapp med statusen i spelet och kartan och skärmen är för inzoomad
 
         #samma med henrik och troligen alla lärare (vad fan är detta för spagheti kod)
+
+        
         
 
 
 #todo: lägg till coins efter alla rätt svar på frågor vid läraren (gjord)
 
-#GLÖM FAN INTE ATT FIXA DEFULT VäRDEN. SPELAREN FÅR INTE HA SKIBIDI!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+#pang pangs kod är nu helt bortplockad från koden, den är bra nog. ;-;
+
+#Fortfarande lite cred för att han försökte, koden är bara bort kommenterad inte bortplockad (vad jag vet iallafal.)
+
+
