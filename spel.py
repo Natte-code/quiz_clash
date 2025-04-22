@@ -125,8 +125,8 @@ class Character:
     def __init__(self, name, health):
         self.name = name
         self.health = health
-        self.coins = 5 #debug
-        self.totems = 0 #debug
+        self.coins = 5000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+        self.totems = 0 
         self.shields = 1
         self.antal_potion_vanlig = 2 #debug
         self.antal_potion_epic = 1 #debug
@@ -413,7 +413,7 @@ def open_lootbox(lootpool, cost, box_type):
     
     time.sleep(2)
 
-# ----------------------------------------------------------------------------- ######INTE KLAR##########
+# -----------------------------------------------------------------------------
 # Definiera lootpools och Sword-instanser
 # -----------------------------------------------------------------------------
 # Skapa Sword-instanser (exempel, justera efter ditt spel)
@@ -894,8 +894,23 @@ def status():
 
 
 def inventorystats():
-    return (f"""Player: {player_name}\nHealth: {player.health}\nCoins: {player.coins}\n"""
-            f"""Totems: {player.totems}\nInventory: {player.inventory}\n""")   
+    # Format swords list
+    swords = '\n  '.join([f"- {sword.capitalize()} (DMG: {dmg})" 
+                         for sword, dmg in player.inventory["swords"].items()])
+    
+    # Format potions
+    potions = f"  - Normal: {player.inventory['potions']['normal']}\n  - Epic: {player.inventory['potions']['epic']}"
+    
+    return (f"""Player: {player_name}
+Health: {player.health}
+Coins: {player.coins}
+Totems: {player.totems}
+
+Inventory:
+Swords:
+  {swords}
+Potions:
+{potions}""")   
 
 #lars.skibidi
 
