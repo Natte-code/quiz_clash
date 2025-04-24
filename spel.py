@@ -2003,19 +2003,19 @@ def main(stdscr, transiton_to):
             player_pos = new_pos
 
         # Check for goal and special position
-        if player_pos in door_pos or player_pos in two:
+        if player_pos in door_pos or player_pos == two:
             transiton_to('room2')  #room 2
             break
         elif player_pos in door_pos2:
             transiton_to('hallway2') #Halway
             break
-        elif player_pos in door_pos3 or player_pos in one:
+        elif player_pos in door_pos3 or player_pos == one:
             transiton_to("room1") #room 1
             break
-        elif player_pos in door_pos4 or player_pos in foure:
+        elif player_pos in door_pos4 or player_pos == foure:
             transiton_to('room4') #room 4
             break
-        elif player_pos in door_pos5 or player_pos in tre:
+        elif player_pos in door_pos5 or player_pos == tre:
             transiton_to('room3') #room 3
             break
         elif player_pos in secret_pos:  # Check if player_pos matches any position in secret_pos
